@@ -113,9 +113,9 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &3002775787194145601
 MonoBehaviour:
@@ -131,59 +131,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 3002775787194145602}
   cameraTransform: {fileID: 3002775787724128454}
-  playerRigidbody: {fileID: 0}
+  playerRigidbody: {fileID: 3002775787194145606}
   movementEnabled: 1
   sensitivityX: 0.3
   sensitivityY: 0.3
-  movementInput:
-    m_Name: Movement Input
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: b46c4a64-e5d1-42de-b459-897b1852dafa
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 2D Vector
-      m_Id: 762d03e6-920d-4d38-be6e-a9ea70df53bb
-      m_Path: 2DVector
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Movement Input
-      m_Flags: 4
-    - m_Name: up
-      m_Id: a649d097-f0ca-4ad6-9f24-24843686725f
-      m_Path: <Keyboard>/w
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Movement Input
-      m_Flags: 8
-    - m_Name: down
-      m_Id: 06637799-0fe7-4328-bfea-c61a85b97afd
-      m_Path: <Keyboard>/s
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Movement Input
-      m_Flags: 8
-    - m_Name: left
-      m_Id: 7905307c-afaf-4037-ae66-6d8e6b1fc08b
-      m_Path: <Keyboard>/a
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Movement Input
-      m_Flags: 8
-    - m_Name: right
-      m_Id: 34d352d1-13af-469b-b99f-60bc060202cd
-      m_Path: <Keyboard>/d
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Movement Input
-      m_Flags: 8
-    m_Flags: 0
+  acceleration: 500
+  maxGroundSpeed: 5
 --- !u!1 &3002775787724128457
 GameObject:
   m_ObjectHideFlags: 0
