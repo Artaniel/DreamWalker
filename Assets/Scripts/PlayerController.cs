@@ -32,7 +32,6 @@ public class PlayerController : MonoBehaviour
                 moveInput = Vector2.zero;
             }else
                 lastmoveInput = moveInput;
-            Debug.Log(moveInput);
             if (moveInput != Vector2.zero)
             {
                 Vector3 velocity = playerRigidbody.velocity;
