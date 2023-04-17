@@ -17,15 +17,17 @@ public class PlayerController : MonoBehaviour
     public float maxGroundSpeed = 2f;
     private Vector2 lastmoveInput = Vector2.zero;
 
+    public Transform cameraDefaultPivot;
+
     private void Update()
     {        
-        playerTransform.Rotate(Vector3.up, Mouse.current.delta.value.x * sensitivityX);
-        verticalRotation = Mathf.Clamp(verticalRotation - Mouse.current.delta.value.y * sensitivityY, -90f, 90f);
-        cameraTransform.localRotation = Quaternion.Euler(verticalRotation, 0, 0);
-
-        Vector2 moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         if (movementEnabled)
         {
+            playerTransform.Rotate(Vector3.up, Mouse.current.delta.value.x * sensitivityX);
+            verticalRotation = Mathf.Clamp(verticalRotation - Mouse.current.delta.value.y * sensitivityY, -90f, 90f);
+            cameraTransform.localRotation = Quaternion.Euler(verticalRotation, 0, 0);
+
+            Vector2 moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
             if (moveInput.magnitude < lastmoveInput.magnitude && Vector3.Angle(moveInput, lastmoveInput) < 1f)
             {
                 lastmoveInput = moveInput;
