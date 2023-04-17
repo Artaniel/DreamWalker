@@ -63,7 +63,7 @@ public class Terminal : MonoBehaviour
         Quaternion startRotation = cameraTransform.rotation;
         Transform end = cameraPivot;
         float timer = 0f;
-        float transtiotnTime = 1f;
+        float transtiotnTime = 0.5f;
         while (timer < transtiotnTime) {
             timer += Time.deltaTime;
             cameraTransform.position = Vector3.Lerp(start.position, end.position, timer / transtiotnTime);
@@ -76,8 +76,11 @@ public class Terminal : MonoBehaviour
         terminalContentPanel.SetActive(true);
     }
 
-    public void CloseUI() { 
-    
+    public void CloseUI() {
+        terminalContentPanel.SetActive(false);
+        cameraTransform.position = player.GetComponent<PlayerController>().cameraDefaultPivot.position;
+        cameraTransform.rotation = player.GetComponent<PlayerController>().cameraDefaultPivot.rotation;
+        player.GetComponent<PlayerController>().movementEnabled = true;
     }
 
 }

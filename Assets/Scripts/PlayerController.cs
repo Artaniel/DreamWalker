@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
     public Transform cameraDefaultPivot;
 
     private void Update()
-    {        
+    {
         if (movementEnabled)
         {
             playerTransform.Rotate(Vector3.up, Mouse.current.delta.value.x * sensitivityX);
