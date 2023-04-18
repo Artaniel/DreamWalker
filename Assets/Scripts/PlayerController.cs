@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    public CharacterController characterController;
     public Transform playerTransform;
     public Transform cameraTransform;
     public Rigidbody playerRigidbody;
@@ -28,23 +29,9 @@ public class PlayerController : MonoBehaviour
             cameraTransform.localRotation = Quaternion.Euler(verticalRotation, 0, 0);
 
             Vector2 moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-            if (moveInput.magnitude < lastmoveInput.magnitude && Vector3.Angle(moveInput, lastmoveInput) < 1f)
-            {
-                lastmoveInput = moveInput;
-                moveInput = Vector2.zero;
-            }else
-                lastmoveInput = moveInput;
-            if (moveInput != Vector2.zero)
-            {
-                Vector3 velocity = playerRigidbody.velocity;
-                velocity += (moveInput.y * playerTransform.forward + moveInput.x * playerTransform.right) * Time.deltaTime * acceleration;
-                if (velocity.magnitude >= maxGroundSpeed)
-                    velocity = velocity.normalized * maxGroundSpeed;
-                playerRigidbody.velocity = velocity;
-            }
-            else {
-                playerRigidbody.velocity = Vector3.zero;
-            }
+
+            Vector3 velocity = (moveInput.y * playerTransform.forward + moveInput.x * playerTransform.right) * Time.deltaTime * acceleration;
+            characterController.Move(velocity);
         }
     }
 }

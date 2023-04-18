@@ -81,6 +81,7 @@ public class Terminal : MonoBehaviour
         cameraTransform.position = player.GetComponent<PlayerController>().cameraDefaultPivot.position;
         cameraTransform.rotation = player.GetComponent<PlayerController>().cameraDefaultPivot.rotation;
         player.GetComponent<PlayerController>().movementEnabled = true;
+        isFocused = false;
     }
 
 }
