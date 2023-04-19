@@ -170,10 +170,9 @@ MonoBehaviour:
   cameraTransform: {fileID: 3002775787724128454}
   playerRigidbody: {fileID: 3002775787194145606}
   movementEnabled: 1
-  sensitivityX: 0.3
-  sensitivityY: 0.3
-  acceleration: 10
-  maxGroundSpeed: 5
+  sensitivityX: 30
+  sensitivityY: 30
+  speed: 10
   cameraDefaultPivot: {fileID: 7773622492668222022}
 --- !u!1 &3002775787724128457
 GameObject:
