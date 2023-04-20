@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     public float sensitivityX = 0.1f;
     public float sensitivityY = 0.1f;
     private float verticalRotation = 0f;
+    private Vector2 moveInput;
+    private Vector3 velocity;
 
     public float speed = 10f;
 
@@ -27,17 +29,23 @@ public class PlayerController : MonoBehaviour
             verticalRotation = Mathf.Clamp(verticalRotation - Mouse.current.delta.value.y * sensitivityY * Time.deltaTime, -90f, 90f);
             cameraTransform.localRotation = Quaternion.Euler(verticalRotation, 0, 0);
 
-            Vector2 moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-
-            Vector3 velocity = (moveInput.y * playerTransform.forward + moveInput.x * playerTransform.right) * Time.deltaTime * speed;
-            characterController.Move(velocity);
-
-
-            if (moveInput != Vector2.zero)
-                inMoveTime += Time.deltaTime;
+            moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+            if (GroundCheck())
+            {
+                Debug.Log(1);
+                GroundMove();
+                if (moveInput != Vector2.zero)
+                    inMoveTime += Time.deltaTime;
+                else inMoveTime = 0;                
+            }
             else inMoveTime = 0;
             CamraShift();
         }
+    }
+
+    private void GroundMove() {
+        Vector3 velocity = (moveInput.y * playerTransform.forward + moveInput.x * playerTransform.right) * Time.deltaTime * speed;
+        characterController.Move(velocity);
     }
 
     private void CamraShift()
@@ -48,5 +56,9 @@ public class PlayerController : MonoBehaviour
         phase -= (int)phase;
         Vector3 cameraTargetPosition = cameraDefaultPivot.position + Vector3.up * cameraShakeAmp * phase;
         cameraTransform.position = Vector3.Lerp(cameraTransform.position, cameraTargetPosition, 0.05f);
+    }
+
+    private bool GroundCheck() {
+        return Physics.CheckSphere(playerTransform.position + Vector3.down * 1.5f, 0.5f);        
     }
 }
