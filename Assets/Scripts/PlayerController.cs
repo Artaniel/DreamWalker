@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 velocity;
 
     public float speed = 10f;
+    public float terminalFallSpeed = 10f;
 
     public Transform cameraDefaultPivot;
     private float inMoveTime = 0f;
@@ -32,19 +33,22 @@ public class PlayerController : MonoBehaviour
             moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
             if (GroundCheck())
             {
-                Debug.Log(1);
                 GroundMove();
                 if (moveInput != Vector2.zero)
                     inMoveTime += Time.deltaTime;
-                else inMoveTime = 0;                
+                else inMoveTime = 0;
             }
-            else inMoveTime = 0;
+            else
+            {
+                inMoveTime = 0;
+                GrivityMove();
+            }
             CamraShift();
         }
     }
 
     private void GroundMove() {
-        Vector3 velocity = (moveInput.y * playerTransform.forward + moveInput.x * playerTransform.right) * Time.deltaTime * speed;
+        velocity = Time.deltaTime * speed * (moveInput.y * playerTransform.forward + moveInput.x * playerTransform.right);
         characterController.Move(velocity);
     }
 
@@ -60,5 +64,12 @@ public class PlayerController : MonoBehaviour
 
     private bool GroundCheck() {
         return Physics.CheckSphere(playerTransform.position + Vector3.down * 1.5f, 0.5f);        
+    }
+
+    private void GrivityMove() {
+        velocity += Vector3.down * 10f * Time.deltaTime;
+        if (velocity.y < -terminalFallSpeed)
+            velocity = new Vector3(velocity.x, terminalFallSpeed, velocity.z);
+        characterController.Move(velocity);
     }
 }
