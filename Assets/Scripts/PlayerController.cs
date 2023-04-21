@@ -8,7 +8,9 @@ public class PlayerController : MonoBehaviour
     public CharacterController characterController;
     public Transform playerTransform;
     public Transform cameraTransform;
+    public Transform playerFootTransform;
     public Rigidbody playerRigidbody;
+    public Transform cameraDefaultPivot;
     public bool movementEnabled = true;
     public float sensitivityX = 0.1f;
     public float sensitivityY = 0.1f;
@@ -19,8 +21,10 @@ public class PlayerController : MonoBehaviour
     public float speed = 10f;
     public float terminalFallSpeed = 10f;
 
-    public Transform cameraDefaultPivot;
     private float inMoveTime = 0f;
+
+    public float gravityAcceleration = 10f;
+    public float JumpSppedAmp = 1f;
 
     private void Update()
     {
@@ -37,6 +41,8 @@ public class PlayerController : MonoBehaviour
                 if (moveInput != Vector2.zero)
                     inMoveTime += Time.deltaTime;
                 else inMoveTime = 0;
+                if (Keyboard.current.spaceKey.IsPressed())
+                    Jump();
             }
             else
             {
@@ -63,13 +69,20 @@ public class PlayerController : MonoBehaviour
     }
 
     private bool GroundCheck() {
-        return Physics.CheckSphere(playerTransform.position + Vector3.down * 1.5f, 0.5f);        
+        int layer = LayerMask.GetMask("Default");
+        Debug.DrawLine(playerFootTransform.position, playerFootTransform.position + Vector3.down * 0.5f);
+        return Physics.CheckSphere(playerFootTransform.position, 0.5f, layer);
     }
 
     private void GrivityMove() {
-        velocity += Vector3.down * 10f * Time.deltaTime;
+        velocity += Vector3.down * gravityAcceleration * Time.deltaTime;
         if (velocity.y < -terminalFallSpeed)
             velocity = new Vector3(velocity.x, terminalFallSpeed, velocity.z);
         characterController.Move(velocity);
+    }
+
+    private void Jump() {
+        velocity = new Vector3(velocity.x, JumpSppedAmp, velocity.z);
+        GrivityMove();
     }
 }
