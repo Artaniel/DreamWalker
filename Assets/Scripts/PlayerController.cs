@@ -12,19 +12,18 @@ public class PlayerController : MonoBehaviour
     public Rigidbody playerRigidbody;
     public Transform cameraDefaultPivot;
     public bool movementEnabled = true;
-    public float sensitivityX = 0.1f;
-    public float sensitivityY = 0.1f;
     private float verticalRotation = 0f;
     private Vector2 moveInput;
     private Vector3 velocity;
-
-    public float speed = 10f;
-    public float terminalFallSpeed = 10f;
-
     private float inMoveTime = 0f;
 
+    public float sensitivityX = 0.1f;
+    public float sensitivityY = 0.1f;
+    public float speed = 10f;
+    public float terminalFallSpeed = 10f;
     public float gravityAcceleration = 10f;
     public float JumpSppedAmp = 1f;
+    public float airAcceleration = 0.01f;
 
     private void Update()
     {
@@ -38,11 +37,11 @@ public class PlayerController : MonoBehaviour
             if (GroundCheck())
             {
                 GroundMove();
+                if (Keyboard.current.spaceKey.wasPressedThisFrame)
+                    Jump();
                 if (moveInput != Vector2.zero)
                     inMoveTime += Time.deltaTime;
                 else inMoveTime = 0;
-                if (Keyboard.current.spaceKey.IsPressed())
-                    Jump();
             }
             else
             {
@@ -54,7 +53,7 @@ public class PlayerController : MonoBehaviour
     }
 
     private void GroundMove() {
-        velocity = Time.deltaTime * speed * (moveInput.y * playerTransform.forward + moveInput.x * playerTransform.right);
+        velocity = Time.deltaTime * speed * (moveInput.y * playerTransform.forward + moveInput.x * playerTransform.right) + velocity.y* Vector3.up;
         characterController.Move(velocity);
     }
 
@@ -70,11 +69,11 @@ public class PlayerController : MonoBehaviour
 
     private bool GroundCheck() {
         int layer = LayerMask.GetMask("Default");
-        Debug.DrawLine(playerFootTransform.position, playerFootTransform.position + Vector3.down * 0.5f);
         return Physics.CheckSphere(playerFootTransform.position, 0.5f, layer);
     }
 
     private void GrivityMove() {
+        velocity += Time.deltaTime * airAcceleration * (moveInput.y * playerTransform.forward + moveInput.x * playerTransform.right);
         velocity += Vector3.down * gravityAcceleration * Time.deltaTime;
         if (velocity.y < -terminalFallSpeed)
             velocity = new Vector3(velocity.x, terminalFallSpeed, velocity.z);
@@ -83,6 +82,5 @@ public class PlayerController : MonoBehaviour
 
     private void Jump() {
         velocity = new Vector3(velocity.x, JumpSppedAmp, velocity.z);
-        GrivityMove();
     }
 }

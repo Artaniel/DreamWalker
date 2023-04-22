@@ -209,7 +209,8 @@ MonoBehaviour:
   speed: 10
   terminalFallSpeed: 10
   gravityAcceleration: 0.15
-  JumpSppedAmp: 0.03
+  JumpSppedAmp: 0.05
+  airAcceleration: 0.1
 --- !u!1 &3002775787724128457
 GameObject:
   m_ObjectHideFlags: 0
