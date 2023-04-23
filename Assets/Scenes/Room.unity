@@ -538,10 +538,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terminal
       objectReference: {fileID: 0}
-    - target: {fileID: 6532900739223945614, guid: 0cfc71284ec789e48933d524a49b310e, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 10756, guid: 0000000000000000e000000000000000, type: 0}
     - target: {fileID: 8848587537961615734, guid: 0cfc71284ec789e48933d524a49b310e, type: 3}
       propertyPath: m_RootOrder
       value: 2

@@ -63,7 +63,7 @@ public class PlayerController : MonoBehaviour
         float cameraShakeAmp = 0.5f;
         float phase = inMoveTime / stepTime;
         phase -= (int)phase;
-        Vector3 cameraTargetPosition = cameraDefaultPivot.position + Vector3.up * cameraShakeAmp * phase;
+        Vector3 cameraTargetPosition = cameraDefaultPivot.position + Vector3.up * cameraShakeAmp * (phase-0.6f) ;
         cameraTransform.position = Vector3.Lerp(cameraTransform.position, cameraTargetPosition, 0.05f);
     }
 
