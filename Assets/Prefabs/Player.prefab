@@ -207,11 +207,12 @@ MonoBehaviour:
   movementEnabled: 1
   sensitivityX: 30
   sensitivityY: 30
-  speed: 10
+  speed: 2
   terminalFallSpeed: 10
   gravityAcceleration: 0.15
   JumpSppedAmp: 0.05
   airAcceleration: 0.1
+  breathSpeedModifier: 1
 --- !u!114 &1939772215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,8 +225,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0474cf4421f86d842adf73fef20243b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lung: 0
   inputMode: 0
+  breathMode: 0
+  fastBreathTimeTreshhold: 1.2
+  stayInSameModeTreshhold: 2
 --- !u!1 &3002775787724128457
 GameObject:
   m_ObjectHideFlags: 0

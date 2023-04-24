@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     public float gravityAcceleration = 10f;
     public float JumpSppedAmp = 1f;
     public float airAcceleration = 0.01f;
+    public float breathSpeedModifier = 1;
 
     private void Update()
     {
@@ -53,7 +54,8 @@ public class PlayerController : MonoBehaviour
     }
 
     private void GroundMove() {
-        velocity = Time.deltaTime * speed * (moveInput.y * playerTransform.forward + moveInput.x * playerTransform.right) + velocity.y* Vector3.up;
+        velocity = Time.deltaTime * speed * breathSpeedModifier *
+            (moveInput.y * playerTransform.forward + moveInput.x * playerTransform.right) + velocity.y * Vector3.up;
         characterController.Move(velocity);
     }
 
@@ -73,7 +75,8 @@ public class PlayerController : MonoBehaviour
     }
 
     private void GrivityMove() {
-        velocity += Time.deltaTime * airAcceleration * (moveInput.y * playerTransform.forward + moveInput.x * playerTransform.right);
+        velocity += Time.deltaTime * airAcceleration * breathSpeedModifier * 
+            (moveInput.y * playerTransform.forward + moveInput.x * playerTransform.right);
         velocity += Vector3.down * gravityAcceleration * Time.deltaTime;
         if (velocity.y < -terminalFallSpeed)
             velocity = new Vector3(velocity.x, terminalFallSpeed, velocity.z);

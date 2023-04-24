@@ -5,21 +5,42 @@ using UnityEngine.InputSystem;
 
 public class BreathInput : MonoBehaviour
 {
-    public float lung;
+    //doing быстрое дыхание (определить время цикла, от вдоха, до следующего вдоха)
+    // bug не полный цикл тоже работает, надо включить и детектирование выдоха
+    //todo медленное дыхание
+
     public enum InputMode { scroll, RBMonly, RBMnLBM, mouseY }
     public InputMode inputMode = InputMode.scroll;
-
-    public enum BreathMode {inhale, exhale, lowHold, highHold};
+    public enum BreathMode { inhale, exhale, lowHold, highHold }
     public BreathMode breathMode;
+
+    private float lastInhaleStartTimestump;
+    public float fastBreathTimeTreshhold = 1f;
+    private int fastBreathCounter = 0;
+    private PlayerController player;
+    private UIManager ui;
+    private float stayInSameModeTimer = 0f;
+    public float stayInSameModeTreshhold = 2f;
+
+
+    private void Awake()
+    {
+        player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+        ui = GameObject.FindWithTag("Canvas").GetComponent<UIManager>();
+    }
 
     private void Update()
     {
-        if (inputMode == InputMode.scroll) {
-            ScrollInputUpdate();
+        switch (inputMode) {
+            case InputMode.scroll: ScrollInputUpdate(); break;
+            case InputMode.RBMonly: RMBInput(); break;
+            case InputMode.RBMnLBM: RBMnLBMInput(); break;
+            case InputMode.mouseY: RMBInput(); break;
         }
     }
 
     private void DefineBreathMode(float breathSpeed) {
+        BreathMode lastBreathMode = breathMode;
         if (breathSpeed > 0)
             breathMode = BreathMode.inhale;
         else if (breathSpeed < 0)
@@ -31,13 +52,38 @@ public class BreathInput : MonoBehaviour
             if (breathMode == BreathMode.exhale)
                 breathMode = BreathMode.lowHold;
         }
-        Debug.Log(breathMode.ToString());
+
+        if (breathMode != lastBreathMode)
+        {
+            stayInSameModeTimer = 0;
+            Debug.Log(breathMode.ToString());
+            if (breathMode == BreathMode.inhale && (lastBreathMode == BreathMode.lowHold || lastBreathMode == BreathMode.exhale)) // if changed to inhale
+            {
+                if (Time.time - lastInhaleStartTimestump < fastBreathTimeTreshhold)
+                    fastBreathCounter++;
+                else
+                    fastBreathCounter = fastBreathCounter / 2;
+                FastBreathRefresh();
+                lastInhaleStartTimestump = Time.time;
+            }
+        }
+        else {
+            stayInSameModeTimer += Time.deltaTime;
+            if (stayInSameModeTimer > stayInSameModeTreshhold) {
+                fastBreathCounter = fastBreathCounter / 2;
+                FastBreathRefresh();
+            }
+        }
     }
 
-    #region ScrollInput
-    private Dictionary<float, float> lastInputs = new Dictionary<float, float>();
-    private float trackingDelay = 0.5f;
+    private void FastBreathRefresh() {
+        player.breathSpeedModifier = 1 + (fastBreathCounter * 0.2f);
+        ui.RefreshSpeedModifier(player.breathSpeedModifier);
+    }
 
+    #region InputModes
+    private Dictionary<float, float> lastInputs = new Dictionary<float, float>();
+    private float trackingDelay = 0.5f;    
     private void ScrollInputUpdate() {
         if (Mouse.current.scroll.value.y != 0)
             lastInputs.Add(Time.time, Mouse.current.scroll.value.y);
@@ -56,7 +102,29 @@ public class BreathInput : MonoBehaviour
 
         DefineBreathMode(breathSpeed / 120f);
     }
+
+    private void RMBInput() {
+        float breathSpeed = 0;
+        if (Mouse.current.rightButton.value > 0)
+            breathSpeed = 1;
+        else breathSpeed = -1;
+        DefineBreathMode(breathSpeed);
+    }
+
+    private void RBMnLBMInput()
+    {
+        float breathSpeed = 0;
+        if (Mouse.current.rightButton.value > 0)
+            breathSpeed = 1;
+        else if (Mouse.current.rightButton.value < 0)
+            breathSpeed = -1;
+        else
+            breathSpeed = 0;
+        DefineBreathMode(breathSpeed);
+    }
+
+    private void MouseYInput() { 
+    
+    }
     #endregion
-
-
 }

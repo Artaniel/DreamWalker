@@ -7,6 +7,7 @@ public class UIManager : MonoBehaviour
 {
     public TextMeshProUGUI pressEText;
     private Terminal terminalToReturn;
+    public TextMeshProUGUI speedModifierText;
 
     public void ShowPressE(Terminal terminal) {
         if (!pressEText.gameObject.activeSelf)
@@ -27,6 +28,10 @@ public class UIManager : MonoBehaviour
             terminalToReturn = null;
             pressEText.gameObject.SetActive(false);
         }
+    }
+
+    public void RefreshSpeedModifier(float modifier) {
+        speedModifierText.text = modifier.ToString();
     }
 
 }
