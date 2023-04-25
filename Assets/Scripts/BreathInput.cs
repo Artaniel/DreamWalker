@@ -35,7 +35,7 @@ public class BreathInput : MonoBehaviour
             case InputMode.scroll: ScrollInputUpdate(); break;
             case InputMode.RBMonly: RMBInput(); break;
             case InputMode.RBMnLBM: RBMnLBMInput(); break;
-            case InputMode.mouseY: RMBInput(); break;
+            case InputMode.mouseY: MouseYInput(); break;
         }
     }
 
@@ -56,7 +56,6 @@ public class BreathInput : MonoBehaviour
         if (breathMode != lastBreathMode)
         {
             stayInSameModeTimer = 0;
-            Debug.Log(breathMode.ToString());
             if (breathMode == BreathMode.inhale && (lastBreathMode == BreathMode.lowHold || lastBreathMode == BreathMode.exhale)) // if changed to inhale
             {
                 if (Time.time - lastInhaleStartTimestump < fastBreathTimeTreshhold)
@@ -74,6 +73,7 @@ public class BreathInput : MonoBehaviour
                 FastBreathRefresh();
             }
         }
+        ui.RefreshBreathMode(breathMode);
     }
 
     private void FastBreathRefresh() {
@@ -104,7 +104,7 @@ public class BreathInput : MonoBehaviour
     }
 
     private void RMBInput() {
-        float breathSpeed = 0;
+        float breathSpeed;
         if (Mouse.current.rightButton.value > 0)
             breathSpeed = 1;
         else breathSpeed = -1;
@@ -113,18 +113,37 @@ public class BreathInput : MonoBehaviour
 
     private void RBMnLBMInput()
     {
-        float breathSpeed = 0;
-        if (Mouse.current.rightButton.value > 0)
+        float breathSpeed;
+        if (Mouse.current.leftButton.value > 0)
             breathSpeed = 1;
-        else if (Mouse.current.rightButton.value < 0)
+        else if (Mouse.current.rightButton.value > 0)
             breathSpeed = -1;
         else
             breathSpeed = 0;
         DefineBreathMode(breathSpeed);
     }
 
-    private void MouseYInput() { 
-    
+    private void MouseYInput()
+    {
+        float breathSpeed = 0;
+        if (Mouse.current.delta.value.y != 0)
+            lastInputs.Add(Time.time, Mouse.current.delta.value.y);
+
+        List<float> toRemove = new List<float>();
+        foreach (float timeStamp in lastInputs.Keys)
+        { // calculating sum in last trackingDelay time, marks for remove every else
+            if (Time.time - timeStamp > trackingDelay)
+                toRemove.Add(timeStamp);
+            else
+                breathSpeed += lastInputs[timeStamp];
+        }
+
+        foreach (float timeStamp in toRemove) // remove marked
+            lastInputs.Remove(timeStamp);
+
+        DefineBreathMode(breathSpeed);
     }
+
+
     #endregion
 }

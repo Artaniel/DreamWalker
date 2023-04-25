@@ -8,6 +8,7 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI pressEText;
     private Terminal terminalToReturn;
     public TextMeshProUGUI speedModifierText;
+    public TextMeshProUGUI breathModeText;
 
     public void ShowPressE(Terminal terminal) {
         if (!pressEText.gameObject.activeSelf)
@@ -30,8 +31,14 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void RefreshSpeedModifier(float modifier) {
+    public void RefreshSpeedModifier(float modifier)
+    {
         speedModifierText.text = modifier.ToString();
+    }
+
+    public void RefreshBreathMode(BreathInput.BreathMode mode)
+    {
+        breathModeText.text = mode.ToString();
     }
 
 }
