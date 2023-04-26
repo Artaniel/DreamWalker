@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e32e72b6a3f58a24c9033e2b9275eea0, type: 3}
   m_Name: ScreenSpaceShadows
   m_EditorClassIdentifier: 
-  m_Active: 1
+  m_Active: 0
   m_Shader: {fileID: 4800000, guid: 0f854b35a0cf61a429bd5dcfea30eddd, type: 3}
 --- !u!114 &-1038943641036495079
 MonoBehaviour:
@@ -32,11 +32,11 @@ MonoBehaviour:
     Downsample: 0
     AfterOpaque: 0
     Source: 0
-    NormalSamples: 1
-    Intensity: 0.58
+    NormalSamples: 2
+    Intensity: 1.37
     DirectLightingStrength: 1
-    Radius: 0.31
-    SampleCount: 8
+    Radius: 0.18
+    SampleCount: 7
 --- !u!114 &-842871537312987553
 MonoBehaviour:
   m_ObjectHideFlags: 0
