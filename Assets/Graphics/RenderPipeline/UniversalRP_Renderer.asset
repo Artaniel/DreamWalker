@@ -32,11 +32,11 @@ MonoBehaviour:
     Downsample: 0
     AfterOpaque: 0
     Source: 0
-    NormalSamples: 1
-    Intensity: 0.58
+    NormalSamples: 2
+    Intensity: 1.37
     DirectLightingStrength: 1
-    Radius: 0.31
-    SampleCount: 8
+    Radius: 0.18
+    SampleCount: 7
 --- !u!114 &-842871537312987553
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51,7 +51,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Active: 0
   settings:
-    passTag: RenderObjectsFeature
+    passTag: RenderObjects
     Event: 300
     filterSettings:
       RenderQueueType: 0
