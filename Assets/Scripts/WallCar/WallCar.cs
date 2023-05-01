@@ -35,6 +35,7 @@ public class WallCar : MonoBehaviour
         else
             Fall();
         MouseTurn();
+        SurfaceRotate();
     }
 
     private void SurfaceCheck() {
@@ -112,5 +113,14 @@ public class WallCar : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y + Mouse.current.delta.value.x * senetivity * Time.deltaTime, 0);
         verticalRotation = Mathf.Clamp(verticalRotation - Mouse.current.delta.value.y * senetivity * Time.deltaTime, 0f, 90f);
         cameraHolder.localRotation = Quaternion.Euler(verticalRotation, 0, 0);
+    }
+
+    private void SurfaceRotate() {
+        Debug.DrawRay(transform.position, connectionNormalSumm.normalized);
+        Vector3 currentUpDirection = transform.up;
+        float angle = Vector3.Angle(currentUpDirection, connectionNormalSumm.normalized);
+        Vector3 axis = Vector3.Cross(currentUpDirection, connectionNormalSumm.normalized);
+        Quaternion rotation = Quaternion.AngleAxis(angle, axis);
+        transform.rotation = rotation;
     }
 }
