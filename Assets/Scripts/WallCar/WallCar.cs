@@ -8,6 +8,8 @@ public class WallCar : MonoBehaviour
     //bug задний ход стопорится в ноль и дрожит
 
     public Transform[] groundCheckPoints;
+    public Transform[] forwardCheckPoints;
+
     private bool isOnSurface = false;
     private float speed = 0f;
     private float strafeSpeed = 0f;
@@ -17,6 +19,8 @@ public class WallCar : MonoBehaviour
     public float senetivity = 1f;
     public Transform cameraHolder;
     private Rigidbody carRigidbody;
+    private Vector3 connectionNormalSumm;
+
 
     private void Awake()
     {
@@ -35,7 +39,8 @@ public class WallCar : MonoBehaviour
 
     private void SurfaceCheck() {
         bool touchPointFound = false;
-        Vector3 connectionNormalSumm = Vector3.zero;
+        connectionNormalSumm = Vector3.zero;
+
         foreach (Transform groundCheckPoint in groundCheckPoints)
         {
             bool thisIsTorching = false;
@@ -57,10 +62,31 @@ public class WallCar : MonoBehaviour
             {
                 Debug.DrawRay(groundCheckPoint.position, -groundCheckPoint.up, Color.red);
             }
+        }
 
+        foreach (Transform forwardCheckPoint in forwardCheckPoints) //  да-да, копиаста, говнокод, потом порефракторю
+        {
+            bool thisIsTorching = false;
+            Vector3 foundNormal = Vector3.zero;
+            foreach (RaycastHit hit in Physics.RaycastAll(forwardCheckPoint.position, forwardCheckPoint.forward, 1f))
+                if (hit.collider.tag != "Player")
+                {
+                    thisIsTorching = true;
+                    foundNormal = hit.normal;
+                    break;
+                }
+            if (thisIsTorching)
+            {
+                touchPointFound = true;
+                connectionNormalSumm += foundNormal;
+                Debug.DrawRay(forwardCheckPoint.position, forwardCheckPoint.forward, Color.green);
+            }
+            else
+            {
+                Debug.DrawRay(forwardCheckPoint.position, forwardCheckPoint.forward, Color.red);
+            }
         }
         isOnSurface = touchPointFound;
-        
     }
 
     private void Move() {
