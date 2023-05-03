@@ -8,7 +8,6 @@ public class WallCar : MonoBehaviour
     //bug задний ход стопорится в ноль и дрожит
 
     public Transform[] groundCheckPoints;
-    public Transform[] forwardCheckPoints;
 
     private bool isOnSurface = false;
     private float speed = 0f;
@@ -39,7 +38,8 @@ public class WallCar : MonoBehaviour
         SurfaceRotate();
     }
 
-    private void SurfaceCheck() {
+    private void SurfaceCheck()
+    {
         bool touchPointFound = false;
         connectionNormalSumm = Vector3.zero;
 
@@ -47,7 +47,7 @@ public class WallCar : MonoBehaviour
         {
             bool thisIsTorching = false;
             Vector3 foundNormal = Vector3.zero;
-            foreach (RaycastHit hit in Physics.RaycastAll(groundCheckPoint.position, -groundCheckPoint.up, 1f)) 
+            foreach (RaycastHit hit in Physics.RaycastAll(groundCheckPoint.position, groundCheckPoint.forward, 1f))
                 if (hit.collider.tag != "Player")
                 {
                     thisIsTorching = true;
@@ -58,36 +58,14 @@ public class WallCar : MonoBehaviour
             {
                 touchPointFound = true;
                 connectionNormalSumm += foundNormal;
-                Debug.DrawRay(groundCheckPoint.position, -groundCheckPoint.up, Color.green);
+                Debug.DrawRay(groundCheckPoint.position, groundCheckPoint.forward, Color.green);
             }
             else
             {
-                Debug.DrawRay(groundCheckPoint.position, -groundCheckPoint.up, Color.red);
+                Debug.DrawRay(groundCheckPoint.position, groundCheckPoint.forward, Color.red);
             }
         }
 
-        foreach (Transform forwardCheckPoint in forwardCheckPoints) //  да-да, копиаста, говнокод, потом порефракторю
-        {
-            bool thisIsTorching = false;
-            Vector3 foundNormal = Vector3.zero;
-            foreach (RaycastHit hit in Physics.RaycastAll(forwardCheckPoint.position, forwardCheckPoint.forward, 1f))
-                if (hit.collider.tag != "Player")
-                {
-                    thisIsTorching = true;
-                    foundNormal = hit.normal;
-                    break;
-                }
-            if (thisIsTorching)
-            {
-                touchPointFound = true;
-                connectionNormalSumm += foundNormal;
-                Debug.DrawRay(forwardCheckPoint.position, forwardCheckPoint.forward, Color.green);
-            }
-            else
-            {
-                Debug.DrawRay(forwardCheckPoint.position, forwardCheckPoint.forward, Color.red);
-            }
-        }
         isOnSurface = touchPointFound;
     }
 
@@ -97,22 +75,21 @@ public class WallCar : MonoBehaviour
         else if (Keyboard.current.sKey.isPressed)
             speed = Mathf.Clamp(speed - acceleration * Time.deltaTime, -maxSpeed, maxSpeed);
         else
-            speed = 0.98f * speed; 
+            speed = 0.98f * speed; //slow down from forward and back
 
         if (Keyboard.current.aKey.isPressed)
             strafeSpeed = Mathf.Clamp(strafeSpeed + acceleration * Time.deltaTime, -maxSpeed, maxSpeed);
 
-        //transform.position += transform.forward * speed * Time.deltaTime;
         carRigidbody.velocity = transform.forward * speed;
     }
 
     private void Fall() {
+        speed = 0;
         carRigidbody.velocity += Vector3.down * Time.deltaTime * 9.8f;
     }
 
     private void MouseTurn() {
-        //transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y + Mouse.current.delta.value.x * senetivity * Time.deltaTime, 0);
-        transform.Rotate(transform.up, Mouse.current.delta.value.x * senetivity * Time.deltaTime);
+        transform.Rotate(transform.up, Mouse.current.delta.value.x * senetivity * Time.deltaTime,Space.World);
         verticalRotation = Mathf.Clamp(verticalRotation - Mouse.current.delta.value.y * senetivity * Time.deltaTime, 0f, 90f);
         cameraHolder.localRotation = Quaternion.Euler(verticalRotation, 0, 0);
     }
@@ -126,7 +103,9 @@ public class WallCar : MonoBehaviour
         //Debug.Log(angle);
         angle = Mathf.Min(angle, angularSpeed * Time.deltaTime);
         Vector3 axis = Vector3.Cross(currentUpDirection, connectionNormalSumm);
-        Quaternion targetRotation = Quaternion.AngleAxis(angle, axis);
-        transform.rotation *= targetRotation;
+        Debug.DrawRay(transform.position, axis, Color.magenta);
+        //Quaternion targetRotation = Quaternion.AngleAxis(angle, axis);
+        //transform.rotation *= targetRotation;
+        transform.Rotate(axis, angle, Space.World);
     }
 }

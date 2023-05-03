@@ -123,16 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!4 &504452714 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4839828609556405751, guid: f174631fb35f0524294d880ddb47adba, type: 3}
-  m_PrefabInstance: {fileID: 2931909594610813598}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &521097974 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5805329936486572659, guid: f174631fb35f0524294d880ddb47adba, type: 3}
-  m_PrefabInstance: {fileID: 2931909594610813598}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &964044687
 GameObject:
   m_ObjectHideFlags: 0
@@ -404,26 +394,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7193829833554548331, guid: f174631fb35f0524294d880ddb47adba, type: 3}
-      propertyPath: maxSpeed
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 7193829833554548331, guid: f174631fb35f0524294d880ddb47adba, type: 3}
-      propertyPath: acceleration
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 7193829833554548331, guid: f174631fb35f0524294d880ddb47adba, type: 3}
-      propertyPath: forwardCheckPoints.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7193829833554548331, guid: f174631fb35f0524294d880ddb47adba, type: 3}
-      propertyPath: forwardCheckPoints.Array.data[0]
-      value: 
-      objectReference: {fileID: 521097974}
-    - target: {fileID: 7193829833554548331, guid: f174631fb35f0524294d880ddb47adba, type: 3}
-      propertyPath: forwardCheckPoints.Array.data[1]
-      value: 
-      objectReference: {fileID: 504452714}
     - target: {fileID: 8072738590655814054, guid: f174631fb35f0524294d880ddb47adba, type: 3}
       propertyPath: m_Name
       value: WallCar
