@@ -77,14 +77,19 @@ public class WallCar : MonoBehaviour
         else
             speed = 0.98f * speed; //slow down from forward and back
 
-        if (Keyboard.current.aKey.isPressed)
+        if (Keyboard.current.dKey.isPressed)
             strafeSpeed = Mathf.Clamp(strafeSpeed + acceleration * Time.deltaTime, -maxSpeed, maxSpeed);
+        else if (Keyboard.current.aKey.isPressed)
+            strafeSpeed = Mathf.Clamp(strafeSpeed - acceleration * Time.deltaTime, -maxSpeed, maxSpeed);
+        else
+            strafeSpeed = 0.98f * strafeSpeed;
 
-        carRigidbody.velocity = transform.forward * speed;
+        carRigidbody.velocity = transform.forward * speed + transform.right * strafeSpeed;
     }
 
     private void Fall() {
         speed = 0;
+        strafeSpeed = 0;
         carRigidbody.velocity += Vector3.down * Time.deltaTime * 9.8f;
     }
 
