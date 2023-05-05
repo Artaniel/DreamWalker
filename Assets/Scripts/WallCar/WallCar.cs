@@ -5,8 +5,6 @@ using UnityEngine.InputSystem;
 
 public class WallCar : MonoBehaviour
 {
-    //bug задний ход стопорится в ноль и дрожит
-
     public Transform[] groundCheckPoints;
 
     private bool isOnSurface = false;
@@ -105,12 +103,9 @@ public class WallCar : MonoBehaviour
         Vector3 currentUpDirection = transform.up;
         Debug.DrawRay(transform.position, currentUpDirection, Color.black);
         float angle = Vector3.Angle(currentUpDirection, connectionNormalSumm);
-        //Debug.Log(angle);
         angle = Mathf.Min(angle, angularSpeed * Time.deltaTime);
         Vector3 axis = Vector3.Cross(currentUpDirection, connectionNormalSumm);
         Debug.DrawRay(transform.position, axis, Color.magenta);
-        //Quaternion targetRotation = Quaternion.AngleAxis(angle, axis);
-        //transform.rotation *= targetRotation;
         transform.Rotate(axis, angle, Space.World);
     }
 }
