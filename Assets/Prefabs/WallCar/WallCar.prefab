@@ -522,6 +522,37 @@ Transform:
   m_Father: {fileID: 4621974195208420185}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6535907952073799606
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7651174146886216714}
+  m_Layer: 0
+  m_Name: HoverPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7651174146886216714
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6535907952073799606}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: -0.20000005, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4621974195208420185}
+  m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &7456740617503618432
 GameObject:
   m_ObjectHideFlags: 0
@@ -696,6 +727,7 @@ Transform:
   - {fileID: 7173438769938259541}
   - {fileID: 7537384216095097880}
   - {fileID: 6866042296505865762}
+  - {fileID: 7651174146886216714}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -731,6 +763,8 @@ MonoBehaviour:
   senetivity: 30
   angularSpeed: 90
   cameraHolder: {fileID: 3913490458720383608}
+  hoverPoint: {fileID: 7651174146886216714}
+  hoverHight: 0.25
 --- !u!54 &4572911272868511418
 Rigidbody:
   m_ObjectHideFlags: 0

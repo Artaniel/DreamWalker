@@ -19,6 +19,8 @@ public class WallCar : MonoBehaviour
     private Rigidbody carRigidbody;
     private Vector3 connectionNormalSumm;
 
+    public Transform hoverPoint;
+    public float hoverHight = 0.5f;
 
     private void Awake()
     {
@@ -29,7 +31,10 @@ public class WallCar : MonoBehaviour
     {
         SurfaceCheck();
         if (isOnSurface)
+        {
             Move();
+            Hover();
+        }
         else
             Fall();
         MouseTurn();
@@ -107,5 +112,27 @@ public class WallCar : MonoBehaviour
         Vector3 axis = Vector3.Cross(currentUpDirection, connectionNormalSumm);
         Debug.DrawRay(transform.position, axis, Color.magenta);
         transform.Rotate(axis, angle, Space.World);
+    }
+
+    private void Hover() {
+        float raycastLength = 2f;
+        Vector3 groundPoint = Vector3.zero;
+        bool found = false;
+        foreach (RaycastHit hit in Physics.RaycastAll(hoverPoint.position, hoverPoint.forward, raycastLength)) {
+            if (hit.collider.tag != "Player") {
+                groundPoint = hit.point;
+                found = true;
+                break;
+            }
+        }
+
+        if (found)
+        {
+            float distance = Vector3.Distance(groundPoint, hoverPoint.position);
+            carRigidbody.velocity += -100f*((distance-hoverHight) / hoverHight) * Time.deltaTime * transform.up;
+            Debug.DrawLine(hoverPoint.position, groundPoint, Color.yellow);
+            Debug.DrawRay(groundPoint, hoverPoint.forward * (raycastLength - distance), Color.black);
+        }
+
     }
 }
