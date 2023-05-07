@@ -21,22 +21,23 @@ public class WallCar : MonoBehaviour
 
     public Transform hoverPoint;
     public float hoverHight = 0.5f;
+    private Vector3 lastGroundPoint;
+    public float maxDragDistance = 5f;
 
     private void Awake()
     {
         carRigidbody = GetComponent<Rigidbody>();
+        lastGroundPoint = transform.position - Vector3.up * 5;
     }
 
     private void Update()
     {
         SurfaceCheck();
         if (isOnSurface)
-        {
             Move();
-            Hover();
-        }
         else
             Fall();
+        Hover();
         MouseTurn();
         SurfaceRotate();
     }
@@ -114,25 +115,30 @@ public class WallCar : MonoBehaviour
         transform.Rotate(axis, angle, Space.World);
     }
 
-    private void Hover() {
+    private void Hover()
+    {
         float raycastLength = 2f;
         Vector3 groundPoint = Vector3.zero;
         bool found = false;
-        foreach (RaycastHit hit in Physics.RaycastAll(hoverPoint.position, hoverPoint.forward, raycastLength)) {
-            if (hit.collider.tag != "Player") {
+        foreach (RaycastHit hit in Physics.RaycastAll(hoverPoint.position, hoverPoint.forward, raycastLength))
+        {
+            if (hit.collider.tag != "Player")
+            {
                 groundPoint = hit.point;
                 found = true;
                 break;
             }
         }
+        if (!found)
+            groundPoint = lastGroundPoint;
+        else
+            lastGroundPoint = groundPoint;
 
-        if (found)
-        {
-            float distance = Vector3.Distance(groundPoint, hoverPoint.position);
-            carRigidbody.velocity += -100f*((distance-hoverHight) / hoverHight) * Time.deltaTime * transform.up;
-            Debug.DrawLine(hoverPoint.position, groundPoint, Color.yellow);
-            Debug.DrawRay(groundPoint, hoverPoint.forward * (raycastLength - distance), Color.black);
-        }
-
+        float distance = Vector3.Distance(groundPoint, hoverPoint.position);
+        if (distance <= maxDragDistance)        
+            carRigidbody.velocity += -100f * ((distance - hoverHight) / hoverHight) * Time.deltaTime * (transform.position - groundPoint).normalized ;
+        
+        Debug.DrawLine(hoverPoint.position, groundPoint, Color.yellow);
+        Debug.DrawRay(groundPoint, hoverPoint.forward * (raycastLength - distance), Color.black);
     }
 }
