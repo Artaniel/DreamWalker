@@ -21,10 +21,13 @@ public class WallCar : MonoBehaviour
 
     public Transform hoverPoint;
     public float hoverHight = 0.5f;
-    private Vector3 lastGroundPoint;
+    private Vector3 lastGroundPoint = Vector3.zero;
     public float maxDragDistance = 5f;
 
     private bool isFlying = false;
+    private float airTimer = 0f;
+    private float airTime = 0.25f;
+    private bool airBlocksSurfacecheck = false;
 
     private void Awake()
     {
@@ -34,17 +37,21 @@ public class WallCar : MonoBehaviour
 
     private void Update()
     {
-        SurfaceCheck();
-        if (isOnSurface)
+        FlyCheck();
+        if (!airBlocksSurfacecheck)
         {
-            isFlying = false;
-            Move();
-            JumpCheck();
+            SurfaceCheck();
+            if (isOnSurface)
+            {
+                isFlying = false;
+                Move();
+                JumpCheck();
+            }
+            else
+                Fall();
+            if (!isFlying)
+                Hover();
         }
-        else
-            Fall();
-        if (!isFlying)
-            Hover();
         MouseTurn();
         SurfaceRotate();
     }
@@ -99,8 +106,9 @@ public class WallCar : MonoBehaviour
     }
 
     private void Fall() {
-        speed = 0;
-        strafeSpeed = 0;
+        speed = Vector3.Project(carRigidbody.velocity, transform.forward).magnitude;
+        strafeSpeed = Vector3.Project(carRigidbody.velocity, transform.right).magnitude;
+        Debug.Log(speed);
         carRigidbody.velocity += Vector3.down * Time.deltaTime * 9.8f;
     }
 
@@ -141,22 +149,37 @@ public class WallCar : MonoBehaviour
         else
             lastGroundPoint = groundPoint;
 
-        float distance = Vector3.Distance(groundPoint, hoverPoint.position);
-        if (distance <= maxDragDistance)
-            carRigidbody.velocity += -100f * ((distance - hoverHight) / hoverHight) * Time.deltaTime * (transform.position - groundPoint).normalized;
-        else 
-            isFlying = true;
-        
-        Debug.DrawLine(hoverPoint.position, groundPoint, Color.yellow);
-        Debug.DrawRay(groundPoint, hoverPoint.forward * (raycastLength - distance), Color.black);
+        if (lastGroundPoint != Vector3.zero) // case of point lost, to prevent pull to point saved before long jump
+        {
+            float distance = Vector3.Distance(groundPoint, hoverPoint.position);
+            if (distance <= maxDragDistance)
+                carRigidbody.velocity += -100f * ((distance - hoverHight) / hoverHight) * Time.deltaTime * (transform.position - groundPoint).normalized;
+            else
+                isFlying = true;
+            Debug.DrawLine(hoverPoint.position, groundPoint, Color.yellow);
+            Debug.DrawRay(groundPoint, hoverPoint.forward * (raycastLength - distance), Color.black);
+        }        
     }
 
     private void JumpCheck() { 
         if (Keyboard.current.spaceKey.wasPressedThisFrame)
         { 
             isFlying = true;
-            carRigidbody.velocity += transform.up * 100f;            
+            carRigidbody.velocity += transform.up * 10f;
+            airTimer = 0f;
+            airBlocksSurfacecheck = true;
+            lastGroundPoint = Vector3.zero;
         }
+    }
+
+    private void FlyCheck() {
+        if (airBlocksSurfacecheck)
+        {
+            airTimer += Time.deltaTime;
+            if (airTimer >= airTime)
+                airBlocksSurfacecheck = false;
+        }
+
     }
 
 }
