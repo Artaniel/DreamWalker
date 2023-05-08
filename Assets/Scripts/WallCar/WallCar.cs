@@ -24,6 +24,8 @@ public class WallCar : MonoBehaviour
     private Vector3 lastGroundPoint;
     public float maxDragDistance = 5f;
 
+    private bool isFlying = false;
+
     private void Awake()
     {
         carRigidbody = GetComponent<Rigidbody>();
@@ -34,10 +36,15 @@ public class WallCar : MonoBehaviour
     {
         SurfaceCheck();
         if (isOnSurface)
+        {
+            isFlying = false;
             Move();
+            JumpCheck();
+        }
         else
             Fall();
-        Hover();
+        if (!isFlying)
+            Hover();
         MouseTurn();
         SurfaceRotate();
     }
@@ -135,10 +142,21 @@ public class WallCar : MonoBehaviour
             lastGroundPoint = groundPoint;
 
         float distance = Vector3.Distance(groundPoint, hoverPoint.position);
-        if (distance <= maxDragDistance)        
-            carRigidbody.velocity += -100f * ((distance - hoverHight) / hoverHight) * Time.deltaTime * (transform.position - groundPoint).normalized ;
+        if (distance <= maxDragDistance)
+            carRigidbody.velocity += -100f * ((distance - hoverHight) / hoverHight) * Time.deltaTime * (transform.position - groundPoint).normalized;
+        else 
+            isFlying = true;
         
         Debug.DrawLine(hoverPoint.position, groundPoint, Color.yellow);
         Debug.DrawRay(groundPoint, hoverPoint.forward * (raycastLength - distance), Color.black);
     }
+
+    private void JumpCheck() { 
+        if (Keyboard.current.spaceKey.wasPressedThisFrame)
+        { 
+            isFlying = true;
+            carRigidbody.velocity += transform.up * 100f;            
+        }
+    }
+
 }
