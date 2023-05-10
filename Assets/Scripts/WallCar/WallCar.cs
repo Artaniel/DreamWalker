@@ -106,8 +106,8 @@ public class WallCar : MonoBehaviour
     }
 
     private void Fall() {
-        speed = Vector3.Project(carRigidbody.velocity, transform.forward).magnitude;
-        strafeSpeed = Vector3.Project(carRigidbody.velocity, transform.right).magnitude;
+        speed = Vector3.Dot(carRigidbody.velocity, transform.forward);
+        strafeSpeed = Vector3.Dot(carRigidbody.velocity, transform.right);
         carRigidbody.velocity += Vector3.down * Time.deltaTime * 9.8f;
     }
 
