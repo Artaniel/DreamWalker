@@ -12,12 +12,9 @@ public class WallCar : MonoBehaviour
     private float strafeSpeed = 0f;
     public float maxSpeed = 5f;
     public float acceleration = 2f;
-    private float verticalRotation = 0f;
-    public float senetivity = 1f;
     public float angularSpeed = 90f;
-    public Transform cameraHolder;
     private Rigidbody carRigidbody;
-    private Vector3 connectionNormalSumm;
+    [HideInInspector] public Vector3 connectionNormalSumm;
 
     public Transform hoverPoint;
     public float hoverHight = 0.5f;
@@ -52,7 +49,6 @@ public class WallCar : MonoBehaviour
             if (!isFlying)
                 Hover();
         }
-        MouseTurn();
         SurfaceRotate();
     }
 
@@ -109,12 +105,6 @@ public class WallCar : MonoBehaviour
         speed = Vector3.Dot(carRigidbody.velocity, transform.forward);
         strafeSpeed = Vector3.Dot(carRigidbody.velocity, transform.right);
         carRigidbody.velocity += Vector3.down * Time.deltaTime * 9.8f;
-    }
-
-    private void MouseTurn() {
-        transform.Rotate(transform.up, Mouse.current.delta.value.x * senetivity * Time.deltaTime,Space.World);
-        verticalRotation = Mathf.Clamp(verticalRotation - Mouse.current.delta.value.y * senetivity * Time.deltaTime, 0f, 90f);
-        cameraHolder.localRotation = Quaternion.Euler(verticalRotation, 0, 0);
     }
 
     private void SurfaceRotate() {
