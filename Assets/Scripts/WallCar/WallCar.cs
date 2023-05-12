@@ -26,10 +26,13 @@ public class WallCar : MonoBehaviour
     private float airTime = 0.25f;
     private bool airBlocksSurfacecheck = false;
 
+    private CarCamera carCamera; 
+
     private void Awake()
     {
         carRigidbody = GetComponent<Rigidbody>();
         lastGroundPoint = transform.position - Vector3.up * 5;
+        carCamera = GetComponent<CarCamera>();
     }
 
     private void Update()
@@ -84,6 +87,9 @@ public class WallCar : MonoBehaviour
     }
 
     private void Move() {
+        Vector3 mouseForward = Vector3.ProjectOnPlane(carCamera.cameraHolder.forward, connectionNormalSumm).normalized;
+        Vector3 mouseRight = - Vector3.Cross(mouseForward, connectionNormalSumm).normalized;
+
         if (Keyboard.current.wKey.isPressed)
             speed = Mathf.Clamp(speed + acceleration * Time.deltaTime, -maxSpeed, maxSpeed);
         else if (Keyboard.current.sKey.isPressed)
@@ -98,7 +104,7 @@ public class WallCar : MonoBehaviour
         else
             strafeSpeed = 0.98f * strafeSpeed;
 
-        carRigidbody.velocity = transform.forward * speed + transform.right * strafeSpeed;
+        carRigidbody.velocity = mouseForward * speed + mouseRight * strafeSpeed;
     }
 
     private void Fall() {
