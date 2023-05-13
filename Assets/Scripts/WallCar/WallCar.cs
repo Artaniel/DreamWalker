@@ -123,6 +123,16 @@ public class WallCar : MonoBehaviour
         Vector3 axis = Vector3.Cross(currentUpDirection, connectionNormalSumm);
         Debug.DrawRay(transform.position, axis, Color.magenta);
         transform.Rotate(axis, angle, Space.World);
+
+        Vector3 targetDirection = Vector3.ProjectOnPlane(carRigidbody.velocity, connectionNormalSumm).normalized;
+        angle = Vector3.Angle(transform.forward, targetDirection);
+        angle = Mathf.Min(angle, angularSpeed * Time.deltaTime);
+        axis = Vector3.Cross(transform.forward, targetDirection);
+        transform.Rotate(axis, angle, Space.World);
+
+        Debug.DrawRay(transform.position, carRigidbody.velocity, Color.yellow);
+
+
     }
 
     private void Hover()
