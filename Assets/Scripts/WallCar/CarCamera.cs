@@ -18,7 +18,9 @@ public class CarCamera : MonoBehaviour
 
     private void Update()
     {
+        RotateUp();
         MouseTurn();
+        cameraHolder.transform.position = wallCar.transform.position;
     }
 
     private void MouseTurn()
@@ -26,5 +28,12 @@ public class CarCamera : MonoBehaviour
         cameraHolder.localRotation = Quaternion.Euler(verticalRotation, cameraHolder.localRotation.eulerAngles.y, cameraHolder.localRotation.eulerAngles.z);
         cameraHolder.Rotate(transform.up, Mouse.current.delta.value.x * senetivity * Time.deltaTime, Space.World);
         verticalRotation = Mathf.Clamp(verticalRotation - Mouse.current.delta.value.y * senetivity * Time.deltaTime, 0f, 90f);
+    }
+
+    private void RotateUp() {
+        Vector3 targetDirection = wallCar.transform.up;
+        float angle = Vector3.Angle(cameraHolder.up, targetDirection);
+        Vector3 axis = Vector3.Cross(cameraHolder.up, targetDirection);
+        cameraHolder.Rotate(axis, angle, Space.World);
     }
 }
