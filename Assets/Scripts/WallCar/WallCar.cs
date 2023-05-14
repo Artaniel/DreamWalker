@@ -43,7 +43,8 @@ public class WallCar : MonoBehaviour
             SurfaceCheck();
             if (isOnSurface)
             {
-                isFlying = false;
+                if (isFlying)
+                    Land();
                 Move();
                 JumpCheck();
             }
@@ -108,8 +109,6 @@ public class WallCar : MonoBehaviour
     }
 
     private void Fall() {
-        speed = Vector3.Dot(carRigidbody.velocity, transform.forward);
-        strafeSpeed = Vector3.Dot(carRigidbody.velocity, transform.right);
         carRigidbody.velocity += Vector3.down * Time.deltaTime * 9.8f;
     }
 
@@ -184,6 +183,14 @@ public class WallCar : MonoBehaviour
             if (airTimer >= airTime)
                 airBlocksSurfacecheck = false;
         }
+
+    }
+
+    private void Land()
+    {
+        isFlying = false;
+        speed = Vector3.Dot(carRigidbody.velocity, Vector3.ProjectOnPlane(carCamera.cameraHolder.forward,connectionNormalSumm));
+        strafeSpeed = Vector3.Dot(carRigidbody.velocity, Vector3.ProjectOnPlane(carCamera.cameraHolder.right, connectionNormalSumm));
 
     }
 
