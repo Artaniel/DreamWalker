@@ -815,7 +815,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4621974195208420185}
   - component: {fileID: 7193829833554548331}
-  - component: {fileID: 1440102019032852263}
   - component: {fileID: 4572911272868511418}
   m_Layer: 0
   m_Name: WallCar
@@ -895,26 +894,12 @@ MonoBehaviour:
   - {fileID: 4450468829325177828}
   maxSpeed: 20
   acceleration: 10
+  senetivity: 30
   angularSpeed: 180
-  connectionNormalSumm: {x: 0, y: 0, z: 0}
+  cameraHolder: {fileID: 3913490458720383608}
   hoverPoint: {fileID: 7651174146886216714}
   hoverHight: 0.4
   maxDragDistance: 5
---- !u!114 &1440102019032852263
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8072738590655814054}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62e9c15dd10674a489c90baa0bbfd279, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  wallCar: {fileID: 7193829833554548331}
-  senetivity: 20
-  cameraHolder: {fileID: 3913490458720383608}
 --- !u!54 &4572911272868511418
 Rigidbody:
   m_ObjectHideFlags: 0
