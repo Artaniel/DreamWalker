@@ -9,7 +9,7 @@ public class CameraRotation : MonoBehaviour
     public Transform holder;
     public Transform freeCameraPivot;
     public Transform carTransform;
-    private bool freeMode = false;
+    [HideInInspector] public bool freeMode = false;
     private Vector3 savedLocalPosition;
 
     public float senetivity = 20f;

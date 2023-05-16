@@ -848,6 +848,7 @@ GameObject:
   - component: {fileID: 7193829833554548331}
   - component: {fileID: 4939898085095358558}
   - component: {fileID: 4572911272868511418}
+  - component: {fileID: 7056191004249239401}
   m_Layer: 0
   m_Name: WallCar
   m_TagString: Player
@@ -948,6 +949,7 @@ MonoBehaviour:
   holder: {fileID: 3913490458720383608}
   freeCameraPivot: {fileID: 8563093385707408574}
   carTransform: {fileID: 4621974195208420185}
+  freeMode: 0
   senetivity: 20
 --- !u!54 &4572911272868511418
 Rigidbody:
@@ -965,6 +967,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &7056191004249239401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8072738590655814054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67a7a81233647484d98299a2e01d2892, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8215017410801736512
 GameObject:
   m_ObjectHideFlags: 0
