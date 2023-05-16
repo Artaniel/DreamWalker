@@ -180,6 +180,37 @@ Transform:
   m_Father: {fileID: 4621974195208420185}
   m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!1 &1192742252855545639
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8563093385707408574}
+  m_Layer: 0
+  m_Name: FreeCameraPivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8563093385707408574
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1192742252855545639}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4621974195208420185}
+  m_RootOrder: 22
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1509970904414962124
 GameObject:
   m_ObjectHideFlags: 0
@@ -815,6 +846,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4621974195208420185}
   - component: {fileID: 7193829833554548331}
+  - component: {fileID: 4939898085095358558}
   - component: {fileID: 4572911272868511418}
   m_Layer: 0
   m_Name: WallCar
@@ -857,6 +889,7 @@ Transform:
   - {fileID: 7683175436461927343}
   - {fileID: 5778807073384757072}
   - {fileID: 4450468829325177828}
+  - {fileID: 8563093385707408574}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -894,12 +927,28 @@ MonoBehaviour:
   - {fileID: 4450468829325177828}
   maxSpeed: 20
   acceleration: 10
-  senetivity: 30
   angularSpeed: 180
   cameraHolder: {fileID: 3913490458720383608}
   hoverPoint: {fileID: 7651174146886216714}
   hoverHight: 0.4
   maxDragDistance: 5
+--- !u!114 &4939898085095358558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8072738590655814054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a0d22cbe8b22f54d95a152bb66fe877, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraTransform: {fileID: 2100418240}
+  holder: {fileID: 3913490458720383608}
+  freeCameraPivot: {fileID: 8563093385707408574}
+  carTransform: {fileID: 4621974195208420185}
+  senetivity: 20
 --- !u!54 &4572911272868511418
 Rigidbody:
   m_ObjectHideFlags: 0

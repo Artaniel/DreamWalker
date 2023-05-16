@@ -12,12 +12,10 @@ public class WallCar : MonoBehaviour
     private float strafeSpeed = 0f;
     public float maxSpeed = 5f;
     public float acceleration = 2f;
-    private float verticalRotation = 0f;
-    public float senetivity = 1f;
     public float angularSpeed = 90f;
     public Transform cameraHolder;
     private Rigidbody carRigidbody;
-    private Vector3 connectionNormalSumm;
+    private Vector3 normalSumm;
 
     public Transform hoverPoint;
     public float hoverHight = 0.5f;
@@ -52,14 +50,13 @@ public class WallCar : MonoBehaviour
             if (!isFlying)
                 Hover();
         }
-        MouseTurn();
         SurfaceRotate();
     }
 
     private void SurfaceCheck()
     {
         bool touchPointFound = false;
-        connectionNormalSumm = Vector3.zero;
+        normalSumm = Vector3.zero;
 
         foreach (Transform groundCheckPoint in groundCheckPoints)
         {
@@ -75,7 +72,7 @@ public class WallCar : MonoBehaviour
             if (thisIsTorching)
             {
                 touchPointFound = true;
-                connectionNormalSumm += foundNormal;
+                normalSumm += foundNormal;
                 Debug.DrawRay(groundCheckPoint.position, groundCheckPoint.forward, Color.green);
             }
             else
@@ -111,20 +108,14 @@ public class WallCar : MonoBehaviour
         carRigidbody.velocity += Vector3.down * Time.deltaTime * 9.8f;
     }
 
-    private void MouseTurn() {
-        transform.Rotate(transform.up, Mouse.current.delta.value.x * senetivity * Time.deltaTime,Space.World);
-        verticalRotation = Mathf.Clamp(verticalRotation - Mouse.current.delta.value.y * senetivity * Time.deltaTime, 0f, 90f);
-        cameraHolder.localRotation = Quaternion.Euler(verticalRotation, 0, 0);
-    }
-
     private void SurfaceRotate() {
-        connectionNormalSumm = connectionNormalSumm.normalized;
-        Debug.DrawRay(transform.position, connectionNormalSumm);
+        normalSumm = normalSumm.normalized;
+        Debug.DrawRay(transform.position, normalSumm);
         Vector3 currentUpDirection = transform.up;
         Debug.DrawRay(transform.position, currentUpDirection, Color.black);
-        float angle = Vector3.Angle(currentUpDirection, connectionNormalSumm);
+        float angle = Vector3.Angle(currentUpDirection, normalSumm);
         angle = Mathf.Min(angle, angularSpeed * Time.deltaTime);
-        Vector3 axis = Vector3.Cross(currentUpDirection, connectionNormalSumm);
+        Vector3 axis = Vector3.Cross(currentUpDirection, normalSumm);
         Debug.DrawRay(transform.position, axis, Color.magenta);
         transform.Rotate(axis, angle, Space.World);
     }
