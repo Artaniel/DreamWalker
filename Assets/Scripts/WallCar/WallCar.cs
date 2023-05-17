@@ -13,6 +13,7 @@ public class WallCar : MonoBehaviour
     public float maxSpeed = 5f;
     public float acceleration = 2f;
     public float angularSpeed = 90f;
+    public float slowDownFactor = 0.9f;
     public Transform cameraHolder;
     private Rigidbody carRigidbody;
     private Vector3 normalSumm;
@@ -98,14 +99,14 @@ public class WallCar : MonoBehaviour
         else if (Keyboard.current.sKey.isPressed)
             speed = Mathf.Clamp(speed - acceleration * Time.deltaTime, -maxSpeed, maxSpeed);
         else
-            speed = 0.98f * speed; //slow down from forward and back
+            speed = slowDownFactor * speed; //slow down from forward and back
 
         if (Keyboard.current.dKey.isPressed)
             strafeSpeed = Mathf.Clamp(strafeSpeed + acceleration * Time.deltaTime, -maxSpeed, maxSpeed);
         else if (Keyboard.current.aKey.isPressed)
             strafeSpeed = Mathf.Clamp(strafeSpeed - acceleration * Time.deltaTime, -maxSpeed, maxSpeed);
         else
-            strafeSpeed = 0.98f * strafeSpeed;
+            strafeSpeed = slowDownFactor * strafeSpeed;
 
         carRigidbody.velocity = transform.forward * speed + transform.right * strafeSpeed;
     }
