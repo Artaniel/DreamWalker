@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class CameraRotation : MonoBehaviour
+public class CameraMovement : MonoBehaviour
 {
-    public Transform cameraTransform;
+    public Transform cameraTargetTransform;
     public Transform holder;
     public Transform freeCameraPivot;
     public Transform carTransform;
@@ -15,9 +15,12 @@ public class CameraRotation : MonoBehaviour
     public float senetivity = 20f;
     private float verticalRotation = 0f;
 
+    public Transform trueCameraTransform;
+    public float LERPFactor = 0.1f;
+
     private void Awake()
     {
-        savedLocalPosition = cameraTransform.localPosition;
+        savedLocalPosition = cameraTargetTransform.localPosition;
     }
 
     void Update()
@@ -31,27 +34,30 @@ public class CameraRotation : MonoBehaviour
             FreeModeUpdate();
         else
             NormalModeUpdate();
+
+        trueCameraTransform.position = Vector3.Lerp(trueCameraTransform.position, cameraTargetTransform.position, LERPFactor);
+        trueCameraTransform.rotation = Quaternion.Lerp(trueCameraTransform.rotation, cameraTargetTransform.rotation, LERPFactor);
     }
 
     private void SwichToFreeMode() {
         freeMode = true;
-        cameraTransform.position = freeCameraPivot.position;
-        cameraTransform.parent = transform;
+        cameraTargetTransform.position = freeCameraPivot.position;
+        cameraTargetTransform.parent = transform;
     }
 
     private void SwitchToNormalMode()
     {
         freeMode = false;
-        cameraTransform.parent = holder;
-        cameraTransform.localPosition = savedLocalPosition;
-        cameraTransform.localRotation = Quaternion.identity;
+        cameraTargetTransform.parent = holder;
+        cameraTargetTransform.localPosition = savedLocalPosition;
+        cameraTargetTransform.localRotation = Quaternion.identity;
     }
 
     private void FreeModeUpdate()
     {
         carTransform.Rotate(transform.up, Mouse.current.delta.value.x * senetivity * Time.deltaTime, Space.World);
         verticalRotation = Mathf.Clamp(verticalRotation - Mouse.current.delta.value.y * senetivity * Time.deltaTime, -90f, 90f);
-        cameraTransform.localRotation = Quaternion.Euler(verticalRotation, 0, 0);
+        cameraTargetTransform.localRotation = Quaternion.Euler(verticalRotation, 0, 0);
     }
 
     private void NormalModeUpdate()

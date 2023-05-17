@@ -31,14 +31,14 @@ public class WallCar : MonoBehaviour
     private float maxJumpPower = 200f;
     private float jumpPowerAccumulationSpeed = 30f;
     private bool isRisingJumpPower = false;
-    private CameraRotation cameraRotation;
+    private CameraMovement cameraRotation;
 
 
     private void Awake()
     {
         carRigidbody = GetComponent<Rigidbody>();
         lastGroundPoint = transform.position - Vector3.up * 5;
-        cameraRotation = GetComponent<CameraRotation>();
+        cameraRotation = GetComponent<CameraMovement>();
     }
 
     private void Update()
@@ -194,7 +194,7 @@ public class WallCar : MonoBehaviour
     private void Jump() {
         isFlying = true;
         if (cameraRotation.freeMode)
-            carRigidbody.velocity += cameraRotation.cameraTransform.forward * jumpPower;
+            carRigidbody.velocity += cameraRotation.cameraTargetTransform.forward * jumpPower;
         else
             carRigidbody.velocity += transform.up * jumpPower;
         airTimer = 0f;
