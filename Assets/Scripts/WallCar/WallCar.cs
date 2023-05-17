@@ -27,10 +27,18 @@ public class WallCar : MonoBehaviour
     private float airTime = 0.25f;
     private bool airBlocksSurfacecheck = false;
 
+    private float jumpPower = 0;
+    private float maxJumpPower = 200f;
+    private float jumpPowerAccumulationSpeed = 30f;
+    private bool isRisingJumpPower = false;
+    private CameraRotation cameraRotation;
+
+
     private void Awake()
     {
         carRigidbody = GetComponent<Rigidbody>();
         lastGroundPoint = transform.position - Vector3.up * 5;
+        cameraRotation = GetComponent<CameraRotation>();
     }
 
     private void Update()
@@ -151,25 +159,46 @@ public class WallCar : MonoBehaviour
         }        
     }
 
-    private void JumpCheck() { 
-        if (Keyboard.current.spaceKey.wasPressedThisFrame)
-        { 
-            isFlying = true;
-            carRigidbody.velocity += transform.up * 10f;
-            airTimer = 0f;
-            airBlocksSurfacecheck = true;
-            lastGroundPoint = Vector3.zero;
-        }
-    }
-
-    private void FlyCheck() {
+    private void FlyCheck()
+    {
         if (airBlocksSurfacecheck)
         {
             airTimer += Time.deltaTime;
             if (airTimer >= airTime)
                 airBlocksSurfacecheck = false;
         }
-
     }
 
+    private void JumpCheck() {
+        if (!isRisingJumpPower)
+        {
+            if (Keyboard.current.spaceKey.isPressed)
+            {
+                isRisingJumpPower = true;
+                jumpPower = 0;
+            }
+        }
+        else {
+            jumpPower += jumpPowerAccumulationSpeed * Time.deltaTime;
+            if (jumpPower >= maxJumpPower)
+                jumpPower = maxJumpPower;
+
+            if (!Keyboard.current.spaceKey.isPressed)
+            {
+                isRisingJumpPower = false;
+                Jump();
+            }
+        }
+    }
+
+    private void Jump() {
+        isFlying = true;
+        if (cameraRotation.freeMode)
+            carRigidbody.velocity += cameraRotation.cameraTransform.forward * jumpPower;
+        else
+            carRigidbody.velocity += transform.up * jumpPower;
+        airTimer = 0f;
+        airBlocksSurfacecheck = true;
+        lastGroundPoint = Vector3.zero;
+    }
 }

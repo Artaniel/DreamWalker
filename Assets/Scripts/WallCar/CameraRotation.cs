@@ -57,7 +57,7 @@ public class CameraRotation : MonoBehaviour
     private void NormalModeUpdate()
     {
         carTransform.Rotate(transform.up, Mouse.current.delta.value.x * senetivity * Time.deltaTime, Space.World);
-        verticalRotation = Mathf.Clamp(verticalRotation - Mouse.current.delta.value.y * senetivity * Time.deltaTime, -90f, 90f);
+        verticalRotation = Mathf.Clamp(verticalRotation - Mouse.current.delta.value.y * senetivity * Time.deltaTime, 0f, 90f);
         holder.localRotation = Quaternion.Euler(verticalRotation, 0, 0);
     }
 }
