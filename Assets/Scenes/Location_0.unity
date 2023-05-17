@@ -4837,6 +4837,22 @@ PrefabInstance:
       propertyPath: field of view
       value: 80
       objectReference: {fileID: 0}
+    - target: {fileID: 4573539277696795033, guid: f174631fb35f0524294d880ddb47adba, type: 3}
+      propertyPath: far clip plane
+      value: 1500
+      objectReference: {fileID: 0}
+    - target: {fileID: 4573539277696795033, guid: f174631fb35f0524294d880ddb47adba, type: 3}
+      propertyPath: near clip plane
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 4573539277696795111, guid: f174631fb35f0524294d880ddb47adba, type: 3}
+      propertyPath: m_StopNaN
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4573539277696795111, guid: f174631fb35f0524294d880ddb47adba, type: 3}
+      propertyPath: m_Dithering
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4573539277696795111, guid: f174631fb35f0524294d880ddb47adba, type: 3}
       propertyPath: m_RenderPostProcessing
       value: 1
