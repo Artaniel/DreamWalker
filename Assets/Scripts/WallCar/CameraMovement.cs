@@ -23,7 +23,7 @@ public class CameraMovement : MonoBehaviour
         savedLocalPosition = cameraTargetTransform.localPosition;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (Mouse.current.rightButton.IsPressed() && !freeMode)
             SwichToFreeMode();

@@ -41,7 +41,7 @@ public class WallCar : MonoBehaviour
         cameraRotation = GetComponent<CameraMovement>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         FlyCheck();
         if (!airBlocksSurfacecheck)
