@@ -4809,13 +4809,37 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 2023569910071017292, guid: f174631fb35f0524294d880ddb47adba, type: 3}
+      propertyPath: LERPFactor
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 2307807795194887249, guid: f174631fb35f0524294d880ddb47adba, type: 3}
       propertyPath: m_RootOrder
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 4273563242274367865, guid: f174631fb35f0524294d880ddb47adba, type: 3}
+      propertyPath: maxSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4273563242274367865, guid: f174631fb35f0524294d880ddb47adba, type: 3}
+      propertyPath: angularSpeed
+      value: 90
+      objectReference: {fileID: 0}
     - target: {fileID: 4450468829325177828, guid: f174631fb35f0524294d880ddb47adba, type: 3}
       propertyPath: m_RootOrder
       value: 23
+      objectReference: {fileID: 0}
+    - target: {fileID: 4558408370412270719, guid: f174631fb35f0524294d880ddb47adba, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4573539277696795033, guid: f174631fb35f0524294d880ddb47adba, type: 3}
+      propertyPath: field of view
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 4573539277696795111, guid: f174631fb35f0524294d880ddb47adba, type: 3}
+      propertyPath: m_RenderPostProcessing
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4621974195208420185, guid: f174631fb35f0524294d880ddb47adba, type: 3}
       propertyPath: m_RootOrder
@@ -4827,7 +4851,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4621974195208420185, guid: f174631fb35f0524294d880ddb47adba, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 597.34
+      value: 599.08
       objectReference: {fileID: 0}
     - target: {fileID: 4621974195208420185, guid: f174631fb35f0524294d880ddb47adba, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4907,7 +4931,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7193829833554548331, guid: f174631fb35f0524294d880ddb47adba, type: 3}
       propertyPath: maxSpeed
-      value: 20
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7193829833554548331, guid: f174631fb35f0524294d880ddb47adba, type: 3}
       propertyPath: senetivity
@@ -4915,7 +4939,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7193829833554548331, guid: f174631fb35f0524294d880ddb47adba, type: 3}
       propertyPath: acceleration
-      value: 40
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 7193829833554548331, guid: f174631fb35f0524294d880ddb47adba, type: 3}
       propertyPath: angularSpeed
@@ -4924,6 +4948,14 @@ PrefabInstance:
     - target: {fileID: 7429029430669918896, guid: f174631fb35f0524294d880ddb47adba, type: 3}
       propertyPath: m_RootOrder
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7483181017815665517, guid: f174631fb35f0524294d880ddb47adba, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7488676583679099304, guid: f174631fb35f0524294d880ddb47adba, type: 3}
+      propertyPath: m_Drag
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7537384216095097880, guid: f174631fb35f0524294d880ddb47adba, type: 3}
       propertyPath: m_RootOrder
