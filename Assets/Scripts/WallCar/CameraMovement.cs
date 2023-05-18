@@ -17,10 +17,14 @@ public class CameraMovement : MonoBehaviour
 
     public Transform trueCameraTransform;
     public float LERPFactor = 0.1f;
+    private float currentLERPFactor = 1f;
+
+    public Renderer carRenderer;
 
     private void Awake()
     {
         savedLocalPosition = cameraTargetTransform.localPosition;
+        currentLERPFactor = LERPFactor;
     }
 
     void FixedUpdate()
@@ -35,8 +39,8 @@ public class CameraMovement : MonoBehaviour
         else
             NormalModeUpdate();
 
-        trueCameraTransform.position = Vector3.Lerp(trueCameraTransform.position, cameraTargetTransform.position, LERPFactor);
-        trueCameraTransform.rotation = Quaternion.Lerp(trueCameraTransform.rotation, cameraTargetTransform.rotation, LERPFactor);
+        trueCameraTransform.position = Vector3.Lerp(trueCameraTransform.position, cameraTargetTransform.position, currentLERPFactor);
+        trueCameraTransform.rotation = Quaternion.Lerp(trueCameraTransform.rotation, cameraTargetTransform.rotation, currentLERPFactor);
     }
 
     private void SwichToFreeMode() {
@@ -47,14 +51,23 @@ public class CameraMovement : MonoBehaviour
 
     private void SwitchToNormalMode()
     {
+        currentLERPFactor = LERPFactor;
         freeMode = false;
         cameraTargetTransform.parent = holder;
         cameraTargetTransform.localPosition = savedLocalPosition;
         cameraTargetTransform.localRotation = Quaternion.identity;
+        carRenderer.enabled = true;
     }
 
     private void FreeModeUpdate()
     {
+        if (currentLERPFactor < 1)
+            currentLERPFactor += 0.05f;
+        else
+        {
+            currentLERPFactor = 1;
+            carRenderer.enabled = false;
+        }
         carTransform.Rotate(transform.up, Mouse.current.delta.value.x * senetivity * Time.deltaTime, Space.World);
         verticalRotation = Mathf.Clamp(verticalRotation - Mouse.current.delta.value.y * senetivity * Time.deltaTime, -90f, 90f);
         cameraTargetTransform.localRotation = Quaternion.Euler(verticalRotation, 0, 0);

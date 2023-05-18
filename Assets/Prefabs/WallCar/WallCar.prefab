@@ -89,6 +89,10 @@ PrefabInstance:
       value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 2216342148437422378, guid: 840c17fa1ad03714dbe8fbcf28117a51, type: 3}
+      propertyPath: carRenderer
+      value: 
+      objectReference: {fileID: 7483181017815665517}
+    - target: {fileID: 2216342148437422378, guid: 840c17fa1ad03714dbe8fbcf28117a51, type: 3}
       propertyPath: trueCameraTransform
       value: 
       objectReference: {fileID: 4573539277696795110}
@@ -101,6 +105,11 @@ PrefabInstance:
 --- !u!4 &1783333320242037835 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1902913060012558893, guid: 840c17fa1ad03714dbe8fbcf28117a51, type: 3}
+  m_PrefabInstance: {fileID: 204682251452354150}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &7483181017815665517 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7281955631227749643, guid: 840c17fa1ad03714dbe8fbcf28117a51, type: 3}
   m_PrefabInstance: {fileID: 204682251452354150}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3442435368362116047
