@@ -19,7 +19,7 @@ public class CameraMovement : MonoBehaviour
     public float LERPFactor = 0.1f;
     private float currentLERPFactor = 1f;
 
-    public Renderer carRenderer;
+    public List<Renderer> carRenderers;
 
     private void Awake()
     {
@@ -56,7 +56,8 @@ public class CameraMovement : MonoBehaviour
         cameraTargetTransform.parent = holder;
         cameraTargetTransform.localPosition = savedLocalPosition;
         cameraTargetTransform.localRotation = Quaternion.identity;
-        carRenderer.enabled = true;
+        foreach (Renderer carRenderer in carRenderers)
+            carRenderer.enabled = true;
     }
 
     private void FreeModeUpdate()
@@ -66,7 +67,8 @@ public class CameraMovement : MonoBehaviour
         else
         {
             currentLERPFactor = 1;
-            carRenderer.enabled = false;
+            foreach (Renderer carRenderer in carRenderers)
+                carRenderer.enabled = false;
         }
         carTransform.Rotate(transform.up, Mouse.current.delta.value.x * senetivity * Time.deltaTime, Space.World);
         verticalRotation = Mathf.Clamp(verticalRotation - Mouse.current.delta.value.y * senetivity * Time.deltaTime, -90f, 90f);
