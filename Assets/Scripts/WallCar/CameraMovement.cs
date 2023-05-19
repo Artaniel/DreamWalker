@@ -40,7 +40,7 @@ public class CameraMovement : MonoBehaviour
             NormalModeUpdate();
 
         trueCameraTransform.position = Vector3.Lerp(trueCameraTransform.position, cameraTargetTransform.position, currentLERPFactor);
-        trueCameraTransform.rotation = Quaternion.Lerp(trueCameraTransform.rotation, cameraTargetTransform.rotation, currentLERPFactor);
+        trueCameraTransform.rotation = Quaternion.Lerp(trueCameraTransform.rotation, cameraTargetTransform.rotation, LERPFactor);
     }
 
     private void SwichToFreeMode() {
