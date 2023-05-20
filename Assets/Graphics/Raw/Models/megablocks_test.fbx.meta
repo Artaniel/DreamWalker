@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e6695ffccb0fa9b4297b4bd0463ff1ed
+guid: e59fe082a22396e438e5bb4cc8c23a5c
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -7,8 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Cityblocks1
-    second: {fileID: 2100000, guid: 3501a10360e870845a9a21e4db03d445, type: 2}
+      name: Material.001
+    second: {fileID: 2100000, guid: fac4fdd1609031f4e9d7600acffd204a, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
