@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class WallCar : MonoBehaviour
 {
     public Transform[] groundCheckPoints;
+    public Transform[] forwardRaycastSet;
 
     private bool isOnSurface = false;
     private float speed = 0f;
@@ -17,6 +18,7 @@ public class WallCar : MonoBehaviour
     public Transform cameraHolder;
     private Rigidbody carRigidbody;
     private Vector3 normalSumm;
+    public float criticalAngle = 20f;
 
     public Transform hoverPoint;
     public float hoverHight = 0.5f;
@@ -26,7 +28,7 @@ public class WallCar : MonoBehaviour
     private bool isFlying = false;
     private float airTimer = 0f;
     private float airTime = 0.25f;
-    private bool airBlocksSurfacecheck = false;
+    private bool isJustJumped = false;
 
     private float jumpPower = 0;
     private float maxJumpPower = 200f;
@@ -45,7 +47,7 @@ public class WallCar : MonoBehaviour
     private void FixedUpdate()
     {
         FlyCheck();
-        if (!airBlocksSurfacecheck)
+        if (!isJustJumped)
         {
             SurfaceCheck();
             if (isOnSurface)
@@ -64,33 +66,42 @@ public class WallCar : MonoBehaviour
 
     private void SurfaceCheck()
     {
-        bool touchPointFound = false;
-        normalSumm = Vector3.zero;
+        isOnSurface = false;
+        List<Transform> raycasts = new List<Transform>(groundCheckPoints);
+        if (Keyboard.current.wKey.isPressed)
+            foreach (Transform raycast in forwardRaycastSet)
+                raycasts.Add(raycast);
 
-        foreach (Transform groundCheckPoint in groundCheckPoints)
+        foreach (Transform raycast in raycasts)
         {
-            bool thisIsTorching = false;
-            Vector3 foundNormal = Vector3.zero;
-            foreach (RaycastHit hit in Physics.RaycastAll(groundCheckPoint.position, groundCheckPoint.forward, 1f))
-                if (hit.collider.tag != "Player")
-                {
-                    thisIsTorching = true;
-                    foundNormal = hit.normal;
-                    break;
-                }
-            if (thisIsTorching)
+            Vector3 normal;
+            if (IsHittingSurface(Physics.RaycastAll(raycast.position, raycast.forward, 1f), out normal))
             {
-                touchPointFound = true;
-                normalSumm += foundNormal;
-                Debug.DrawRay(groundCheckPoint.position, groundCheckPoint.forward, Color.green);
+                isOnSurface = true;
+                normalSumm += normal;
+                Debug.DrawRay(raycast.position, raycast.forward, Color.green);
             }
             else
             {
-                Debug.DrawRay(groundCheckPoint.position, groundCheckPoint.forward, Color.red);
+                Debug.DrawRay(raycast.position, raycast.forward, Color.red);
             }
-        }
+        }                
+    }
 
-        isOnSurface = touchPointFound;
+    private bool IsHittingSurface(RaycastHit[] hits, out Vector3 normal) {
+        foreach (RaycastHit hit in hits)
+            if (hit.collider.tag != "Player")
+            {
+                normal = hit.normal;
+                return true;
+            }
+        normal = Vector3.zero;
+        return false;
+    }
+
+    private void SpherecastCheck() {  //now not used
+        if (IsHittingSurface(Physics.SphereCastAll(transform.position + transform.up * 2, 2f, -transform.up, 4f), out Vector3 normal))
+            normalSumm += normal;
     }
 
     private void Move() {
@@ -123,7 +134,10 @@ public class WallCar : MonoBehaviour
         Vector3 currentUpDirection = transform.up;
         Debug.DrawRay(transform.position, currentUpDirection, Color.black);
         float angle = Vector3.Angle(currentUpDirection, normalSumm);
-        angle = Mathf.Min(angle, angularSpeed * Time.deltaTime);
+        if (angle<criticalAngle)
+            angle = 0.01f * angle;
+        else
+            angle = Mathf.Min(angle, angularSpeed * Time.deltaTime);
         Vector3 axis = Vector3.Cross(currentUpDirection, normalSumm);
         Debug.DrawRay(transform.position, axis, Color.magenta);
         transform.Rotate(axis, angle, Space.World);
@@ -162,11 +176,11 @@ public class WallCar : MonoBehaviour
 
     private void FlyCheck()
     {
-        if (airBlocksSurfacecheck)
+        if (isJustJumped)
         {
             airTimer += Time.deltaTime;
             if (airTimer >= airTime)
-                airBlocksSurfacecheck = false;
+                isJustJumped = false;
         }
     }
 
@@ -199,7 +213,7 @@ public class WallCar : MonoBehaviour
         else
             carRigidbody.velocity += transform.up * jumpPower;
         airTimer = 0f;
-        airBlocksSurfacecheck = true;
+        isJustJumped = true;
         lastGroundPoint = Vector3.zero;
     }
 }
