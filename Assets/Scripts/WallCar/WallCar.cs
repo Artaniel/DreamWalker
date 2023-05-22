@@ -34,6 +34,7 @@ public class WallCar : MonoBehaviour
     private bool isRisingJumpPower = false;
     private CameraMovement cameraRotation;
 
+    public SpiderLeg[] legs;
 
     private void Awake()
     {
@@ -47,7 +48,8 @@ public class WallCar : MonoBehaviour
         FlyCheck();
         if (!airBlocksSurfacecheck)
         {
-            SurfaceCheck();
+            //SurfaceCheck();
+            LegSurfaceCheck();
             if (isOnSurface)
             {
                 isFlying = false;
@@ -201,5 +203,17 @@ public class WallCar : MonoBehaviour
         airTimer = 0f;
         airBlocksSurfacecheck = true;
         lastGroundPoint = Vector3.zero;
+    }
+
+    private void LegSurfaceCheck()
+    {
+        normalSumm = Vector3.zero;
+        foreach (SpiderLeg leg in legs)
+        {
+            if (leg.torchingGround)
+                normalSumm += leg.currentNormal;
+        }
+
+        isOnSurface = normalSumm != Vector3.zero;
     }
 }
