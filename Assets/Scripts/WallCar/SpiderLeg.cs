@@ -8,7 +8,7 @@ public class SpiderLeg : MonoBehaviour
     public Transform legTransform;
     public Transform spiderBody;
     public Transform[] surfaceFindingPathNeutral;
-    public Transform[] surfaceFindingPathForward;
+    //public Transform[] surfaceFindingPathForward;
     [HideInInspector] public Vector3 currentNormal;
     public float minStepLenght = 1f;
     public float maxStepLenght = 5f;
@@ -24,16 +24,25 @@ public class SpiderLeg : MonoBehaviour
         RaycastHit hit;
         if (CheckPath(surfaceFindingPathNeutral, out hit))
         {
-            if (Vector3.Distance(hit.point, legTransform.position) > minStepLenght || !torchingGround) {
+            if (Vector3.Distance(hit.point, legTransform.position) > minStepLenght || !torchingGround)
+            {
                 currentNormal = hit.normal;
                 legTransform.position = hit.point;
                 torchingGround = true;
                 //rotation? vfx? sfx?
-            } else if (Vector3.Distance(wallCar.transform.position, transform.position) > maxStepLenght) {
-                currentNormal = Vector3.zero;
-                legTransform.position = wallCar.transform.position;
             }
         }
+        if (Vector3.Distance(wallCar.transform.position, legTransform.position) > maxStepLenght)
+        {
+            Disconnect();
+        }
+    }
+
+    private void Disconnect()
+    {
+        currentNormal = Vector3.zero;
+        torchingGround = false;
+
     }
 
     private bool CheckPath(Transform[] path, out RaycastHit foundHit) {
@@ -43,8 +52,13 @@ public class SpiderLeg : MonoBehaviour
                 Vector3.Distance(path[i].position, path[i + 1].position));
             if (GetHitFromArray(hits, out foundHit))
             {
-                Debug.DrawRay(foundHit.point, foundHit.normal, Color.cyan);
+                Debug.DrawLine(path[i].position, path[i + 1].position, Color.green);
+                Debug.DrawRay(legTransform.position, currentNormal, Color.cyan);
                 return true;
+            }
+            else
+            {
+                Debug.DrawLine(path[i].position, path[i + 1].position, Color.red);
             }
         }
         foundHit = new RaycastHit(); //empty
