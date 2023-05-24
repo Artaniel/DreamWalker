@@ -67,7 +67,7 @@ public class SpiderLeg : MonoBehaviour
 
     private bool GetHitFromArray(RaycastHit[] hits, out RaycastHit foundHit) {
         foreach (RaycastHit hit in hits)
-            if (hit.collider.tag != "Player")
+            if (hit.collider.tag != "Player" && !hit.collider.isTrigger)
             {
                 foundHit = hit;
                 return true;
