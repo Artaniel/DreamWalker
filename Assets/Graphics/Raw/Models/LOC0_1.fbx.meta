@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: cd1afd40d8276724b897cbe90a247759
+guid: d446305ba6f8a6e4289160bc0f42aba3
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -22,8 +22,13 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Megablocks1
+    second: {fileID: 2100000, guid: fac4fdd1609031f4e9d7600acffd204a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: TilableMat1
-    second: {fileID: 2100000, guid: 0cd8ff49dd6b3d3489ebf1f8f83dbdca, type: 2}
+    second: {fileID: 2100000, guid: 3765fb34bd0efec439e25f9503aa7c20, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -62,7 +67,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
     importVisibility: 1
