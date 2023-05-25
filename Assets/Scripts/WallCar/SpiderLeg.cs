@@ -14,6 +14,10 @@ public class SpiderLeg : MonoBehaviour
     public float maxStepLenght = 5f;
     public bool torchingGround = false;
 
+    public Transform sholder;
+    public Transform legModel;
+    private const float defaultLegModelLength = 0.8f;
+
     private void Awake()
     {
         
@@ -36,6 +40,7 @@ public class SpiderLeg : MonoBehaviour
         {
             Disconnect();
         }
+        UpdateModelTransform();
     }
 
     private void Disconnect()
@@ -74,5 +79,11 @@ public class SpiderLeg : MonoBehaviour
             }
         foundHit = new RaycastHit();
         return false;
+    }
+
+    private void UpdateModelTransform() {
+        sholder.LookAt(legTransform.position);
+        sholder.Rotate(transform.forward, -90f);
+        legModel.localScale = new Vector3(1f, Vector3.Distance(sholder.position, legTransform.position) * defaultLegModelLength , 1f);
     }
 }

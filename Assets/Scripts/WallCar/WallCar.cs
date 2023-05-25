@@ -212,8 +212,7 @@ public class WallCar : MonoBehaviour
         {
             if (leg.torchingGround)
                 normalSumm += leg.currentNormal;
-        }
-        Debug.Log(normalSumm);
+        }        
         isOnSurface = (normalSumm != Vector3.zero);
     }
 }
