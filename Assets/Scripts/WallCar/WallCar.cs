@@ -26,7 +26,7 @@ public class WallCar : MonoBehaviour
     private bool isFlying = false;
     private float airTimer = 0f;
     private float airTime = 0.25f;
-    private bool airBlocksSurfacecheck = false;
+    [HideInInspector] public bool airBlocksSurfacecheck = false;
 
     private float jumpPower = 0;
     private float maxJumpPower = 200f;
@@ -203,6 +203,9 @@ public class WallCar : MonoBehaviour
         airTimer = 0f;
         airBlocksSurfacecheck = true;
         lastGroundPoint = Vector3.zero;
+
+        foreach (SpiderLeg leg in legs)
+            leg.Disconnect();
     }
 
     private void LegSurfaceCheck()

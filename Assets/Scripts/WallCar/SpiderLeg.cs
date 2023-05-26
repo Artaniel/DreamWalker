@@ -8,7 +8,6 @@ public class SpiderLeg : MonoBehaviour
     public Transform legTransform;
     public Transform spiderBody;
     public Transform[] surfaceFindingPathNeutral;
-    //public Transform[] surfaceFindingPathForward;
     [HideInInspector] public Vector3 currentNormal;
     public float minStepLenght = 1f;
     public float maxStepLenght = 5f;
@@ -18,36 +17,46 @@ public class SpiderLeg : MonoBehaviour
     public Transform legModel;
     private const float defaultLegModelLength = 0.8f;
 
+    private Quaternion sholderDefaultRotation;
+    private Vector3 legDefaultScale;
+
+
     private void Awake()
     {
-        
+        sholderDefaultRotation = sholder.localRotation;
+        legDefaultScale = legModel.localScale;
     }
 
     void FixedUpdate()
     {
-        RaycastHit hit;
-        if (CheckPath(surfaceFindingPathNeutral, out hit))
+        if (!wallCar.airBlocksSurfacecheck)
         {
-            if (Vector3.Distance(hit.point, legTransform.position) > minStepLenght || !torchingGround)
+            RaycastHit hit;
+            if (CheckPath(surfaceFindingPathNeutral, out hit))
             {
-                currentNormal = hit.normal;
-                legTransform.position = hit.point;
-                torchingGround = true;
-                //rotation? vfx? sfx?
+                if (Vector3.Distance(hit.point, legTransform.position) > minStepLenght || !torchingGround)
+                {
+                    currentNormal = hit.normal;
+                    legTransform.position = hit.point;
+                    torchingGround = true;
+                    //rotation? vfx? sfx?
+                }
+            }
+            if (Vector3.Distance(wallCar.transform.position, legTransform.position) > maxStepLenght)
+            {
+                Disconnect();
             }
         }
-        if (Vector3.Distance(wallCar.transform.position, legTransform.position) > maxStepLenght)
-        {
-            Disconnect();
-        }
-        UpdateModelTransform();
+        if (torchingGround)
+            UpdateModelTransform();
     }
 
-    private void Disconnect()
+    public void Disconnect()
     {
         currentNormal = Vector3.zero;
         torchingGround = false;
-
+        sholder.localRotation = sholderDefaultRotation;
+        legModel.localScale = legDefaultScale;
     }
 
     private bool CheckPath(Transform[] path, out RaycastHit foundHit) {
