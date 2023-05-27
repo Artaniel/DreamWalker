@@ -20,6 +20,8 @@ public class SpiderLeg : MonoBehaviour
     private Quaternion sholderDefaultRotation;
     private Vector3 legDefaultScale;
 
+    public int syncIndex;
+    private Vector3 visualLegPosition;
 
     private void Awake()
     {
@@ -91,8 +93,13 @@ public class SpiderLeg : MonoBehaviour
     }
 
     private void UpdateModelTransform() {
-        sholder.LookAt(legTransform.position);
+        sholder.LookAt(visualLegPosition);
         sholder.Rotate(transform.forward, -90f);
-        legModel.localScale = new Vector3(1f, Vector3.Distance(sholder.position, legTransform.position) * defaultLegModelLength , 1f);
+        legModel.localScale = new Vector3(1f, Vector3.Distance(sholder.position, visualLegPosition) * defaultLegModelLength , 1f);
+    }
+
+    public void SyncStep() {
+        if (wallCar.legSyncPhase == syncIndex)
+            visualLegPosition = legTransform.position;
     }
 }

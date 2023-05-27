@@ -35,6 +35,10 @@ public class WallCar : MonoBehaviour
     private CameraMovement cameraRotation;
 
     public SpiderLeg[] legs;
+    [HideInInspector] public int legSyncPhase = 0;
+    private float legSyncTimer = 0f;
+    public float legSyncPeriod = 0.1f;
+
 
     private void Awake()
     {
@@ -62,6 +66,7 @@ public class WallCar : MonoBehaviour
                 Hover();
         }
         SurfaceRotate();
+        LegSyncUpdate();
     }
 
     private void SurfaceCheck()
@@ -217,5 +222,16 @@ public class WallCar : MonoBehaviour
                 normalSumm += leg.currentNormal;
         }        
         isOnSurface = (normalSumm != Vector3.zero);
+    }
+
+    public void LegSyncUpdate() {
+        legSyncTimer += Time.deltaTime;
+        if (legSyncTimer > legSyncPeriod)
+        {
+            legSyncTimer -= legSyncPeriod;
+            legSyncPhase  = (legSyncPhase+1)% 2;
+            foreach (SpiderLeg leg in legs) 
+                leg.SyncStep();            
+        }
     }
 }
