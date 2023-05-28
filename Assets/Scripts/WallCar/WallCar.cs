@@ -15,7 +15,7 @@ public class WallCar : MonoBehaviour
     public float angularSpeed = 90f;
     public float slowDownFactor = 0.9f;
     public Transform cameraHolder;
-    private Rigidbody carRigidbody;
+    [HideInInspector] public Rigidbody carRigidbody;
     private Vector3 normalSumm;
 
     public Transform hoverPoint;
@@ -39,6 +39,7 @@ public class WallCar : MonoBehaviour
     private float legSyncTimer = 0f;
     public float legSyncPeriod = 0.1f;
 
+    [HideInInspector] public Vector2 moveInput = Vector2.zero;
 
     private void Awake()
     {
@@ -49,6 +50,7 @@ public class WallCar : MonoBehaviour
 
     private void FixedUpdate()
     {
+        InputUpdate();
         FlyCheck();
         if (!airBlocksSurfacecheck)
         {
@@ -100,20 +102,16 @@ public class WallCar : MonoBehaviour
         isOnSurface = touchPointFound;
     }
 
-    private void Move() {
-        if (Keyboard.current.wKey.isPressed)
-            speed = Mathf.Clamp(speed + acceleration * Time.deltaTime, -maxSpeed, maxSpeed);
-        else if (Keyboard.current.sKey.isPressed)
-            speed = Mathf.Clamp(speed - acceleration * Time.deltaTime, -maxSpeed, maxSpeed);
+    private void Move()
+    {
+        if (moveInput.y != 0)
+            speed = Mathf.Clamp(speed + moveInput.y * acceleration * Time.deltaTime, -maxSpeed, maxSpeed);
         else
             speed = slowDownFactor * speed; //slow down from forward and back
-
-        if (Keyboard.current.dKey.isPressed)
-            strafeSpeed = Mathf.Clamp(strafeSpeed + acceleration * Time.deltaTime, -maxSpeed, maxSpeed);
-        else if (Keyboard.current.aKey.isPressed)
-            strafeSpeed = Mathf.Clamp(strafeSpeed - acceleration * Time.deltaTime, -maxSpeed, maxSpeed);
+        if (moveInput.x != 0)
+            strafeSpeed = Mathf.Clamp(strafeSpeed + moveInput.x * acceleration * Time.deltaTime, -maxSpeed, maxSpeed);
         else
-            strafeSpeed = slowDownFactor * strafeSpeed;
+            strafeSpeed = slowDownFactor * strafeSpeed; 
 
         carRigidbody.velocity = transform.forward * speed + transform.right * strafeSpeed;
     }
@@ -233,5 +231,22 @@ public class WallCar : MonoBehaviour
             foreach (SpiderLeg leg in legs) 
                 leg.SyncStep();            
         }
+    }
+
+    private void InputUpdate() {
+        moveInput = Vector2.zero;
+        if (Keyboard.current.wKey.isPressed)
+            moveInput += Vector2.up;
+        if (Keyboard.current.sKey.isPressed)
+            moveInput += Vector2.down;
+        if (Keyboard.current.aKey.isPressed)
+            moveInput += Vector2.left;
+        if (Keyboard.current.dKey.isPressed)
+            moveInput += Vector2.right;
+    }
+
+    public Vector3 GetInputForvardPosition() {
+        //return (moveInput.y * transform.forward + moveInput.x * transform.right) * maxSpeed / 4f;
+        return carRigidbody.velocity * 0.3f;
     }
 }

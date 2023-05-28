@@ -34,7 +34,7 @@ public class SpiderLeg : MonoBehaviour
         if (!wallCar.airBlocksSurfacecheck)
         {
             RaycastHit hit;
-            if (CheckPath(surfaceFindingPathNeutral, wallCar.transform.forward * 1f, out hit))
+            if (CheckPath(surfaceFindingPathNeutral,  wallCar.GetInputForvardPosition(), out hit))
             {
                 if (Vector3.Distance(hit.point, legTransform.position) > minStepLenght || !torchingGround)
                 {

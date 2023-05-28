@@ -273,7 +273,7 @@ MonoBehaviour:
   - {fileID: 6576686462181048142}
   currentNormal: {x: 0, y: 0, z: 0}
   minStepLenght: 1
-  maxStepLenght: 3
+  maxStepLenght: 5
   torchingGround: 0
   sholder: {fileID: 1671337867550715162}
   legModel: {fileID: 1671337865787132750}
@@ -447,7 +447,7 @@ MonoBehaviour:
   - {fileID: 212178060840259518}
   currentNormal: {x: 0, y: 0, z: 0}
   minStepLenght: 1
-  maxStepLenght: 3
+  maxStepLenght: 5
   torchingGround: 0
   sholder: {fileID: 1592260889758887310}
   legModel: {fileID: 1592260889043618778}
@@ -549,6 +549,7 @@ MonoBehaviour:
   - {fileID: 8551280065116864731}
   legSyncPhase: 0
   legSyncPeriod: 0.2
+  moveInput: {x: 0, y: 0}
 --- !u!114 &2023569910071017292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -664,7 +665,7 @@ MonoBehaviour:
   - {fileID: 361693365685864144}
   currentNormal: {x: 0, y: 0, z: 0}
   minStepLenght: 1
-  maxStepLenght: 3
+  maxStepLenght: 5
   torchingGround: 0
   sholder: {fileID: 6783650900648151932}
   legModel: {fileID: 6783650902697209128}
@@ -1117,7 +1118,7 @@ MonoBehaviour:
   - {fileID: 5368716541470389744}
   currentNormal: {x: 0, y: 0, z: 0}
   minStepLenght: 1
-  maxStepLenght: 3
+  maxStepLenght: 5
   torchingGround: 0
   sholder: {fileID: 7422120872854579493}
   legModel: {fileID: 7422120874026749809}
@@ -1806,7 +1807,7 @@ MonoBehaviour:
   - {fileID: 8084788611505557888}
   currentNormal: {x: 0, y: 0, z: 0}
   minStepLenght: 1
-  maxStepLenght: 3
+  maxStepLenght: 5
   torchingGround: 0
   sholder: {fileID: 6619744824413499579}
   legModel: {fileID: 6619744823962736367}
@@ -2711,7 +2712,7 @@ PrefabInstance:
       objectReference: {fileID: 1783333320242037835}
     - target: {fileID: 7837366855391472669, guid: 818f31ee4a828bb42bc9d3dd97387187, type: 3}
       propertyPath: maxStepLenght
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7837366855391472669, guid: 818f31ee4a828bb42bc9d3dd97387187, type: 3}
       propertyPath: surfaceFindingPathNeutral.Array.data[0]
