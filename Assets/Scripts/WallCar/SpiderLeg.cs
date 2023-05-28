@@ -34,7 +34,7 @@ public class SpiderLeg : MonoBehaviour
         if (!wallCar.airBlocksSurfacecheck)
         {
             RaycastHit hit;
-            if (CheckPath(surfaceFindingPathNeutral, out hit))
+            if (CheckPath(surfaceFindingPathNeutral, wallCar.transform.forward * 1f, out hit))
             {
                 if (Vector3.Distance(hit.point, legTransform.position) > minStepLenght || !torchingGround)
                 {
@@ -61,20 +61,20 @@ public class SpiderLeg : MonoBehaviour
         legModel.localScale = legDefaultScale;
     }
 
-    private bool CheckPath(Transform[] path, out RaycastHit foundHit) {
+    private bool CheckPath(Transform[] path, Vector3 addedVector, out RaycastHit foundHit) {
         RaycastHit[] hits;      
         for (int i = 0; i < path.Length-1; i++) {
-            hits = Physics.RaycastAll(path[i].position, path[i + 1].position - path[i].position, 
+            hits = Physics.RaycastAll(path[i].position + addedVector, path[i + 1].position - path[i].position, 
                 Vector3.Distance(path[i].position, path[i + 1].position));
             if (GetHitFromArray(hits, out foundHit))
             {
-                Debug.DrawLine(path[i].position, path[i + 1].position, Color.green);
+                Debug.DrawLine(path[i].position + addedVector, path[i + 1].position + addedVector, Color.green);
                 Debug.DrawRay(legTransform.position, currentNormal, Color.cyan);
                 return true;
             }
             else
             {
-                Debug.DrawLine(path[i].position, path[i + 1].position, Color.red);
+                Debug.DrawLine(path[i].position + addedVector, path[i + 1].position + addedVector, Color.red);
             }
         }
         foundHit = new RaycastHit(); //empty
