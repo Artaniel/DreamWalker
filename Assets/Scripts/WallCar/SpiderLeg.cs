@@ -10,7 +10,7 @@ public class SpiderLeg : MonoBehaviour
     public Transform[] surfaceFindingPathNeutral;
     [HideInInspector] public Vector3 currentNormal;
     public float minStepLenght = 1f;
-    public float maxStepLenght = 5f;
+    private float maxStepLenght = 5f;
     public bool torchingGround = false;
 
     public Transform sholder;
@@ -23,18 +23,24 @@ public class SpiderLeg : MonoBehaviour
     public int syncIndex;
     private Vector3 visualLegPosition;
 
+    public float aboveKneeLength = 2.5f;
+    public float beloveKneeLength = 2.5f;
+    public Transform kneeTransform;
+
     private void Awake()
     {
+        maxStepLenght = aboveKneeLength + beloveKneeLength;
         sholderDefaultRotation = sholder.localRotation;
         legDefaultScale = legModel.localScale;
     }
 
     void FixedUpdate()
     {
+        maxStepLenght = aboveKneeLength + beloveKneeLength; // for debug only
         if (!wallCar.airBlocksSurfacecheck)
         {
             RaycastHit hit;
-            if (CheckPath(surfaceFindingPathNeutral,  wallCar.GetInputForvardPosition(), out hit))
+            if (CheckPath(surfaceFindingPathNeutral, wallCar.GetInputForvardPosition(), out hit))
             {
                 if (Vector3.Distance(hit.point, legTransform.position) > minStepLenght || !torchingGround)
                 {
@@ -101,5 +107,18 @@ public class SpiderLeg : MonoBehaviour
     public void SyncStep() {
         if (wallCar.legSyncPhase == syncIndex)
             visualLegPosition = legTransform.position;
+    }
+
+    public void UpdateKnee() {
+        Vector3 legSurfaceNormal = Vector3.Cross(wallCar.transform.up, legModel.position - sholder.position).normalized;
+        float sholderToFootDist = (legModel.position - sholder.position).magnitude;
+        float kneeRisingAngleCos = (sholderToFootDist* sholderToFootDist + aboveKneeLength*aboveKneeLength - beloveKneeLength*beloveKneeLength)/
+            (2* aboveKneeLength* sholderToFootDist);
+        float kneeRisingAngleSin = Mathf.Sqrt(1 - (kneeRisingAngleCos * kneeRisingAngleCos));
+        Quaternion rotation = new Quaternion(legSurfaceNormal.x * kneeRisingAngleSin, legSurfaceNormal.y * kneeRisingAngleSin, 
+            legSurfaceNormal.z * kneeRisingAngleSin, kneeRisingAngleCos);
+        Vector3 kneePosition = sholder.position + (rotation * (legModel.position - sholder.position).normalized)*beloveKneeLength;
+        kneeTransform.position = kneePosition;
+        kneeTransform.LookAt(legModel);
     }
 }
