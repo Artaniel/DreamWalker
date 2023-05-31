@@ -13,8 +13,6 @@ public class SpiderLeg : MonoBehaviour
     private float maxStepLenght = 5f;
     public bool torchingGround = false;
 
-    public Transform sholder;
-    public Transform legModel;
     private const float defaultLegModelLength = 0.8f;
 
     private Quaternion sholderDefaultRotation;
@@ -24,19 +22,22 @@ public class SpiderLeg : MonoBehaviour
     private Vector3 visualLegPosition;
 
     public float aboveKneeLength = 2.5f;
-    public float beloveKneeLength = 2.5f;
+    public float belowKneeLength = 2.5f;
+    public Transform sholder;
+    public Transform legModel;
     public Transform kneeTransform;
+    public Transform legLowerModel;
 
     private void Awake()
     {
-        maxStepLenght = aboveKneeLength + beloveKneeLength;
+        maxStepLenght = aboveKneeLength + belowKneeLength;
         sholderDefaultRotation = sholder.localRotation;
         legDefaultScale = legModel.localScale;
     }
 
     void FixedUpdate()
     {
-        maxStepLenght = aboveKneeLength + beloveKneeLength; // for debug only
+        maxStepLenght = aboveKneeLength + belowKneeLength; // for debug only
         if (!wallCar.airBlocksSurfacecheck)
         {
             RaycastHit hit;
@@ -99,9 +100,28 @@ public class SpiderLeg : MonoBehaviour
     }
 
     private void UpdateModelTransform() {
-        sholder.LookAt(visualLegPosition);
-        sholder.Rotate(transform.forward, -90f);
-        legModel.localScale = new Vector3(1f, Vector3.Distance(sholder.position, visualLegPosition) * defaultLegModelLength , 1f);
+        UpdateKnee();
+        sholder.LookAt(kneeTransform.position);
+        sholder.Rotate(sholder.forward, -90f);
+        kneeTransform.LookAt(visualLegPosition);
+        //kneeTransform.Rotate(transform.forward, -90f);
+        legModel.localScale = new Vector3(1f, Vector3.Distance(sholder.position, kneeTransform.position) * defaultLegModelLength, 1f);
+        legLowerModel.localScale = new Vector3(1f, Vector3.Distance(visualLegPosition, kneeTransform.position) * defaultLegModelLength, 1f);
+    }
+    public void UpdateKnee()
+    {
+        Vector3 legSurfaceNormal = Vector3.Cross(wallCar.transform.up, visualLegPosition - sholder.position).normalized;
+        float sholderToFootDist = (visualLegPosition - sholder.position).magnitude;
+        float kneeRisingAngleCos = (sholderToFootDist * sholderToFootDist + aboveKneeLength * aboveKneeLength - belowKneeLength * belowKneeLength) /
+            (2 * aboveKneeLength * sholderToFootDist);
+        float kneeRisingAngleSin = Mathf.Sqrt(1 - (kneeRisingAngleCos * kneeRisingAngleCos));
+        Quaternion rotation = new Quaternion(legSurfaceNormal.x * kneeRisingAngleSin, legSurfaceNormal.y * kneeRisingAngleSin,
+            legSurfaceNormal.z * kneeRisingAngleSin, kneeRisingAngleCos);
+        Debug.Log(kneeRisingAngleCos);
+        Vector3 kneePosition = rotation * (visualLegPosition - sholder.position).normalized;
+        kneePosition *= belowKneeLength;
+        kneePosition += sholder.position;
+        kneeTransform.position = kneePosition;
     }
 
     public void SyncStep() {
@@ -109,16 +129,4 @@ public class SpiderLeg : MonoBehaviour
             visualLegPosition = legTransform.position;
     }
 
-    public void UpdateKnee() {
-        Vector3 legSurfaceNormal = Vector3.Cross(wallCar.transform.up, legModel.position - sholder.position).normalized;
-        float sholderToFootDist = (legModel.position - sholder.position).magnitude;
-        float kneeRisingAngleCos = (sholderToFootDist* sholderToFootDist + aboveKneeLength*aboveKneeLength - beloveKneeLength*beloveKneeLength)/
-            (2* aboveKneeLength* sholderToFootDist);
-        float kneeRisingAngleSin = Mathf.Sqrt(1 - (kneeRisingAngleCos * kneeRisingAngleCos));
-        Quaternion rotation = new Quaternion(legSurfaceNormal.x * kneeRisingAngleSin, legSurfaceNormal.y * kneeRisingAngleSin, 
-            legSurfaceNormal.z * kneeRisingAngleSin, kneeRisingAngleCos);
-        Vector3 kneePosition = sholder.position + (rotation * (legModel.position - sholder.position).normalized)*beloveKneeLength;
-        kneeTransform.position = kneePosition;
-        kneeTransform.LookAt(legModel);
-    }
 }
