@@ -15,8 +15,6 @@ public class SpiderLeg : MonoBehaviour
 
     private const float defaultLegModelLength = 0.8f;
 
-    private Quaternion sholderDefaultRotation;
-    private Vector3 legDefaultScale;
 
     public int syncIndex;
     private Vector3 visualLegPosition;
@@ -27,12 +25,18 @@ public class SpiderLeg : MonoBehaviour
     public Transform legModel;
     public Transform kneeTransform;
     public Transform legLowerModel;
+    private Quaternion sholderDefaultRotation;
+    private Vector3 legDefaultScale;
+    private Quaternion kneeDefaultRotation;
+    private Vector3 kneeDefaultScale;
 
     private void Awake()
     {
-        maxStepLenght = aboveKneeLength + belowKneeLength;
+        maxStepLenght = (aboveKneeLength + belowKneeLength)*2f;
         sholderDefaultRotation = sholder.localRotation;
         legDefaultScale = legModel.localScale;
+        kneeDefaultRotation = kneeTransform.localRotation;
+        kneeDefaultScale = legLowerModel.localScale;
     }
 
     void FixedUpdate()
@@ -66,12 +70,14 @@ public class SpiderLeg : MonoBehaviour
         torchingGround = false;
         sholder.localRotation = sholderDefaultRotation;
         legModel.localScale = legDefaultScale;
+        kneeTransform.localRotation = kneeDefaultRotation;
+        legLowerModel.localScale = kneeDefaultScale;
     }
 
     private bool CheckPath(Transform[] path, Vector3 addedVector, out RaycastHit foundHit) {
-        RaycastHit[] hits;      
-        for (int i = 0; i < path.Length-1; i++) {
-            hits = Physics.RaycastAll(path[i].position + addedVector, path[i + 1].position - path[i].position, 
+        RaycastHit[] hits;
+        for (int i = 0; i < path.Length - 1; i++) {
+            hits = Physics.RaycastAll(path[i].position + addedVector, path[i + 1].position - path[i].position,
                 Vector3.Distance(path[i].position, path[i + 1].position));
             if (GetHitFromArray(hits, out foundHit))
             {
@@ -99,29 +105,35 @@ public class SpiderLeg : MonoBehaviour
         return false;
     }
 
-    private void UpdateModelTransform() {
-        UpdateKnee();
-        sholder.LookAt(kneeTransform.position);
-        sholder.Rotate(sholder.forward, -90f);
-        kneeTransform.LookAt(visualLegPosition);
-        //kneeTransform.Rotate(transform.forward, -90f);
-        legModel.localScale = new Vector3(1f, Vector3.Distance(sholder.position, kneeTransform.position) * defaultLegModelLength, 1f);
-        legLowerModel.localScale = new Vector3(1f, Vector3.Distance(visualLegPosition, kneeTransform.position) * defaultLegModelLength, 1f);
-    }
-    public void UpdateKnee()
+    private void UpdateModelTransform()
     {
         Vector3 legSurfaceNormal = Vector3.Cross(wallCar.transform.up, visualLegPosition - sholder.position).normalized;
-        float sholderToFootDist = (visualLegPosition - sholder.position).magnitude;
-        float kneeRisingAngleCos = (sholderToFootDist * sholderToFootDist + aboveKneeLength * aboveKneeLength - belowKneeLength * belowKneeLength) /
+        //Debug.DrawLine(sholder.position, sholder.position+legSurfaceNormal, Color.blue);
+        float sholderToFootDist = Vector3.Distance(visualLegPosition,sholder.position);
+        float kneeRisingAngleCos = ((sholderToFootDist * sholderToFootDist) + (aboveKneeLength * aboveKneeLength) - (belowKneeLength * belowKneeLength)) /
             (2 * aboveKneeLength * sholderToFootDist);
-        float kneeRisingAngleSin = Mathf.Sqrt(1 - (kneeRisingAngleCos * kneeRisingAngleCos));
-        Quaternion rotation = new Quaternion(legSurfaceNormal.x * kneeRisingAngleSin, legSurfaceNormal.y * kneeRisingAngleSin,
-            legSurfaceNormal.z * kneeRisingAngleSin, kneeRisingAngleCos);
-        Debug.Log(kneeRisingAngleCos);
-        Vector3 kneePosition = rotation * (visualLegPosition - sholder.position).normalized;
-        kneePosition *= belowKneeLength;
-        kneePosition += sholder.position;
-        kneeTransform.position = kneePosition;
+        if (kneeRisingAngleCos <= 1)
+        {
+            sholder.LookAt(visualLegPosition);
+            sholder.Rotate(legSurfaceNormal, Mathf.Acos(kneeRisingAngleCos) * 180 / Mathf.PI);
+            kneeTransform.position = sholder.transform.position + (sholder.transform.forward * aboveKneeLength);
+            if (Vector3.Angle(Vector3.Project(kneeTransform.position - sholder.position, wallCar.transform.up), wallCar.transform.up) > 90)
+            {
+                sholder.LookAt(visualLegPosition);
+                sholder.Rotate(-legSurfaceNormal, Mathf.Acos(kneeRisingAngleCos) * 180 / Mathf.PI);
+                kneeTransform.position = sholder.transform.position + (sholder.transform.forward * aboveKneeLength);
+            }
+            kneeTransform.LookAt(visualLegPosition);
+            sholder.LookAt(kneeTransform.position);
+            //Debug.DrawLine(sholder.position, kneeTransform.position, Color.blue);
+            //Debug.DrawLine(sholder.position, visualLegPosition, Color.blue);
+            //Debug.DrawLine(visualLegPosition, kneeTransform.position, Color.blue);
+            legModel.localScale = new Vector3(1f, Vector3.Distance(sholder.position, kneeTransform.position) * defaultLegModelLength, 1f);
+            legLowerModel.localScale = new Vector3(1f, Vector3.Distance(visualLegPosition, kneeTransform.position) * defaultLegModelLength, 1f);
+        }
+        else {
+            Disconnect();
+        }
     }
 
     public void SyncStep() {

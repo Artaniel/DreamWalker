@@ -136,7 +136,7 @@ public class WallCar : MonoBehaviour
 
     private void Hover()
     {
-        float raycastLength = 2f;
+        float raycastLength = 5f;
         Vector3 groundPoint = Vector3.zero;
         bool found = false;
         foreach (RaycastHit hit in Physics.RaycastAll(hoverPoint.position, hoverPoint.forward, raycastLength))
@@ -247,6 +247,6 @@ public class WallCar : MonoBehaviour
 
     public Vector3 GetInputForvardPosition() {
         //return (moveInput.y * transform.forward + moveInput.x * transform.right) * maxSpeed / 4f;
-        return carRigidbody.velocity * 0.3f;
+        return Vector3.ProjectOnPlane(carRigidbody.velocity * 0.2f, transform.up);
     }
 }
