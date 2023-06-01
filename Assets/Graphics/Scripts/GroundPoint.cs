@@ -2,10 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class XZ_holder : MonoBehaviour
+public class GroundPoint : MonoBehaviour
 {
-
-    public Transform trackingTransform;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,6 +13,6 @@ public class XZ_holder : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = new Vector3(trackingTransform.position.x, 0f, trackingTransform.position.z);
+        transform.position = new Vector3(transform.position.x, 0f, transform.position.z);
     }
 }
