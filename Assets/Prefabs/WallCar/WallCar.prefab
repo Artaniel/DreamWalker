@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 157367160539973796}
   m_LocalRotation: {x: 0.7071068, y: -0.000000029802322, z: 0.000000029802322, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0.4, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -272,10 +272,10 @@ MonoBehaviour:
   - {fileID: 7347586961192690686}
   - {fileID: 6576686462181048142}
   currentNormal: {x: 0, y: 0, z: 0}
-  minStepLenght: 1
+  minStepLenght: 2.9
   torchingGround: 0
   syncIndex: 0
-  aboveKneeLength: 2
+  aboveKneeLength: 1
   belowKneeLength: 3
   sholder: {fileID: 1671337867550715162}
   legModel: {fileID: 1671337865787132750}
@@ -449,10 +449,10 @@ MonoBehaviour:
   - {fileID: 4342319710319579918}
   - {fileID: 212178060840259518}
   currentNormal: {x: 0, y: 0, z: 0}
-  minStepLenght: 1
+  minStepLenght: 2.8
   torchingGround: 0
   syncIndex: 0
-  aboveKneeLength: 2
+  aboveKneeLength: 1
   belowKneeLength: 3
   sholder: {fileID: 1592260889758887310}
   legModel: {fileID: 1592260889043618778}
@@ -539,7 +539,7 @@ MonoBehaviour:
   - {fileID: 7302618595864759542}
   maxSpeed: 10
   acceleration: 5
-  angularSpeed: 180
+  angularSpeed: 270
   slowDownFactor: 0.9
   cameraHolder: {fileID: 7986188257952451946}
   carRigidbody: {fileID: 0}
@@ -576,7 +576,7 @@ MonoBehaviour:
   freeMode: 0
   senetivity: 20
   trueCameraTransform: {fileID: 4573539277696795110}
-  LERPFactor: 0.05
+  LERPFactor: 0.1
   carRenderers:
   - {fileID: 4347003141735086517}
   - {fileID: 6851211581369198074}
@@ -671,10 +671,10 @@ MonoBehaviour:
   - {fileID: 4302683824297810528}
   - {fileID: 361693365685864144}
   currentNormal: {x: 0, y: 0, z: 0}
-  minStepLenght: 1
+  minStepLenght: 2.6
   torchingGround: 0
   syncIndex: 1
-  aboveKneeLength: 2
+  aboveKneeLength: 1
   belowKneeLength: 3
   sholder: {fileID: 6783650900648151932}
   legModel: {fileID: 6783650902697209128}
@@ -949,7 +949,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4602831838519085714}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1133,10 +1133,10 @@ MonoBehaviour:
   - {fileID: 8373116570798287168}
   - {fileID: 5368716541470389744}
   currentNormal: {x: 0, y: 0, z: 0}
-  minStepLenght: 1
+  minStepLenght: 3.1
   torchingGround: 0
   syncIndex: 1
-  aboveKneeLength: 2
+  aboveKneeLength: 1
   belowKneeLength: 3
   sholder: {fileID: 7422120872854579493}
   legModel: {fileID: 7422120874026749809}
@@ -1825,10 +1825,10 @@ MonoBehaviour:
   - {fileID: 5656585450650651952}
   - {fileID: 8084788611505557888}
   currentNormal: {x: 0, y: 0, z: 0}
-  minStepLenght: 1
+  minStepLenght: 2.5
   torchingGround: 0
   syncIndex: 0
-  aboveKneeLength: 2
+  aboveKneeLength: 1
   belowKneeLength: 3
   sholder: {fileID: 6619744824413499579}
   legModel: {fileID: 6619744823962736367}
@@ -2982,8 +2982,12 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7837366855391472669, guid: 818f31ee4a828bb42bc9d3dd97387187, type: 3}
+      propertyPath: minStepLenght
+      value: 3.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7837366855391472669, guid: 818f31ee4a828bb42bc9d3dd97387187, type: 3}
       propertyPath: aboveKneeLength
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7837366855391472669, guid: 818f31ee4a828bb42bc9d3dd97387187, type: 3}
       propertyPath: belowKneeLength

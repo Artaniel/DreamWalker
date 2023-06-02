@@ -13,12 +13,10 @@ public class SpiderLeg : MonoBehaviour
     private float maxStepLenght = 5f;
     public bool torchingGround = false;
 
-    private const float defaultLegModelLength = 0.8f;
-
-
     public int syncIndex;
     private Vector3 visualLegPosition;
 
+    private const float defaultLegModelLength = 0.8f;
     public float aboveKneeLength = 2.5f;
     public float belowKneeLength = 2.5f;
     public Transform sholder;
@@ -29,6 +27,7 @@ public class SpiderLeg : MonoBehaviour
     private Vector3 legDefaultScale;
     private Quaternion kneeDefaultRotation;
     private Vector3 kneeDefaultScale;
+    private Vector3 kneeDefaultPosition;
 
     private void Awake()
     {
@@ -37,6 +36,7 @@ public class SpiderLeg : MonoBehaviour
         legDefaultScale = legModel.localScale;
         kneeDefaultRotation = kneeTransform.localRotation;
         kneeDefaultScale = legLowerModel.localScale;
+        kneeDefaultPosition = kneeTransform.localPosition;
     }
 
     void FixedUpdate()
@@ -72,6 +72,7 @@ public class SpiderLeg : MonoBehaviour
         legModel.localScale = legDefaultScale;
         kneeTransform.localRotation = kneeDefaultRotation;
         legLowerModel.localScale = kneeDefaultScale;
+        kneeTransform.localPosition = kneeDefaultPosition;
     }
 
     private bool CheckPath(Transform[] path, Vector3 addedVector, out RaycastHit foundHit) {
