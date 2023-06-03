@@ -109,26 +109,22 @@ public class SpiderLeg : MonoBehaviour
     private void UpdateModelTransform()
     {
         Vector3 legSurfaceNormal = Vector3.Cross(wallCar.transform.up, visualLegPosition - sholder.position).normalized;
-        //Debug.DrawLine(sholder.position, sholder.position+legSurfaceNormal, Color.blue);
         float sholderToFootDist = Vector3.Distance(visualLegPosition,sholder.position);
         float kneeRisingAngleCos = ((sholderToFootDist * sholderToFootDist) + (aboveKneeLength * aboveKneeLength) - (belowKneeLength * belowKneeLength)) /
             (2 * aboveKneeLength * sholderToFootDist);
         if (kneeRisingAngleCos <= 1)
         {
             sholder.LookAt(visualLegPosition);
-            sholder.Rotate(legSurfaceNormal, Mathf.Acos(kneeRisingAngleCos) * 180 / Mathf.PI);
+            sholder.Rotate(legSurfaceNormal, Mathf.Acos(kneeRisingAngleCos) * 180 / Mathf.PI,Space.World);
             kneeTransform.position = sholder.transform.position + (sholder.transform.forward * aboveKneeLength);
             if (Vector3.Angle(Vector3.Project(kneeTransform.position - sholder.position, wallCar.transform.up), wallCar.transform.up) > 90)
             {
                 sholder.LookAt(visualLegPosition);
-                sholder.Rotate(-legSurfaceNormal, Mathf.Acos(kneeRisingAngleCos) * 180 / Mathf.PI);
+                sholder.Rotate(-legSurfaceNormal, Mathf.Acos(kneeRisingAngleCos) * 180 / Mathf.PI, Space.World);
                 kneeTransform.position = sholder.transform.position + (sholder.transform.forward * aboveKneeLength);
             }
             kneeTransform.LookAt(visualLegPosition);
             sholder.LookAt(kneeTransform.position);
-            //Debug.DrawLine(sholder.position, kneeTransform.position, Color.blue);
-            //Debug.DrawLine(sholder.position, visualLegPosition, Color.blue);
-            //Debug.DrawLine(visualLegPosition, kneeTransform.position, Color.blue);
             legModel.localScale = new Vector3(1f, Vector3.Distance(sholder.position, kneeTransform.position) * defaultLegModelLength, 1f);
             legLowerModel.localScale = new Vector3(1f, Vector3.Distance(visualLegPosition, kneeTransform.position) * defaultLegModelLength, 1f);
         }
