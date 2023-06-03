@@ -80,7 +80,7 @@ public class SpiderLeg : MonoBehaviour
         for (int i = 0; i < path.Length - 1; i++) {
             hits = Physics.RaycastAll(path[i].position + addedVector, path[i + 1].position - path[i].position,
                 Vector3.Distance(path[i].position, path[i + 1].position));
-            if (GetHitFromArray(hits, out foundHit))
+            if (GetHitFromArray(hits, out foundHit, path[i].position + addedVector))
             {
                 Debug.DrawLine(path[i].position + addedVector, path[i + 1].position + addedVector, Color.green);
                 Debug.DrawRay(legTransform.position, currentNormal, Color.cyan);
@@ -95,14 +95,22 @@ public class SpiderLeg : MonoBehaviour
         return false; // if not found
     }
 
-    private bool GetHitFromArray(RaycastHit[] hits, out RaycastHit foundHit) {
+    private bool GetHitFromArray(RaycastHit[] hits, out RaycastHit foundHit, Vector3 source) {
+        Vector3 minDistPoint = Vector3.zero;
+        foundHit = new RaycastHit();
         foreach (RaycastHit hit in hits)
             if (hit.collider.tag != "Player" && !hit.collider.isTrigger)
             {
-                foundHit = hit;
-                return true;
+                if (minDistPoint == Vector3.zero || Vector3.Distance(minDistPoint, source) > Vector3.Distance(hit.point, source))
+                {
+                    foundHit = hit;
+                    minDistPoint = hit.point;
+                }
             }
-        foundHit = new RaycastHit();
+        if (minDistPoint != Vector3.zero)
+        {
+            return true;
+        }    
         return false;
     }
 
