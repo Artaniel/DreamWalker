@@ -142,7 +142,7 @@ Material:
     - _ENUM: 0
     - _EnableExternalAlpha: 0
     - _EnvironmentReflections: 1
-    - _Fade: 0.061
+    - _Fade: 0.07
     - _FlipbookBlending: 0
     - _FlipbookMode: 0
     - _GlossMapScale: 0
