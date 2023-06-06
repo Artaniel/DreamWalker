@@ -80,5 +80,21 @@ public class CameraMovement : MonoBehaviour
         carTransform.Rotate(transform.up, Mouse.current.delta.value.x * senetivity * Time.deltaTime, Space.World);
         verticalRotation = Mathf.Clamp(verticalRotation - Mouse.current.delta.value.y * senetivity * Time.deltaTime, 0f, 90f);
         holder.localRotation = Quaternion.Euler(verticalRotation, 0, 0);
+
+        RaycastHit[] hits = Physics.RaycastAll(carTransform.position, -cameraTargetTransform.forward, -savedLocalPosition.z);
+        float minDist = Mathf.Infinity;
+        RaycastHit result = new RaycastHit();
+        foreach (RaycastHit hit in hits) {
+            if (hit.transform.tag != "Player" && Vector3.Distance(hit.point, carTransform.position) < minDist)
+            {
+                result = hit;
+                minDist = Vector3.Distance(hit.point, carTransform.position);
+            }
+        }
+        if (minDist < Mathf.Infinity)
+            cameraTargetTransform.localPosition = new Vector3(cameraTargetTransform.localPosition.x, cameraTargetTransform.localPosition.y,
+                -Vector3.Distance(result.point, carTransform.position));
+        else
+            cameraTargetTransform.localPosition = savedLocalPosition;
     }
 }
