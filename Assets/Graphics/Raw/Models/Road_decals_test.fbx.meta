@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: fb902c5501bff1e4680dd8df9f54ee1b
+guid: cf07334619584ca4b90053f9c4449803
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -12,8 +12,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: TilableMat1
-    second: {fileID: 2100000, guid: 0cd8ff49dd6b3d3489ebf1f8f83dbdca, type: 2}
+      name: Decals
+    second: {fileID: 2100000, guid: 425351277d2ffbb4ead680271557e4cd, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -52,7 +52,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 1
+    addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
     importVisibility: 1
