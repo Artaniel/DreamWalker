@@ -38,8 +38,7 @@ public class CameraMovement : MonoBehaviour
         if (freeMode)
             FreeModeUpdate();
         else
-            NormalModeUpdate();
-        Debug.Log($"{LERPFactorLinar} {currentLERPFactor}");
+            NormalModeUpdate();        
         trueCameraTransform.position = Vector3.Lerp(trueCameraTransform.position, cameraTargetTransform.position, currentLERPFactor);
         trueCameraTransform.rotation = Quaternion.Lerp(trueCameraTransform.rotation, cameraTargetTransform.rotation, LERPFactorRotation);
     }
