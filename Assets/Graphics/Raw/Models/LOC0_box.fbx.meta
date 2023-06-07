@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8e6420e113f168043a0b7e9c808f9c10
+guid: a6b979e85667f8d4ea1afd7253f54c59
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -13,7 +13,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Cityblocks1
-    second: {fileID: 2100000, guid: e6e2a73d351e78946b5cba9f8519a72b, type: 2}
+    second: {fileID: 2100000, guid: 3501a10360e870845a9a21e4db03d445, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -22,8 +22,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Copper1
-    second: {fileID: 2100000, guid: d2e254fbe64a15544986e448f68440bd, type: 2}
+      name: Decals
+    second: {fileID: 2100000, guid: 425351277d2ffbb4ead680271557e4cd, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -39,6 +39,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: TilableMat1
     second: {fileID: 2100000, guid: 0cd8ff49dd6b3d3489ebf1f8f83dbdca, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: TilableMat2
+    second: {fileID: 2100000, guid: 8400e047d2f07524bb23f668c17ceafc, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
