@@ -16,7 +16,8 @@ public class CameraMovement : MonoBehaviour
     private float verticalRotation = 0f;
 
     public Transform trueCameraTransform;
-    public float LERPFactor = 0.1f;
+    public float LERPFactorLinar = 0.1f;
+    public float LERPFactorRotation = 0.1f;
     private float currentLERPFactor = 1f;
 
     public List<Renderer> carRenderers;
@@ -24,7 +25,7 @@ public class CameraMovement : MonoBehaviour
     private void Awake()
     {
         savedLocalPosition = cameraTargetTransform.localPosition;
-        currentLERPFactor = LERPFactor;
+        currentLERPFactor = LERPFactorLinar;
     }
 
     void FixedUpdate()
@@ -38,9 +39,9 @@ public class CameraMovement : MonoBehaviour
             FreeModeUpdate();
         else
             NormalModeUpdate();
-
+        Debug.Log($"{LERPFactorLinar} {currentLERPFactor}");
         trueCameraTransform.position = Vector3.Lerp(trueCameraTransform.position, cameraTargetTransform.position, currentLERPFactor);
-        trueCameraTransform.rotation = Quaternion.Lerp(trueCameraTransform.rotation, cameraTargetTransform.rotation, LERPFactor);
+        trueCameraTransform.rotation = Quaternion.Lerp(trueCameraTransform.rotation, cameraTargetTransform.rotation, LERPFactorRotation);
     }
 
     private void SwichToFreeMode() {
@@ -51,7 +52,7 @@ public class CameraMovement : MonoBehaviour
 
     private void SwitchToNormalMode()
     {
-        currentLERPFactor = LERPFactor;
+        currentLERPFactor = LERPFactorLinar;
         freeMode = false;
         cameraTargetTransform.parent = holder;
         cameraTargetTransform.localPosition = savedLocalPosition;

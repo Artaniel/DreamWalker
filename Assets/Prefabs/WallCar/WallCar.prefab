@@ -584,7 +584,8 @@ MonoBehaviour:
   freeMode: 0
   senetivity: 20
   trueCameraTransform: {fileID: 4573539277696795110}
-  LERPFactor: 0.1
+  LERPFactorLinar: 0.1
+  LERPFactorRotation: 0.2
   carRenderers:
   - {fileID: 4347003141735086517}
   - {fileID: 6851211581369198074}
