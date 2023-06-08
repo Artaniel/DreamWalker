@@ -22,6 +22,8 @@ public class WallCar : MonoBehaviour
     public float hoverHight = 0.5f;
     private Vector3 lastGroundPoint = Vector3.zero;
     public float maxDragDistance = 5f;
+    private Vector3 legsPosSumm;
+    private int legsInContact;
 
     private bool isFlying = false;
     private float airTimer = 0f;
@@ -39,7 +41,7 @@ public class WallCar : MonoBehaviour
     private float legSyncTimer = 0f;
     public float legSyncPeriod = 0.1f;
 
-    [HideInInspector] public Vector2 moveInput = Vector2.zero;
+    [HideInInspector] public Vector2 moveInput = Vector2.zero;    
 
     private void Awake()
     {
@@ -153,15 +155,20 @@ public class WallCar : MonoBehaviour
         else
             lastGroundPoint = groundPoint;
 
-        if (lastGroundPoint != Vector3.zero) // case of point lost, to prevent pull to point saved before long jump
+        if (legsInContact > 0)
         {
-            float distance = Vector3.Distance(groundPoint, hoverPoint.position);
+            groundPoint = legsPosSumm / legsInContact;
+            float distance = Vector3.Distance(groundPoint, transform.position);
+            //Debug.Log(distance);
+            groundPoint = transform.position - transform.up * distance;
+            if (distance < 0.2f)
+                transform.position += transform.up * 0.2f;
             if (distance <= maxDragDistance)
                 carRigidbody.velocity += -100f * ((distance - hoverHight) / hoverHight) * Time.deltaTime * (transform.position - groundPoint).normalized;
             else
                 isFlying = true;
             Debug.DrawLine(hoverPoint.position, groundPoint, Color.yellow);
-            Debug.DrawRay(groundPoint, hoverPoint.forward * (raycastLength - distance), Color.black);
+            //Debug.DrawRay(groundPoint, hoverPoint.forward * (raycastLength - distance), Color.black);
         }        
     }
 
@@ -213,11 +220,17 @@ public class WallCar : MonoBehaviour
 
     private void LegSurfaceCheck()
     {
+        legsPosSumm = Vector3.zero;
+        legsInContact = 0;
         normalSumm = Vector3.zero;
         foreach (SpiderLeg leg in legs)
         {
             if (leg.torchingGround)
+            {
                 normalSumm += leg.currentNormal;
+                legsInContact++;
+                legsPosSumm += leg.legTransform.position;
+            }
         }        
         isOnSurface = (normalSumm != Vector3.zero);
     }
