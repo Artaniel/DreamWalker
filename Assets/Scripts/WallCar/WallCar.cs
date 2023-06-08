@@ -29,8 +29,8 @@ public class WallCar : MonoBehaviour
     [HideInInspector] public bool airBlocksSurfacecheck = false;
 
     private float jumpPower = 0;
-    private float maxJumpPower = 200f;
-    private float jumpPowerAccumulationSpeed = 30f;
+    public float maxJumpPower = 200f;
+    public float jumpPowerAccumulationSpeed = 30f;
     private bool isRisingJumpPower = false;
     private CameraMovement cameraRotation;
 
