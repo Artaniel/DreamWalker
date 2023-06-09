@@ -138,38 +138,19 @@ public class WallCar : MonoBehaviour
 
     private void Hover()
     {
-        float raycastLength = 5f;
-        Vector3 groundPoint = Vector3.zero;
-        bool found = false;
-        foreach (RaycastHit hit in Physics.RaycastAll(hoverPoint.position, hoverPoint.forward, raycastLength))
-        {
-            if (hit.collider.tag != "Player")
-            {
-                groundPoint = hit.point;
-                found = true;
-                break;
-            }
-        }
-        if (!found)
+        Vector3 groundPoint; 
+        if (legsInContact == 0)
             groundPoint = lastGroundPoint;
         else
-            lastGroundPoint = groundPoint;
-
-        if (legsInContact > 0)
-        {
             groundPoint = legsPosSumm / legsInContact;
-            float distance = Vector3.Distance(groundPoint, transform.position);
-            //Debug.Log(distance);
-            groundPoint = transform.position - transform.up * distance;
-            if (distance < 0.2f)
-                transform.position += transform.up * 0.2f;
-            if (distance <= maxDragDistance)
-                carRigidbody.velocity += -100f * ((distance - hoverHight) / hoverHight) * Time.deltaTime * (transform.position - groundPoint).normalized;
-            else
-                isFlying = true;
-            Debug.DrawLine(hoverPoint.position, groundPoint, Color.yellow);
-            //Debug.DrawRay(groundPoint, hoverPoint.forward * (raycastLength - distance), Color.black);
-        }        
+        float distance = Vector3.Distance(groundPoint, transform.position);
+
+        if (distance <= maxDragDistance)
+            transform.position += (hoverHight - Vector3.Dot(transform.position - groundPoint, transform.up)) * 0.1f * transform.up;     
+        else
+            isFlying = true;
+        Debug.DrawLine(hoverPoint.position, groundPoint, Color.yellow);
+        lastGroundPoint = groundPoint;
     }
 
     private void FlyCheck()

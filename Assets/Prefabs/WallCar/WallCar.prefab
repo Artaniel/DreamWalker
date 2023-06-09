@@ -553,7 +553,7 @@ MonoBehaviour:
   carRigidbody: {fileID: 0}
   hoverPoint: {fileID: 3653913977764729624}
   hoverHight: 1.5
-  maxDragDistance: 5
+  maxDragDistance: 10
   airBlocksSurfacecheck: 0
   maxJumpPower: 200
   jumpPowerAccumulationSpeed: 30
