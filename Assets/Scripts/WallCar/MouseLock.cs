@@ -20,11 +20,11 @@ public class MouseLock : MonoBehaviour
             settingsIsOpen = !settingsIsOpen;
             if (settingsIsOpen)
             {
-                menu.OpenIngameSettings();
+                menu?.OpenIngameSettings();
                 Cursor.lockState = CursorLockMode.None;
             }
             else {
-                menu.CloseSettings();
+                menu?.CloseSettings();
                 Cursor.lockState = CursorLockMode.Locked;
             }
 
