@@ -58,7 +58,7 @@ public class WallCar : MonoBehaviour
         {
             //SurfaceCheck();
             LegSurfaceCheck();
-            if (isOnSurface)
+            if (isOnSurface && !MouseLock.settingsIsOpen)
             {
                 isFlying = false;
                 Move();

@@ -70,16 +70,22 @@ public class CameraMovement : MonoBehaviour
             foreach (Renderer carRenderer in carRenderers)
                 carRenderer.enabled = false;
         }
-        carTransform.Rotate(transform.up, Mouse.current.delta.value.x * senetivity * Time.deltaTime, Space.World);
-        verticalRotation = Mathf.Clamp(verticalRotation - Mouse.current.delta.value.y * senetivity * Time.deltaTime, -90f, 90f);
-        cameraTargetTransform.localRotation = Quaternion.Euler(verticalRotation, 0, 0);
+        if (!MouseLock.settingsIsOpen)
+        {
+            carTransform.Rotate(transform.up, Mouse.current.delta.value.x * senetivity * Time.deltaTime, Space.World);
+            verticalRotation = Mathf.Clamp(verticalRotation - Mouse.current.delta.value.y * senetivity * Time.deltaTime, -90f, 90f);
+            cameraTargetTransform.localRotation = Quaternion.Euler(verticalRotation, 0, 0);
+        }
     }
 
     private void NormalModeUpdate()
     {
-        carTransform.Rotate(transform.up, Mouse.current.delta.value.x * senetivity * Time.deltaTime, Space.World);
-        verticalRotation = Mathf.Clamp(verticalRotation - Mouse.current.delta.value.y * senetivity * Time.deltaTime, 0f, 90f);
-        holder.localRotation = Quaternion.Euler(verticalRotation, 0, 0);
+        if (!MouseLock.settingsIsOpen)
+        {
+            carTransform.Rotate(transform.up, Mouse.current.delta.value.x * senetivity * Time.deltaTime, Space.World);
+            verticalRotation = Mathf.Clamp(verticalRotation - Mouse.current.delta.value.y * senetivity * Time.deltaTime, 0f, 90f);
+            holder.localRotation = Quaternion.Euler(verticalRotation, 0, 0);
+        }
 
         RaycastHit[] hits = Physics.RaycastAll(carTransform.position, -cameraTargetTransform.forward, -savedLocalPosition.z);
         float minDist = Mathf.Infinity;

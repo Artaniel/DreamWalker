@@ -12,6 +12,7 @@ public class Menu : MonoBehaviour
     public GameObject settingsPanel;
     public GameObject mainMenuButton;
     public GameObject quitButton;
+    public MouseLock mouseLock;
 
     public void NewGameButton() {
         SceneManager.LoadScene(newGameSceneName);
@@ -42,10 +43,11 @@ public class Menu : MonoBehaviour
     public void CloseSettings()
     {
         settingsPanel.SetActive(false);
+        mouseLock?.SettingsClosed();
     }
 
     public void SoundSliderInput(Slider slider) { 
-    //todo, when we will have sound system
+        //todo, when we will have sound system
     }
 
     public void MusicSliderInput(Slider slider)
