@@ -67,7 +67,6 @@ public class WallCar : MonoBehaviour
             }
             else
             {
-                Fall();
                 AirMovement();
             }
             if (!isFlying)
@@ -120,9 +119,6 @@ public class WallCar : MonoBehaviour
             strafeSpeed = slowDownFactor * strafeSpeed;
 
         carRigidbody.velocity = transform.forward * speed + transform.right * strafeSpeed;
-    }
-
-    private void Fall() {
     }
 
     private void SurfaceRotate() {
