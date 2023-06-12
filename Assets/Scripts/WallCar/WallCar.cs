@@ -59,7 +59,7 @@ public class WallCar : MonoBehaviour
         {
             //SurfaceCheck();
             LegSurfaceCheck();
-            if (isOnSurface && !MouseLock.settingsIsOpen)
+            if (isOnSurface)
             {
                 isFlying = false;
                 Move();
@@ -225,15 +225,19 @@ public class WallCar : MonoBehaviour
     }
 
     private void InputUpdate() {
+
         moveInput = Vector2.zero;
-        if (Keyboard.current.wKey.isPressed)
-            moveInput += Vector2.up;
-        if (Keyboard.current.sKey.isPressed)
-            moveInput += Vector2.down;
-        if (Keyboard.current.aKey.isPressed)
-            moveInput += Vector2.left;
-        if (Keyboard.current.dKey.isPressed)
-            moveInput += Vector2.right;
+        if (!MouseLock.settingsIsOpen)
+        {
+            if (Keyboard.current.wKey.isPressed)
+                moveInput += Vector2.up;
+            if (Keyboard.current.sKey.isPressed)
+                moveInput += Vector2.down;
+            if (Keyboard.current.aKey.isPressed)
+                moveInput += Vector2.left;
+            if (Keyboard.current.dKey.isPressed)
+                moveInput += Vector2.right;
+        }
     }
 
     public Vector3 GetInputForvardPosition() {
