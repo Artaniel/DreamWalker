@@ -254,5 +254,6 @@ public class WallCar : MonoBehaviour
 
         carRigidbody.velocity = transform.forward * speed + transform.right * strafeSpeed + Vector3.Dot(carRigidbody.velocity, transform.up) * transform.up;
         carRigidbody.velocity += Vector3.down * Time.deltaTime * 9.8f;
+        normalSumm = Vector3.up;
     }
 }
