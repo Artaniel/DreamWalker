@@ -29,6 +29,7 @@ public class WallCar : MonoBehaviour
     private float airTimer = 0f;
     private float airTime = 0.25f;
     [HideInInspector] public bool airBlocksSurfacecheck = false;
+    public float airMovementAcceleration = 0.1f;
 
     private float jumpPower = 0;
     public float maxJumpPower = 200f;
@@ -41,7 +42,7 @@ public class WallCar : MonoBehaviour
     private float legSyncTimer = 0f;
     public float legSyncPeriod = 0.1f;
 
-    [HideInInspector] public Vector2 moveInput = Vector2.zero;    
+    [HideInInspector] public Vector2 moveInput = Vector2.zero;
 
     private void Awake()
     {
@@ -65,7 +66,10 @@ public class WallCar : MonoBehaviour
                 JumpCheck();
             }
             else
+            {
                 Fall();
+                AirMovement();
+            }
             if (!isFlying)
                 Hover();
         }
@@ -113,15 +117,12 @@ public class WallCar : MonoBehaviour
         if (moveInput.x != 0)
             strafeSpeed = Mathf.Clamp(strafeSpeed + moveInput.x * acceleration * Time.deltaTime, -maxSpeed, maxSpeed);
         else
-            strafeSpeed = slowDownFactor * strafeSpeed; 
+            strafeSpeed = slowDownFactor * strafeSpeed;
 
         carRigidbody.velocity = transform.forward * speed + transform.right * strafeSpeed;
     }
 
     private void Fall() {
-        speed = Vector3.Dot(carRigidbody.velocity, transform.forward);
-        strafeSpeed = Vector3.Dot(carRigidbody.velocity, transform.right);
-        carRigidbody.velocity += Vector3.down * Time.deltaTime * 9.8f;
     }
 
     private void SurfaceRotate() {
@@ -138,7 +139,7 @@ public class WallCar : MonoBehaviour
 
     private void Hover()
     {
-        Vector3 groundPoint; 
+        Vector3 groundPoint;
         if (legsInContact == 0)
             groundPoint = lastGroundPoint;
         else
@@ -146,7 +147,7 @@ public class WallCar : MonoBehaviour
         float distance = Vector3.Distance(groundPoint, transform.position);
 
         if (distance <= maxDragDistance)
-            transform.position += (hoverHight - Vector3.Dot(transform.position - groundPoint, transform.up)) * 0.1f * transform.up;     
+            transform.position += (hoverHight - Vector3.Dot(transform.position - groundPoint, transform.up)) * 0.1f * transform.up;
         else
             isFlying = true;
         Debug.DrawLine(hoverPoint.position, groundPoint, Color.yellow);
@@ -212,7 +213,7 @@ public class WallCar : MonoBehaviour
                 legsInContact++;
                 legsPosSumm += leg.legTransform.position;
             }
-        }        
+        }
         isOnSurface = (normalSumm != Vector3.zero);
     }
 
@@ -221,9 +222,9 @@ public class WallCar : MonoBehaviour
         if (legSyncTimer > legSyncPeriod)
         {
             legSyncTimer -= legSyncPeriod;
-            legSyncPhase  = (legSyncPhase+1)% 2;
-            foreach (SpiderLeg leg in legs) 
-                leg.SyncStep();            
+            legSyncPhase = (legSyncPhase + 1) % 2;
+            foreach (SpiderLeg leg in legs)
+                leg.SyncStep();
         }
     }
 
@@ -242,5 +243,16 @@ public class WallCar : MonoBehaviour
     public Vector3 GetInputForvardPosition() {
         //return (moveInput.y * transform.forward + moveInput.x * transform.right) * maxSpeed / 4f;
         return Vector3.ProjectOnPlane(carRigidbody.velocity * 0.2f, transform.up);
+    }
+
+    private void AirMovement()
+    {
+        speed = Vector3.Dot(carRigidbody.velocity, transform.forward);
+        speed += moveInput.y * airMovementAcceleration * Time.deltaTime;
+        strafeSpeed = Vector3.Dot(carRigidbody.velocity, transform.right);
+        strafeSpeed += moveInput.x * airMovementAcceleration * Time.deltaTime;
+
+        carRigidbody.velocity = transform.forward * speed + transform.right * strafeSpeed + Vector3.Dot(carRigidbody.velocity, transform.up) * transform.up;
+        carRigidbody.velocity += Vector3.down * Time.deltaTime * 9.8f;
     }
 }

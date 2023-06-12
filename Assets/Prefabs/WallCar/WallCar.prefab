@@ -555,6 +555,7 @@ MonoBehaviour:
   hoverHight: 1.5
   maxDragDistance: 10
   airBlocksSurfacecheck: 0
+  airMovementAcceleration: 1
   maxJumpPower: 200
   jumpPowerAccumulationSpeed: 30
   legs:
@@ -652,6 +653,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67a7a81233647484d98299a2e01d2892, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  menu: {fileID: 0}
 --- !u!1 &2958020836443299335
 GameObject:
   m_ObjectHideFlags: 0
