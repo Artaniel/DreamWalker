@@ -101,7 +101,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _AlphaClip: 0
-    - _Blend: 0
+    - _Blend: 2
     - _BlendOp: 0
     - _BumpScale: 1
     - _CameraFadingEnabled: 1
@@ -111,14 +111,14 @@ Material:
     - _ClearCoatSmoothness: 0
     - _ColorMode: 3
     - _Cull: 0
-    - _Cutoff: 0
+    - _Cutoff: 0.058
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DistortionBlend: 0.733
     - _DistortionEnabled: 0
     - _DistortionStrength: 53.14
     - _DistortionStrengthScaled: 5.314
-    - _DstBlend: 10
+    - _DstBlend: 1
     - _EnvironmentReflections: 1
     - _FlipbookBlending: 0
     - _FlipbookMode: 0
