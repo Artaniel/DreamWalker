@@ -479,6 +479,7 @@ GameObject:
   - component: {fileID: 2023569910071017292}
   - component: {fileID: 7488676583679099304}
   - component: {fileID: 4140920680509821051}
+  - component: {fileID: 1208504980}
   m_Layer: 0
   m_Name: WallCarWighoutCamera
   m_TagString: Player
@@ -654,6 +655,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menu: {fileID: 0}
+--- !u!114 &1208504980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2923682524484789940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66dda11e63ddc5d41b735022d5c61145, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHP: 100
+  HP: 100
+  regenDelay: 1
+  regenSpeed: 10
+  hpText: {fileID: 0}
+  isImmune: 0
+  sun: {fileID: 0}
+  sunDPS: 5
 --- !u!1 &2958020836443299335
 GameObject:
   m_ObjectHideFlags: 0

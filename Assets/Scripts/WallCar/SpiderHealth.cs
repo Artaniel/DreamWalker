@@ -13,16 +13,28 @@ public class SpiderHealth : MonoBehaviour
 	public TextMeshProUGUI hpText;
 
 	public bool isImmune = false;
+	public SunManager sun;
+	public float sunDPS = 5f;
 
 	private void Update()
 	{
+		Regen();
+		SunHeatCkeck();
+		UpdateUI();
+	}
+
+	private void Regen() {
 		if (regenDelayTimer < regenDelay)
 		{
 			regenDelayTimer += Time.deltaTime;
 		}
 		else
-			HP = Mathf.Clamp(HP + regenSpeed * Time.deltaTime, 0 , maxHP);
-		UpdateUI();
+			HP = Mathf.Clamp(HP + regenSpeed * Time.deltaTime, 0, maxHP);
+	}
+
+	private void SunHeatCkeck() {
+		if (sun.IsUnderLight(transform.position))
+			Damage(sunDPS * Time.deltaTime);
 	}
 
 	public void Damage(float value) {
@@ -32,6 +44,7 @@ public class SpiderHealth : MonoBehaviour
 			UpdateUI();
 			if (HP <= 0)
 				Death();
+			regenDelayTimer = 0;
 		}
 	}
 
