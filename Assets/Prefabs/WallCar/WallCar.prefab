@@ -547,6 +547,7 @@ MonoBehaviour:
   - {fileID: 4121505189071749481}
   - {fileID: 7302618595864759542}
   maxSpeed: 10
+  maxSpeedBoosted: 20
   acceleration: 5
   angularSpeed: 270
   slowDownFactor: 0.9
@@ -569,6 +570,7 @@ MonoBehaviour:
   legSyncPhase: 0
   legSyncPeriod: 0.2
   moveInput: {x: 0, y: 0}
+  boostIsPressed: 0
 --- !u!114 &2023569910071017292
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -11,6 +11,7 @@ public class WallCar : MonoBehaviour
     private float speed = 0f;
     private float strafeSpeed = 0f;
     public float maxSpeed = 5f;
+    public float maxSpeedBoosted = 20f;
     public float acceleration = 2f;
     public float angularSpeed = 90f;
     public float slowDownFactor = 0.9f;
@@ -43,6 +44,7 @@ public class WallCar : MonoBehaviour
     public float legSyncPeriod = 0.1f;
 
     [HideInInspector] public Vector2 moveInput = Vector2.zero;
+    [HideInInspector] public bool boostIsPressed = false;
 
     private void Awake()
     {
@@ -109,12 +111,13 @@ public class WallCar : MonoBehaviour
 
     private void Move()
     {
+        float currentMaxSpeed = boostIsPressed ? maxSpeedBoosted : maxSpeed;
         if (moveInput.y != 0)
-            speed = Mathf.Clamp(speed + moveInput.y * acceleration * Time.deltaTime, -maxSpeed, maxSpeed);
+            speed = Mathf.Clamp(speed + moveInput.y * acceleration * Time.deltaTime, -currentMaxSpeed, currentMaxSpeed);
         else
             speed = slowDownFactor * speed; //slow down from forward and back
         if (moveInput.x != 0)
-            strafeSpeed = Mathf.Clamp(strafeSpeed + moveInput.x * acceleration * Time.deltaTime, -maxSpeed, maxSpeed);
+            strafeSpeed = Mathf.Clamp(strafeSpeed + moveInput.x * acceleration * Time.deltaTime, -currentMaxSpeed, currentMaxSpeed);
         else
             strafeSpeed = slowDownFactor * strafeSpeed;
 
@@ -214,10 +217,13 @@ public class WallCar : MonoBehaviour
     }
 
     public void LegSyncUpdate() {
+        float currentLegSyncPeriod = legSyncPeriod;
+        if (boostIsPressed)
+            legSyncPeriod /= 2f;
         legSyncTimer += Time.deltaTime;
-        if (legSyncTimer > legSyncPeriod)
+        if (legSyncTimer > currentLegSyncPeriod)
         {
-            legSyncTimer -= legSyncPeriod;
+            legSyncTimer -= currentLegSyncPeriod;
             legSyncPhase = (legSyncPhase + 1) % 2;
             foreach (SpiderLeg leg in legs)
                 leg.SyncStep();
@@ -225,7 +231,7 @@ public class WallCar : MonoBehaviour
     }
 
     private void InputUpdate() {
-
+        // dont forget some controls in CameraMovement script
         moveInput = Vector2.zero;
         if (!MouseLock.settingsIsOpen)
         {
@@ -237,12 +243,15 @@ public class WallCar : MonoBehaviour
                 moveInput += Vector2.left;
             if (Keyboard.current.dKey.isPressed)
                 moveInput += Vector2.right;
+            boostIsPressed = Keyboard.current.shiftKey.isPressed;
         }
     }
 
     public Vector3 GetInputForvardPosition() {
-        //return (moveInput.y * transform.forward + moveInput.x * transform.right) * maxSpeed / 4f;
-        return Vector3.ProjectOnPlane(carRigidbody.velocity * 0.2f, transform.up);
+        if (boostIsPressed)
+            return Vector3.ProjectOnPlane(carRigidbody.velocity * 0.2f, transform.up) / 2f;
+        else
+            return Vector3.ProjectOnPlane(carRigidbody.velocity * 0.2f, transform.up);
     }
 
     private void AirMovement()
