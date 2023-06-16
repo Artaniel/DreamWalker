@@ -49,6 +49,7 @@ public class SpiderHealth : MonoBehaviour
 	}
 
 	private void UpdateUI() {
+		HeatMeterUI.RefreshHeatMeter(1- (HP / maxHP));
 		if (hpText != null)
 			hpText.text = $"{(int)HP}%hp";
 	}
