@@ -6058,6 +6058,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sun
       objectReference: {fileID: 0}
+    - target: {fileID: 1391886434703899327, guid: 3717a84dfa738024c8291a705a1c2b83, type: 3}
+      propertyPath: isRotating
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3717a84dfa738024c8291a705a1c2b83, type: 3}
 --- !u!1 &1355448001
@@ -11110,15 +11114,15 @@ GameObject:
   - component: {fileID: 1685653710}
   - component: {fileID: 1685653709}
   - component: {fileID: 1685653708}
-  - component: {fileID: 1685653707}
   - component: {fileID: 1685653706}
+  - component: {fileID: 1685653711}
   m_Layer: 0
-  m_Name: Fog PP
+  m_Name: Heat Volume
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1685653706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11131,24 +11135,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsGlobal: 0
-  priority: 0
+  m_IsGlobal: 1
+  priority: 1
   blendDistance: 100
   weight: 1
   sharedProfile: {fileID: 11400000, guid: 5aba1548ab066b54eabec37a84cd9b8c, type: 2}
---- !u!65 &1685653707
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1685653705}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1685653708
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -11214,6 +11205,20 @@ Transform:
   m_Father: {fileID: 914508189}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1685653711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1685653705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1325167a2d82024289c27978d6cd859, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spiderHealth: {fileID: 2006656176}
+  volume: {fileID: 1685653706}
 --- !u!1 &1696164230
 GameObject:
   m_ObjectHideFlags: 0
@@ -16278,6 +16283,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67a7a81233647484d98299a2e01d2892, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2006656176 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1208504980, guid: f174631fb35f0524294d880ddb47adba, type: 3}
+  m_PrefabInstance: {fileID: 2077429224}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66dda11e63ddc5d41b735022d5c61145, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2043987614
 GameObject:
   m_ObjectHideFlags: 0
@@ -16358,7 +16374,7 @@ PrefabInstance:
       objectReference: {fileID: 867900279}
     - target: {fileID: 1208504980, guid: f174631fb35f0524294d880ddb47adba, type: 3}
       propertyPath: sunDPS
-      value: 15
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1208504980, guid: f174631fb35f0524294d880ddb47adba, type: 3}
       propertyPath: regenSpeed
