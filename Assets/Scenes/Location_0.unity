@@ -5934,6 +5934,82 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1682806727, guid: 3717a84dfa738024c8291a705a1c2b83, type: 3}
+      propertyPath: sampleCount
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 1682806727, guid: 3717a84dfa738024c8291a705a1c2b83, type: 3}
+      propertyPath: allowOffScreen
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1682806727, guid: 3717a84dfa738024c8291a705a1c2b83, type: 3}
+      propertyPath: radialScreenAttenuationCurve.m_PostInfinity
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1682806727, guid: 3717a84dfa738024c8291a705a1c2b83, type: 3}
+      propertyPath: radialScreenAttenuationCurve.m_Curve.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1682806727, guid: 3717a84dfa738024c8291a705a1c2b83, type: 3}
+      propertyPath: radialScreenAttenuationCurve.m_Curve.Array.data[1].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1682806727, guid: 3717a84dfa738024c8291a705a1c2b83, type: 3}
+      propertyPath: radialScreenAttenuationCurve.m_Curve.Array.data[2].time
+      value: 0.67764425
+      objectReference: {fileID: 0}
+    - target: {fileID: 1682806727, guid: 3717a84dfa738024c8291a705a1c2b83, type: 3}
+      propertyPath: radialScreenAttenuationCurve.m_Curve.Array.data[3].time
+      value: 0.85347664
+      objectReference: {fileID: 0}
+    - target: {fileID: 1682806727, guid: 3717a84dfa738024c8291a705a1c2b83, type: 3}
+      propertyPath: radialScreenAttenuationCurve.m_Curve.Array.data[1].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1682806727, guid: 3717a84dfa738024c8291a705a1c2b83, type: 3}
+      propertyPath: radialScreenAttenuationCurve.m_Curve.Array.data[2].value
+      value: -0.07458252
+      objectReference: {fileID: 0}
+    - target: {fileID: 1682806727, guid: 3717a84dfa738024c8291a705a1c2b83, type: 3}
+      propertyPath: radialScreenAttenuationCurve.m_Curve.Array.data[3].value
+      value: -0.07080454
+      objectReference: {fileID: 0}
+    - target: {fileID: 1682806727, guid: 3717a84dfa738024c8291a705a1c2b83, type: 3}
+      propertyPath: radialScreenAttenuationCurve.m_Curve.Array.data[1].inWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1682806727, guid: 3717a84dfa738024c8291a705a1c2b83, type: 3}
+      propertyPath: radialScreenAttenuationCurve.m_Curve.Array.data[2].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1682806727, guid: 3717a84dfa738024c8291a705a1c2b83, type: 3}
+      propertyPath: radialScreenAttenuationCurve.m_Curve.Array.data[3].inWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1682806727, guid: 3717a84dfa738024c8291a705a1c2b83, type: 3}
+      propertyPath: radialScreenAttenuationCurve.m_Curve.Array.data[1].outWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1682806727, guid: 3717a84dfa738024c8291a705a1c2b83, type: 3}
+      propertyPath: radialScreenAttenuationCurve.m_Curve.Array.data[2].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1682806727, guid: 3717a84dfa738024c8291a705a1c2b83, type: 3}
+      propertyPath: radialScreenAttenuationCurve.m_Curve.Array.data[3].outWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1682806727, guid: 3717a84dfa738024c8291a705a1c2b83, type: 3}
+      propertyPath: radialScreenAttenuationCurve.m_Curve.Array.data[0].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1682806727, guid: 3717a84dfa738024c8291a705a1c2b83, type: 3}
+      propertyPath: radialScreenAttenuationCurve.m_Curve.Array.data[1].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1391886433982402840, guid: 3717a84dfa738024c8291a705a1c2b83, type: 3}
+      propertyPath: m_RenderMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1391886434703899312, guid: 3717a84dfa738024c8291a705a1c2b83, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -16470,7 +16546,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4573539277696795033, guid: f174631fb35f0524294d880ddb47adba, type: 3}
       propertyPath: m_FocalLength
-      value: 25.734083
+      value: 12.844458
       objectReference: {fileID: 0}
     - target: {fileID: 4573539277696795033, guid: f174631fb35f0524294d880ddb47adba, type: 3}
       propertyPath: m_GateFitMode
@@ -16478,7 +16554,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4573539277696795033, guid: f174631fb35f0524294d880ddb47adba, type: 3}
       propertyPath: far clip plane
-      value: 6000
+      value: 10000
       objectReference: {fileID: 0}
     - target: {fileID: 4573539277696795033, guid: f174631fb35f0524294d880ddb47adba, type: 3}
       propertyPath: m_SensorSize.x
@@ -16490,7 +16566,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4573539277696795033, guid: f174631fb35f0524294d880ddb47adba, type: 3}
       propertyPath: near clip plane
-      value: 0.1
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 4573539277696795033, guid: f174631fb35f0524294d880ddb47adba, type: 3}
       propertyPath: m_OcclusionCulling
