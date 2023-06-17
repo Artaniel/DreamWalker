@@ -8,10 +8,13 @@ public class SunManager : MonoBehaviour
     public float ascention = 45f;
 
     public Transform lightSource;
-
+    public bool isRotating = false;
+    public float rotationSpeed = 10;
 
     private void Update()
     {
+        if (isRotating)
+            SunRotation();
         RefreshLight();
     }
 
@@ -25,5 +28,9 @@ public class SunManager : MonoBehaviour
             if (hit.transform.tag != "Player")
                 return false;
         return true;
+    }
+
+    private void SunRotation() {
+        azimut += rotationSpeed * Time.deltaTime;
     }
 }
