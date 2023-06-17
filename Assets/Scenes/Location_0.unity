@@ -489,6 +489,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CanvasIngameSettings
       objectReference: {fileID: 0}
+    - target: {fileID: 5810608653407627592, guid: b7527c9e534bc714183d29bdf38f4ac7, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6288104884168055772, guid: b7527c9e534bc714183d29bdf38f4ac7, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -16304,6 +16308,14 @@ PrefabInstance:
       propertyPath: sun
       value: 
       objectReference: {fileID: 867900279}
+    - target: {fileID: 1208504980, guid: f174631fb35f0524294d880ddb47adba, type: 3}
+      propertyPath: sunDPS
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1208504980, guid: f174631fb35f0524294d880ddb47adba, type: 3}
+      propertyPath: regenSpeed
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 2100418239, guid: f174631fb35f0524294d880ddb47adba, type: 3}
       propertyPath: m_ClearFlags
       value: 1
@@ -16542,7 +16554,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4621974195208420185, guid: f174631fb35f0524294d880ddb47adba, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 407
+      value: 397.6
       objectReference: {fileID: 0}
     - target: {fileID: 4621974195208420185, guid: f174631fb35f0524294d880ddb47adba, type: 3}
       propertyPath: m_LocalPosition.y
@@ -16550,7 +16562,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4621974195208420185, guid: f174631fb35f0524294d880ddb47adba, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -868
+      value: -772.1
       objectReference: {fileID: 0}
     - target: {fileID: 4621974195208420185, guid: f174631fb35f0524294d880ddb47adba, type: 3}
       propertyPath: m_LocalRotation.w
