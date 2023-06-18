@@ -22,7 +22,7 @@ public class WallCar : MonoBehaviour
     public Transform hoverPoint;
     public float hoverHight = 0.5f;
     private Vector3 lastGroundPoint = Vector3.zero;
-    public float maxDragDistance = 5f;
+    public float maxDragDistance = 3f;
     private Vector3 legsPosSumm;
     private int legsInContact;
 
@@ -66,13 +66,14 @@ public class WallCar : MonoBehaviour
                 isFlying = false;
                 Move();
                 JumpCheck();
+                Hover();
             }
             else
             {
                 AirMovement();
-            }
-            if (!isFlying)
-                Hover();
+                DragBackCheck();
+            }          
+            
         }
         SurfaceRotate();
         LegSyncUpdate();
@@ -153,6 +154,15 @@ public class WallCar : MonoBehaviour
         lastGroundPoint = groundPoint;
     }
 
+    private void DragBackCheck()
+    {
+        if (Vector3.Distance(transform.position, lastGroundPoint) <= maxDragDistance && !boostIsPressed)
+        {
+            carRigidbody.velocity += (transform.position - lastGroundPoint) * -1f;
+            Debug.DrawLine(hoverPoint.position, lastGroundPoint, Color.yellow);
+        }
+    }
+
     private void FlyCheck()
     {
         if (airBlocksSurfacecheck)
@@ -197,6 +207,7 @@ public class WallCar : MonoBehaviour
 
         foreach (SpiderLeg leg in legs)
             leg.Disconnect();
+        lastGroundPoint = Vector3.zero;
     }
 
     private void LegSurfaceCheck()
