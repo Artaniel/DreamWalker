@@ -15306,8 +15306,8 @@ ParticleSystem:
   TriggerModule:
     enabled: 1
     serializedVersion: 2
-    inside: 0
-    outside: 1
+    inside: 1
+    outside: 0
     enter: 0
     exit: 0
     colliderQueryMode: 2
@@ -16263,8 +16263,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 500, y: 353.62, z: 500}
-  m_Center: {x: 0, y: -11.2, z: 0}
+  m_Size: {x: 1000, y: 353.62, z: 100}
+  m_Center: {x: 0, y: -297.56, z: 0}
 --- !u!1 &1898078203
 GameObject:
   m_ObjectHideFlags: 0
