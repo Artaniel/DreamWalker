@@ -11305,10 +11305,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fogMaxDensity: 0.002
-  fogMinDensity: 0.001
-  maxAltitude: 500
+  fogMinDensity: 0.0005
+  maxAltitude: 300
   minAltitude: 0
-  trackingPoint: {fileID: 2130842063}
+  trackingPoint: {fileID: 2043987615}
 --- !u!1 &1696164230
 GameObject:
   m_ObjectHideFlags: 0
@@ -16712,7 +16712,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4621974195208420185, guid: f174631fb35f0524294d880ddb47adba, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.5
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 4621974195208420185, guid: f174631fb35f0524294d880ddb47adba, type: 3}
       propertyPath: m_LocalPosition.z
