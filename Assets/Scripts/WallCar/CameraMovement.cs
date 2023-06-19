@@ -11,6 +11,7 @@ public class CameraMovement : MonoBehaviour
     public Transform carTransform;
     [HideInInspector] public bool freeMode = false;
     private Vector3 savedLocalPosition;
+    private Quaternion savedLocalRotation;
 
     public float senetivity = 20f;
     private float verticalRotation = 0f;
@@ -25,7 +26,8 @@ public class CameraMovement : MonoBehaviour
     private void Awake()
     {
         savedLocalPosition = cameraTargetTransform.localPosition;
-        currentLERPFactor = LERPFactorLinar;
+        savedLocalRotation = cameraTargetTransform.localRotation;
+        currentLERPFactor = LERPFactorLinar;        
     }
 
     void FixedUpdate()
@@ -55,7 +57,7 @@ public class CameraMovement : MonoBehaviour
         freeMode = false;
         cameraTargetTransform.parent = holder;
         cameraTargetTransform.localPosition = savedLocalPosition;
-        cameraTargetTransform.localRotation = Quaternion.identity;
+        cameraTargetTransform.localRotation = savedLocalRotation;
         foreach (Renderer carRenderer in carRenderers)
             carRenderer.enabled = true;
     }
