@@ -11305,8 +11305,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fogMaxDensity: 0.002
-  fogMinDensity: 0.0005
-  maxAltitude: 300
+  fogMinDensity: 0.0006
+  maxAltitude: 1000
   minAltitude: 0
   trackingPoint: {fileID: 2043987615}
 --- !u!1 &1696164230
