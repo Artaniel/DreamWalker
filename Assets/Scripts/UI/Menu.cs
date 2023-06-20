@@ -46,12 +46,12 @@ public class Menu : MonoBehaviour
         mouseLock?.SettingsClosed();
     }
 
-    public void SoundSliderInput(Slider slider) { 
-        //todo, when we will have sound system
+    public void SoundSliderInput(Slider slider) {
+        SoundManager.ChangeVolumeSFX(slider.value);
     }
 
     public void MusicSliderInput(Slider slider)
     {
-        //todo, when we will have sound system
+        SoundManager.ChangeVolumeMusic(slider.value);
     }
 }
