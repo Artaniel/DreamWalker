@@ -13,6 +13,19 @@ public class Menu : MonoBehaviour
     public GameObject mainMenuButton;
     public GameObject quitButton;
     public MouseLock mouseLock;
+    public Slider musicSlider;
+    public Slider SFXSlider;
+
+    private void Start()
+    {
+        if (SoundManager.instance)
+        {
+            SoundManager.instance.mixer.GetFloat("SFX", out float SFX);
+            SFXSlider.value = SFX;
+            SoundManager.instance.mixer.GetFloat("Music", out float music);
+            musicSlider.value = music;
+        }
+    }
 
     public void NewGameButton() {
         SceneManager.LoadScene(newGameSceneName);
