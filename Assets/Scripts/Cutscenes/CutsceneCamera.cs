@@ -10,6 +10,7 @@ public class CutsceneCamera : MonoBehaviour
     void Start()
     {
         Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Confined;
     }
 
     void FixedUpdate()
