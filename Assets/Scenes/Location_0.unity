@@ -16464,7 +16464,7 @@ PrefabInstance:
       objectReference: {fileID: 867900279}
     - target: {fileID: 1208504980, guid: f174631fb35f0524294d880ddb47adba, type: 3}
       propertyPath: sunDPS
-      value: 10
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1208504980, guid: f174631fb35f0524294d880ddb47adba, type: 3}
       propertyPath: regenSpeed
