@@ -20,10 +20,8 @@ public class Menu : MonoBehaviour
     {
         if (SoundManager.instance)
         {
-            SoundManager.instance.mixer.GetFloat("SFX", out float SFX);
-            SFXSlider.value = SFX;
-            SoundManager.instance.mixer.GetFloat("Music", out float music);
-            musicSlider.value = music;
+            SFXSlider.value = SoundManager.instance.SFXVolume;            
+            musicSlider.value = SoundManager.instance.musicVolume;
         }
     }
 

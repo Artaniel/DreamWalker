@@ -7,8 +7,10 @@ public class SoundManager : MonoBehaviour
 {
     public AudioMixer mixer;
     static public SoundManager instance;
-    private float maxMusicVolume = 10f;
-    private float maxSFXVolume = 10f;
+    public float maxMusicVolume = 1f;
+    public float maxSFXVolume = 1f;
+    public float SFXVolume;
+    public float musicVolume;
 
 
     private void Awake()
@@ -28,21 +30,29 @@ public class SoundManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);        
         mixer.GetFloat("Music", out maxMusicVolume);
         mixer.GetFloat("SFX", out maxSFXVolume);
-        float _SFXvolume = PlayerPrefs.GetFloat("SFX");
-        float _musicvolume = PlayerPrefs.GetFloat("Music");
-        mixer.SetFloat("SFX", _SFXvolume);
-        mixer.SetFloat("Music", _musicvolume);
+        SFXVolume = PlayerPrefs.GetFloat("SFX");        
+        musicVolume = PlayerPrefs.GetFloat("Music");
+        mixer.SetFloat("SFX", SFXVolume);
+        mixer.SetFloat("Music", musicVolume);
     }
 
     public static void ChangeVolumeSFX(float value)
     {
-        instance?.mixer.SetFloat("SFX", value); 
+        if (instance)
+        {
+            instance.SFXVolume = value;
+            instance.mixer.SetFloat("SFX", value);
+        }
         PlayerPrefs.SetFloat("SFX", value);
     }
 
     public static void ChangeVolumeMusic(float value)
     {
-        instance?.mixer.SetFloat("Music", value);
+        if (instance)
+        {
+            instance.musicVolume = value;
+            instance.mixer.SetFloat("Music", value);
+        }
         PlayerPrefs.SetFloat("Music", value);
     }
 }
