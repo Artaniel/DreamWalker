@@ -254,15 +254,17 @@ public class WallCar : MonoBehaviour
                 moveInput += Vector2.left;
             if (Keyboard.current.dKey.isPressed)
                 moveInput += Vector2.right;
+            if (moveInput != Vector2.zero)
+                moveInput.Normalize();
             boostIsPressed = Keyboard.current.shiftKey.isPressed;
         }
     }
 
     public Vector3 GetInputForvardPosition() {
         if (boostIsPressed)
-            return Vector3.ProjectOnPlane(carRigidbody.velocity * 0.2f, transform.up) / 2f;
+            return Vector3.ProjectOnPlane(carRigidbody.velocity * 0.09f, transform.up);
         else
-            return Vector3.ProjectOnPlane(carRigidbody.velocity * 0.2f, transform.up);
+            return Vector3.ProjectOnPlane(carRigidbody.velocity * 0.18f, transform.up);
     }
 
     private void AirMovement()
