@@ -14,6 +14,7 @@ public class WallCar : MonoBehaviour
     public float maxSpeedBoosted = 20f;
     public float acceleration = 2f;
     public float angularSpeed = 90f;
+    public float airAngularSpeed = 90f;
     public float slowDownFactor = 0.9f;
     public Transform cameraHolder;
     [HideInInspector] public Rigidbody carRigidbody;
@@ -131,7 +132,7 @@ public class WallCar : MonoBehaviour
         Vector3 currentUpDirection = transform.up;
         Debug.DrawRay(transform.position, currentUpDirection, Color.black);
         float angle = Vector3.Angle(currentUpDirection, normalSumm);
-        angle = Mathf.Min(angle, angularSpeed * Time.deltaTime);
+        angle = Mathf.Min(angle, isOnSurface ? angularSpeed : airAngularSpeed * Time.deltaTime);
         Vector3 axis = Vector3.Cross(currentUpDirection, normalSumm);
         Debug.DrawRay(transform.position, axis, Color.magenta);
         transform.Rotate(axis, angle, Space.World);
