@@ -570,6 +570,7 @@ MonoBehaviour:
   - {fileID: 8551280065116864731}
   legSyncPhase: 0
   legSyncPeriod: 0.2
+  legSyncPeriodBoosted: 0.16
   moveInput: {x: 0, y: 0}
   boostIsPressed: 0
 --- !u!114 &2023569910071017292

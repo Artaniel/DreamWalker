@@ -43,6 +43,7 @@ public class WallCar : MonoBehaviour
     [HideInInspector] public int legSyncPhase = 0;
     private float legSyncTimer = 0f;
     public float legSyncPeriod = 0.1f;
+    public float legSyncPeriodBoosted = 0.1f;
 
     [HideInInspector] public Vector2 moveInput = Vector2.zero;
     [HideInInspector] public bool boostIsPressed = false;
@@ -229,9 +230,7 @@ public class WallCar : MonoBehaviour
     }
 
     public void LegSyncUpdate() {
-        float currentLegSyncPeriod = legSyncPeriod;
-        if (boostIsPressed)
-            legSyncPeriod /= 2f;
+        float currentLegSyncPeriod = boostIsPressed ? legSyncPeriodBoosted : legSyncPeriod;
         legSyncTimer += Time.deltaTime;
         if (legSyncTimer > currentLegSyncPeriod)
         {
