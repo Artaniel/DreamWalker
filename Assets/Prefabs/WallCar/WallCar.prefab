@@ -594,6 +594,7 @@ MonoBehaviour:
   trueCameraTransform: {fileID: 4573539277696795110}
   LERPFactorLinar: 0.1
   LERPFactorRotation: 0.2
+  minRenderDist: 5
   carRenderers:
   - {fileID: 4347003141735086517}
   - {fileID: 6851211581369198074}
@@ -630,6 +631,7 @@ MonoBehaviour:
   - {fileID: 4119575098466824116}
   - {fileID: 1947782145860682631}
   - {fileID: 7216268493927638136}
+  - {fileID: 8679554381224012676}
 --- !u!54 &7488676583679099304
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2545,6 +2547,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d4b6b2dc6a4958f469929c279f5d9e0a, type: 3}
+--- !u!23 &8679554381224012676 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7564306178420970176, guid: d4b6b2dc6a4958f469929c279f5d9e0a, type: 3}
+  m_PrefabInstance: {fileID: 1191809982733613380}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8679554381224012679 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7564306178420970179, guid: d4b6b2dc6a4958f469929c279f5d9e0a, type: 3}

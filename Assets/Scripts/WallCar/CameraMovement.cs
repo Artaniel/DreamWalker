@@ -21,13 +21,15 @@ public class CameraMovement : MonoBehaviour
     public float LERPFactorRotation = 0.1f;
     private float currentLERPFactor = 1f;
 
+    public float minRenderDist = 2f;
     public List<Renderer> carRenderers;
+    private bool lastFrameVisible = true;
 
     private void Awake()
     {
         savedLocalPosition = cameraTargetTransform.localPosition;
         savedLocalRotation = cameraTargetTransform.localRotation;
-        currentLERPFactor = LERPFactorLinar;        
+        currentLERPFactor = LERPFactorLinar;
     }
 
     void FixedUpdate()
@@ -40,9 +42,10 @@ public class CameraMovement : MonoBehaviour
         if (freeMode)
             FreeModeUpdate();
         else
-            NormalModeUpdate();        
+            NormalModeUpdate();
         trueCameraTransform.position = Vector3.Lerp(trueCameraTransform.position, cameraTargetTransform.position, currentLERPFactor);
         trueCameraTransform.rotation = Quaternion.Lerp(trueCameraTransform.rotation, cameraTargetTransform.rotation, LERPFactorRotation);
+        ModelVisibilityCheck();
     }
 
     private void SwichToFreeMode() {
@@ -58,8 +61,6 @@ public class CameraMovement : MonoBehaviour
         cameraTargetTransform.parent = holder;
         cameraTargetTransform.localPosition = savedLocalPosition;
         cameraTargetTransform.localRotation = savedLocalRotation;
-        foreach (Renderer carRenderer in carRenderers)
-            carRenderer.enabled = true;
     }
 
     private void FreeModeUpdate()
@@ -69,8 +70,6 @@ public class CameraMovement : MonoBehaviour
         else
         {
             currentLERPFactor = 1;
-            foreach (Renderer carRenderer in carRenderers)
-                carRenderer.enabled = false;
         }
         if (!MouseLock.settingsIsOpen)
         {
@@ -103,5 +102,22 @@ public class CameraMovement : MonoBehaviour
                 -Vector3.Distance(result.point, carTransform.position));
         else
             cameraTargetTransform.localPosition = savedLocalPosition;
+    }
+
+    private void ModelVisibilityCheck()
+    {
+        if (lastFrameVisible && Vector3.Distance(carTransform.position, trueCameraTransform.position) < minRenderDist)
+        {
+            lastFrameVisible = false;
+            foreach (Renderer carRenderer in carRenderers)
+                carRenderer.enabled = false;
+        }
+        else if (!lastFrameVisible && Vector3.Distance(carTransform.position, trueCameraTransform.position) > minRenderDist)
+        {
+            lastFrameVisible = true;
+            foreach (Renderer carRenderer in carRenderers)
+                carRenderer.enabled = true;
+        }
+
     }
 }
