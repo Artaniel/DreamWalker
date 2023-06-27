@@ -133,7 +133,7 @@ public class WallCar : MonoBehaviour
         Vector3 currentUpDirection = transform.up;
         Debug.DrawRay(transform.position, currentUpDirection, Color.black);
         float angle = Vector3.Angle(currentUpDirection, normalSumm);
-        angle = Mathf.Min(angle, isOnSurface ? angularSpeed : airAngularSpeed * Time.fixedDeltaTime);
+        angle = Mathf.Min(angle, (isOnSurface ? angularSpeed : airAngularSpeed) * Time.fixedDeltaTime);
         Vector3 axis = Vector3.Cross(currentUpDirection, normalSumm);
         Debug.DrawRay(transform.position, axis, Color.magenta);
         transform.Rotate(axis, angle, Space.World);
