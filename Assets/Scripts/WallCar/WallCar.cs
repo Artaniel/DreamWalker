@@ -33,7 +33,7 @@ public class WallCar : MonoBehaviour
     [HideInInspector] public bool airBlocksSurfacecheck = false;
     public float airMovementAcceleration = 0.1f;
 
-    private float jumpPower = 0;
+    [HideInInspector] public float jumpPower = 0;
     public float maxJumpPower = 200f;
     public float jumpPowerAccumulationSpeed = 30f;
     private bool isRisingJumpPower = false;
