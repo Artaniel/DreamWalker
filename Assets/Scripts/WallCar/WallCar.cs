@@ -7,7 +7,7 @@ public class WallCar : MonoBehaviour
 {
     public Transform[] groundCheckPoints;
 
-    private bool isOnSurface = false;
+    [HideInInspector] public bool isOnSurface = false;
     private float speed = 0f;
     private float strafeSpeed = 0f;
     public float maxSpeed = 5f;
@@ -27,7 +27,6 @@ public class WallCar : MonoBehaviour
     private Vector3 legsPosSumm;
     private int legsInContact;
 
-    private bool isFlying = false;
     private float airTimer = 0f;
     private float airTime = 0.25f;
     [HideInInspector] public bool airBlocksSurfacecheck = false;
@@ -63,11 +62,9 @@ public class WallCar : MonoBehaviour
         FlyCheck();
         if (!airBlocksSurfacecheck)
         {
-            //SurfaceCheck();
             LegSurfaceCheck();
             if (isOnSurface)
             {
-                isFlying = false;
                 Move();
                 JumpCheck();
                 Hover();
@@ -76,42 +73,10 @@ public class WallCar : MonoBehaviour
             {
                 AirMovement();
                 DragBackCheck();
-            }          
-            
+            }
         }
         SurfaceRotate();
         LegSyncUpdate();
-    }
-
-    private void SurfaceCheck()
-    {
-        bool touchPointFound = false;
-        normalSumm = Vector3.zero;
-
-        foreach (Transform groundCheckPoint in groundCheckPoints)
-        {
-            bool thisIsTorching = false;
-            Vector3 foundNormal = Vector3.zero;
-            foreach (RaycastHit hit in Physics.RaycastAll(groundCheckPoint.position, groundCheckPoint.forward, 1f))
-                if (hit.collider.tag != "Player")
-                {
-                    thisIsTorching = true;
-                    foundNormal = hit.normal;
-                    break;
-                }
-            if (thisIsTorching)
-            {
-                touchPointFound = true;
-                normalSumm += foundNormal;
-                Debug.DrawRay(groundCheckPoint.position, groundCheckPoint.forward, Color.green);
-            }
-            else
-            {
-                Debug.DrawRay(groundCheckPoint.position, groundCheckPoint.forward, Color.red);
-            }
-        }
-
-        isOnSurface = touchPointFound;
     }
 
     private void Move()
@@ -152,8 +117,6 @@ public class WallCar : MonoBehaviour
 
         if (distance <= maxDragDistance)
             transform.position += (hoverHight - Vector3.Dot(transform.position - groundPoint, transform.up)) * 0.1f * transform.up;
-        else
-            isFlying = true;
         Debug.DrawLine(hoverPoint.position, groundPoint, Color.yellow);
         lastGroundPoint = groundPoint;
     }
@@ -205,7 +168,6 @@ public class WallCar : MonoBehaviour
     }
 
     private void Jump() {
-        isFlying = true;
         if (cameraRotation.freeMode)
             carRigidbody.velocity += cameraRotation.cameraTargetTransform.forward * jumpPower;
         else

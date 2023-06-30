@@ -26,13 +26,13 @@ public class JumpPredictor : MonoBehaviour
             markers[i].SetActive(false);
             markers[i].transform.parent = wrapping.transform;
         }
-
     }
+
     private void Update()
     {
-        if (!isShown && car.focusIsPressed)
+        if (!isShown && car.focusIsPressed && car.isOnSurface)
             Show();
-        if (isShown && !car.focusIsPressed)
+        if (isShown && (!car.focusIsPressed || !car.isOnSurface))
             Hide();
         if (isShown)
             PredictorUpdate();
