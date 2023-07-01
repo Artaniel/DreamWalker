@@ -63,7 +63,7 @@ public class JumpPredictor : MonoBehaviour
     }
 
     private void Hide() {
-        isShown = false;            ;
+        isShown = false;
         foreach (GameObject marker in markers)
             marker?.SetActive(false);
     }

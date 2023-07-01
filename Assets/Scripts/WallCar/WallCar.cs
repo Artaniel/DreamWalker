@@ -28,13 +28,14 @@ public class WallCar : MonoBehaviour
     private int legsInContact;
 
     private float airTimer = 0f;
-    private float airTime = 0.25f;
+    public float airTime = 0.6f;
     [HideInInspector] public bool airBlocksSurfacecheck = false;
     public float airMovementAcceleration = 0.1f;
 
     [HideInInspector] public float jumpPower = 0;
     public float maxJumpPower = 200f;
     public float jumpPowerAccumulationSpeed = 30f;
+    public float fastJumpPower = 10f;
     private bool isRisingJumpPower = false;
     private CameraMovement cameraRotation;
 
@@ -142,11 +143,20 @@ public class WallCar : MonoBehaviour
 
     private void JumpCheck() {
         if (!isRisingJumpPower)
-        {
-            if (focusIsPressed && isOnSurface)
+        { if (isOnSurface)
             {
-                isRisingJumpPower = true;
-                jumpPower = 0;
+                if (focusIsPressed)
+                {
+                    isRisingJumpPower = true;
+                    jumpPower = 0;
+                }
+                else {
+                    if (jumpIsPressed)
+                    {
+                        jumpPower = fastJumpPower;
+                        Jump();
+                    }
+                }
             }
         }
         else {
