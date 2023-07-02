@@ -49,6 +49,8 @@ public class WallCar : MonoBehaviour
     [HideInInspector] public bool boostIsPressed = false;
     [HideInInspector] public bool focusIsPressed = false;
     [HideInInspector] public bool jumpIsPressed = false;
+    [HideInInspector] public bool focusOnlyJumpIsPressed = false;
+
 
     private void Awake()
     {
@@ -164,7 +166,7 @@ public class WallCar : MonoBehaviour
             if (jumpPower >= maxJumpPower)
                 jumpPower = maxJumpPower;
 
-            if (jumpIsPressed)
+            if (jumpIsPressed || focusOnlyJumpIsPressed)
             {
                 isRisingJumpPower = false;
                 Jump();
@@ -237,7 +239,8 @@ public class WallCar : MonoBehaviour
                 moveInput.Normalize();
             boostIsPressed = Keyboard.current.shiftKey.isPressed;
             focusIsPressed = Mouse.current.rightButton.isPressed;
-            jumpIsPressed = Mouse.current.leftButton.isPressed || Keyboard.current.spaceKey.isPressed;
+            jumpIsPressed = Keyboard.current.spaceKey.isPressed;
+            focusOnlyJumpIsPressed = Mouse.current.leftButton.isPressed;
         }
     }
 
