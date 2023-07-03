@@ -14,7 +14,8 @@ public class HeatMeterUI : MonoBehaviour
             instance = this;
     }
 
-    public static void RefreshHeatMeter(float value) {
-        instance.slider.value = value;
+    public static void RefreshHeatMeter(float value) {        
+        if (instance && instance.slider)
+            instance.slider.value = value;
     }
 }
