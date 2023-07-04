@@ -578,6 +578,7 @@ MonoBehaviour:
   - {fileID: 58065539600427501}
   - {fileID: 4121505189071749481}
   - {fileID: 7302618595864759542}
+  isOnSurface: 0
   maxSpeed: 10
   maxSpeedBoosted: 20
   acceleration: 5
@@ -589,11 +590,13 @@ MonoBehaviour:
   hoverPoint: {fileID: 3653913977764729624}
   hoverHight: 1.5
   maxDragDistance: 6.5
+  airTime: 0.6
   airBlocksSurfacecheck: 0
   airMovementAcceleration: 1
   jumpPower: 0
   maxJumpPower: 200
   jumpPowerAccumulationSpeed: 30
+  fastJumpPower: 10
   legs:
   - {fileID: 6016754796717585205}
   - {fileID: 879867585770935312}
@@ -608,6 +611,7 @@ MonoBehaviour:
   boostIsPressed: 0
   focusIsPressed: 0
   jumpIsPressed: 0
+  focusOnlyJumpIsPressed: 0
 --- !u!114 &2023569910071017292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -863,6 +867,52 @@ Transform:
   m_Father: {fileID: 4282943707568818245}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+--- !u!1 &3150225880995143561
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 527962189630535396}
+  - component: {fileID: 5505437886961499126}
+  m_Layer: 0
+  m_Name: NarrativeManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &527962189630535396
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3150225880995143561}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4621974195208420185}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5505437886961499126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3150225880995143561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59999c5729c3b314bb675936ceb4e0bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 0
+  sun: {fileID: 0}
 --- !u!1 &3756078344031782211
 GameObject:
   m_ObjectHideFlags: 0
@@ -1573,6 +1623,7 @@ Transform:
   - {fileID: 1204296738150219550}
   - {fileID: 4750073368052119766}
   - {fileID: 1632964006015663610}
+  - {fileID: 527962189630535396}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
