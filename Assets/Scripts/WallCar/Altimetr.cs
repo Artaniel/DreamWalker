@@ -16,7 +16,7 @@ public class Altimetr : MonoBehaviour
             altiText.text = $"Altitude {((int)car.transform.position.y).ToString()} m";
         else if (altiText)
             altiText.text = "";
-        if (car.transform.position.y > 1000)
+        if (car && car.transform.position.y > 1000)
             NarrativeManager.Over1000mReached();
     }
 
