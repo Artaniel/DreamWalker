@@ -44,10 +44,13 @@ public class Window : MonoBehaviour
     {
         isOpen = true;
         Unmute();
-        for (int i=0; i<openSequence.Length; i++)
+        if (openSequence.Length > 0)
         {
-            image.sprite = openSequence[i];
-            yield return new WaitForSeconds(openSequenceDuration/openSequence.Length);
+            for (int i = 0; i < openSequence.Length; i++)
+            {
+                image.sprite = openSequence[i];
+                yield return new WaitForSeconds(openSequenceDuration / openSequence.Length);
+            }
         }
         image.sprite = window;
     }
@@ -125,15 +128,15 @@ public class Window : MonoBehaviour
     public void Mute()
     {
         isMuted = true;
-        //image.color = colMute;
-        image.enabled = false;
+        image.color = colMute;
+        //image.enabled = false;
     }
 
     public void Unmute()
     {
         isMuted = false;
-        //image.color = colUnmute;
-        image.enabled = true;
+        image.color = colUnmute;
+        //image.enabled = true;
     }
 
 }
