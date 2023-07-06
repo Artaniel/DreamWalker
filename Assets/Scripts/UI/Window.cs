@@ -7,7 +7,7 @@ public class Window : MonoBehaviour
 {
     Image image;
     public bool useWorkSequence = false, randomWorkSequence = false;
-    public float workFrequency = 3f;
+    public float workFrequency = 3f, flickeringFrequency=3f;
     public Sprite window;
     public Sprite[] openSequence, workSequence;
     public float openSequenceDuration = 1f;
@@ -22,21 +22,22 @@ public class Window : MonoBehaviour
     {
         image = GetComponent<Image>();
         image.sprite = window;
+        image.SetNativeSize();
         Mute();
 
     }
 
 
 
-    IEnumerator WindowFlickerCoroutine(float frequency)
+    IEnumerator WindowFlickerCoroutine()
     {
         isFlickering = true;
         while (isFlickering)
         {
             Mute();
-            yield return new WaitForSeconds(1f/frequency);
+            yield return new WaitForSeconds(1f/flickeringFrequency);
             Unmute();
-            yield return new WaitForSeconds(1f / frequency);
+            yield return new WaitForSeconds(1f / flickeringFrequency);
         }
     }
 
@@ -116,9 +117,9 @@ public class Window : MonoBehaviour
         StartCoroutine(CloseWindowCoroutine());
     }
 
-    public void FlickeringOn(float frequency)
+    public void FlickeringOn()
     {
-        StartCoroutine(WindowFlickerCoroutine(frequency));
+        StartCoroutine(WindowFlickerCoroutine());
     }
     public void FlickeringOff()
     {
