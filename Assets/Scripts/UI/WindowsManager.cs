@@ -5,7 +5,15 @@ using UnityEngine;
 public class WindowsManager : MonoBehaviour
 {
     public Window radVis, radVisError, radVisContent, radVisMessage, radVisCalculating, radVisSolution;
+    public AudioClip[] clips;
+    private AudioSource source;
 
+    private void Awake()
+    {
+        source = Camera.main.GetComponent<AudioSource>();
+        if (!source)
+            Debug.LogError("No audio source on camera");
+    }
 
     void Update()
     {
@@ -53,5 +61,7 @@ public class WindowsManager : MonoBehaviour
 
 
         //        radVisError.FlickeringOn();
+
+        //source.PlayOneShot(clips[0]);
     }
 }
