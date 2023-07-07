@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class PredictorMarkerBillboard : MonoBehaviour
 {
+    private Transform cameraTransform;
+
+    private void Awake()
+    {
+        cameraTransform = Camera.main.transform;
+    }
 
     void Update()
     {
-        transform.LookAt(Camera.main.transform);
+        transform.LookAt(cameraTransform);
     }
 }
