@@ -18026,6 +18026,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1357811185, guid: 930001886ba8f6d41b95b2bb6c48dd4b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -93.29999
+      objectReference: {fileID: 0}
+    - target: {fileID: 1357811186, guid: 930001886ba8f6d41b95b2bb6c48dd4b, type: 3}
+      propertyPath: spiderHealth
+      value: 
+      objectReference: {fileID: 2006656176}
     - target: {fileID: 1721150733512766488, guid: 930001886ba8f6d41b95b2bb6c48dd4b, type: 3}
       propertyPath: m_Name
       value: UIcanvas
