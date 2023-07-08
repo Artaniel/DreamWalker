@@ -12,6 +12,8 @@ public class JumpPredictor : MonoBehaviour
     public GameObject markerPrefab;
     public GameObject wrapping;
     private bool isShown = false;
+    public float sphereCasteRadius = 1f;
+    public GameObject endMarker;
 
     private void Awake()
     {
@@ -32,7 +34,7 @@ public class JumpPredictor : MonoBehaviour
     {
         if (!isShown && car.focusIsPressed && car.isOnSurface)
             Show();
-        if (isShown && (!car.focusIsPressed || !car.isOnSurface))
+        if (isShown && (!car.focusIsPressed || !car.isOnSurface || car.airBlocksSurfacecheck))
             Hide();
         if (isShown)
             PredictorUpdate();
@@ -45,26 +47,51 @@ public class JumpPredictor : MonoBehaviour
         Vector3 startongPosition = car.transform.position;
         Vector3 startingVelocity = car.carRigidbody.velocity + cameraTransform.forward * car.jumpPower;
         Vector3 acceleration = 9.8f * Vector3.down;
-        Vector3 currentPosition; float time;
+        Vector3 currentPosition = Vector3.zero;
+        float time; Vector3 lastPosition; Vector3 delta;
+        bool endMarkerSpotIsFound = false;
         for (int i = 0; i < (maxTime / stepTime); i++)
         {
             time = i * stepTime;
+            lastPosition = currentPosition;
             //r = r0 + v0*t + a*t*t/2
             currentPosition = startongPosition + time * startingVelocity + (time * time / 2f) * acceleration;
-            markers[i].transform.position = currentPosition;
+            if (!endMarkerSpotIsFound && lastPosition != Vector3.zero)
+            {
+                delta = currentPosition - lastPosition;
+                if (Physics.SphereCast(lastPosition, sphereCasteRadius, delta, out RaycastHit hit, delta.magnitude))
+                {
+                    if (hit.collider.tag != "Player") {
+                        endMarker.transform.position = hit.point;
+                        endMarker.SetActive(true);
+                        endMarkerSpotIsFound = true;
+                    }
+                }
+            }
+            if (!endMarkerSpotIsFound)
+            {
+                markers[i].transform.position = currentPosition;
+                markers[i].SetActive(true);
+            }
+            else
+            {
+                markers[i].SetActive(false);
+            }
         }
+        if (!endMarkerSpotIsFound)
+            endMarker.SetActive(false);
+
     }
 
     private void Show()
     {
         isShown = true;
-        foreach (GameObject marker in markers)
-            marker?.SetActive(true);
     }
 
     private void Hide() {
         isShown = false;
         foreach (GameObject marker in markers)
             marker?.SetActive(false);
+        endMarker.SetActive(false);
     }
 }
