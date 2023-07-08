@@ -15,6 +15,7 @@ public class SpiderHealth : MonoBehaviour
 	public bool isImmune = false;
 	public SunManager sun;
 	public float sunDPS = 5f;
+	public bool isUnderSun = false;
 
 	private void Update()
 	{
@@ -34,7 +35,15 @@ public class SpiderHealth : MonoBehaviour
 
 	private void SunHeatCkeck() {
 		if (sun.IsUnderLight(transform.position))
+        {
 			Damage(sunDPS * Time.deltaTime);
+			isUnderSun = true;
+		}
+        else
+        {
+			isUnderSun = false;
+        }
+
 	}
 
 	public void Damage(float value) {
