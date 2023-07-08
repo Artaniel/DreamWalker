@@ -61,7 +61,7 @@ public class JumpPredictor : MonoBehaviour
                 delta = currentPosition - lastPosition;
                 if (Physics.SphereCast(lastPosition, sphereCasteRadius, delta, out RaycastHit hit, delta.magnitude))
                 {
-                    if (hit.collider.tag != "Player") {
+                    if (hit.collider.tag != "Player" && !hit.collider.isTrigger) {
                         endMarker.transform.position = hit.point;
                         endMarker.SetActive(true);
                         endMarkerSpotIsFound = true;
