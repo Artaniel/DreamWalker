@@ -901,6 +901,22 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7910675245595143808, guid: 2db768ae2b57e3d46b5e1a1ad30222f3, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7910675245595143808, guid: 2db768ae2b57e3d46b5e1a1ad30222f3, type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7910675245595143808, guid: 2db768ae2b57e3d46b5e1a1ad30222f3, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 7910675245595143808, guid: 2db768ae2b57e3d46b5e1a1ad30222f3, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1080
+      objectReference: {fileID: 0}
     - target: {fileID: 8813817376382113739, guid: 2db768ae2b57e3d46b5e1a1ad30222f3, type: 3}
       propertyPath: m_Type
       value: 0
