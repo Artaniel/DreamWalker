@@ -17,13 +17,14 @@ public class WindowsManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Backspace))
-        {
-            StartCoroutine(RadVisSequence());
-        }
+
 
     }
 
+    public void StartFirstRadVisSequence()
+    {
+        StartCoroutine(RadVisSequence());
+    }
     IEnumerator RadVisSequence()
     {
         radVis.OpenWindow();

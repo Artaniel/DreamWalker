@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
+using UnityEngine.Events;
 
 public class Interactable : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class Interactable : MonoBehaviour
     public float reactionRadius = 5f;
     private bool isActive;
     public TextMeshProUGUI pressEText;
+    public UnityEvent myEvent;
 
     private void Awake()
     {
@@ -35,6 +37,7 @@ public class Interactable : MonoBehaviour
         if (isActive && Keyboard.current.eKey.wasPressedThisFrame)
         {
             Debug.Log("Interactable E pressed");
+            myEvent.Invoke();
         }
     }
 }
