@@ -993,34 +993,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1218570611774073254, guid: b7527c9e534bc714183d29bdf38f4ac7, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1276865805}
     - target: {fileID: 2531013789423525869, guid: b7527c9e534bc714183d29bdf38f4ac7, type: 3}
       propertyPath: mouseLock
       value: 
       objectReference: {fileID: 2006656175}
-    - target: {fileID: 2701889364421632575, guid: b7527c9e534bc714183d29bdf38f4ac7, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3131698321306040247, guid: b7527c9e534bc714183d29bdf38f4ac7, type: 3}
       propertyPath: m_Name
       value: CanvasIngameSettings
-      objectReference: {fileID: 0}
-    - target: {fileID: 3131698321306040247, guid: b7527c9e534bc714183d29bdf38f4ac7, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5386321941237300520, guid: b7527c9e534bc714183d29bdf38f4ac7, type: 3}
-      propertyPath: m_Enabled
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5388322476114581990, guid: b7527c9e534bc714183d29bdf38f4ac7, type: 3}
       propertyPath: car
       value: 
       objectReference: {fileID: 2006656177}
-    - target: {fileID: 5810608653407627592, guid: b7527c9e534bc714183d29bdf38f4ac7, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6288104884168055772, guid: b7527c9e534bc714183d29bdf38f4ac7, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1103,14 +1091,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6288104884168055772, guid: b7527c9e534bc714183d29bdf38f4ac7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6905018371025534052, guid: b7527c9e534bc714183d29bdf38f4ac7, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9001331763924921055, guid: b7527c9e534bc714183d29bdf38f4ac7, type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1277,7 +1257,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 1721150734830718360}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
@@ -17993,17 +17973,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1357811185, guid: 930001886ba8f6d41b95b2bb6c48dd4b, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -93.29999
-      objectReference: {fileID: 0}
     - target: {fileID: 1357811186, guid: 930001886ba8f6d41b95b2bb6c48dd4b, type: 3}
       propertyPath: spiderHealth
       value: 
       objectReference: {fileID: 2006656176}
     - target: {fileID: 1721150733512766488, guid: 930001886ba8f6d41b95b2bb6c48dd4b, type: 3}
       propertyPath: m_Name
-      value: UIcanvas
+      value: PlotCanvas
       objectReference: {fileID: 0}
     - target: {fileID: 1721150733512766491, guid: 930001886ba8f6d41b95b2bb6c48dd4b, type: 3}
       propertyPath: m_Camera
@@ -18092,10 +18068,6 @@ PrefabInstance:
     - target: {fileID: 1721150733512766492, guid: 930001886ba8f6d41b95b2bb6c48dd4b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5449623499107545652, guid: 930001886ba8f6d41b95b2bb6c48dd4b, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -77.369995
       objectReference: {fileID: 0}
     - target: {fileID: 5651802892576127601, guid: 930001886ba8f6d41b95b2bb6c48dd4b, type: 3}
       propertyPath: car
