@@ -6772,7 +6772,27 @@ PrefabInstance:
       value: 34
       objectReference: {fileID: 0}
     - target: {fileID: 1391886433982402840, guid: 3717a84dfa738024c8291a705a1c2b83, type: 3}
+      propertyPath: m_Cookie
+      value: 
+      objectReference: {fileID: 2800000, guid: c071aefec23d5a945a535ee41e2ec9f7, type: 3}
+    - target: {fileID: 1391886433982402840, guid: 3717a84dfa738024c8291a705a1c2b83, type: 3}
       propertyPath: m_RenderMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1391886433982402842, guid: 3717a84dfa738024c8291a705a1c2b83, type: 3}
+      propertyPath: m_LightCookieSize.x
+      value: 2000
+      objectReference: {fileID: 0}
+    - target: {fileID: 1391886433982402842, guid: 3717a84dfa738024c8291a705a1c2b83, type: 3}
+      propertyPath: m_LightCookieSize.y
+      value: 2000
+      objectReference: {fileID: 0}
+    - target: {fileID: 1391886433982402842, guid: 3717a84dfa738024c8291a705a1c2b83, type: 3}
+      propertyPath: m_LightCookieOffset.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1391886433982402842, guid: 3717a84dfa738024c8291a705a1c2b83, type: 3}
+      propertyPath: m_LightCookieOffset.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1391886434703899312, guid: 3717a84dfa738024c8291a705a1c2b83, type: 3}
@@ -17309,6 +17329,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f3950b376f6bc4e92290422f10af9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &2026914638 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1391886433982402823, guid: 3717a84dfa738024c8291a705a1c2b83, type: 3}
+  m_PrefabInstance: {fileID: 1320591052}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2026914643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2026914638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7401c1472d37547b2f7cb7026bf330, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shiftSpeed: {x: 100, y: 100}
 --- !u!1 &2043987614
 GameObject:
   m_ObjectHideFlags: 0
