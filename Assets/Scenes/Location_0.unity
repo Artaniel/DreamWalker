@@ -21944,6 +21944,17 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1000, y: 353.62, z: 100}
   m_Center: {x: 0, y: -297.56, z: 0}
+--- !u!114 &1805533995 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2233519146689768355, guid: 930001886ba8f6d41b95b2bb6c48dd4b, type: 3}
+  m_PrefabInstance: {fileID: 1721150734830718360}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73d67cc0883f9964aa8b47454c569298, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1849137616
 GameObject:
   m_ObjectHideFlags: 0
@@ -23057,6 +23068,38 @@ PrefabInstance:
       propertyPath: pressEText
       value: 
       objectReference: {fileID: 644388166}
+    - target: {fileID: 3091547049543376914, guid: 83bb217110bf6344b915e737a2116d5e, type: 3}
+      propertyPath: myEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3091547049543376914, guid: 83bb217110bf6344b915e737a2116d5e, type: 3}
+      propertyPath: myEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3091547049543376914, guid: 83bb217110bf6344b915e737a2116d5e, type: 3}
+      propertyPath: myEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1805533995}
+    - target: {fileID: 3091547049543376914, guid: 83bb217110bf6344b915e737a2116d5e, type: 3}
+      propertyPath: myEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3091547049543376914, guid: 83bb217110bf6344b915e737a2116d5e, type: 3}
+      propertyPath: myEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: StartFirstRadVisSequence
+      objectReference: {fileID: 0}
+    - target: {fileID: 3091547049543376914, guid: 83bb217110bf6344b915e737a2116d5e, type: 3}
+      propertyPath: myEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: WindowsManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3091547049543376914, guid: 83bb217110bf6344b915e737a2116d5e, type: 3}
+      propertyPath: myEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3091547049543376914, guid: 83bb217110bf6344b915e737a2116d5e, type: 3}
+      propertyPath: myEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 5333513326626923628, guid: 83bb217110bf6344b915e737a2116d5e, type: 3}
       propertyPath: m_RootOrder
       value: 11
