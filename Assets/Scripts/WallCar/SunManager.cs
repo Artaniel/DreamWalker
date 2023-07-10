@@ -25,7 +25,7 @@ public class SunManager : MonoBehaviour
     public bool IsUnderLight(Vector3 position) {
         RaycastHit[] hits = Physics.RaycastAll(position, -lightSource.forward);
         foreach (RaycastHit hit in hits)
-            if (hit.transform.tag != "Player")
+            if (hit.transform.tag != "Player" && !hit.collider.isTrigger)
                 return false;
         return true;
     }
