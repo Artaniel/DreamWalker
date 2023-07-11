@@ -126,6 +126,7 @@ MonoBehaviour:
   mouseLock: {fileID: 0}
   musicSlider: {fileID: 3975810490459698104}
   SFXSlider: {fileID: 554262592577790550}
+  pointer: {fileID: 1269911126}
 --- !u!1001 &707756848905951959
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -133,6 +134,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6288104884168055772}
     m_Modifications:
+    - target: {fileID: 707756849835988096, guid: 71f5844f17df15a4d98707371841ccff, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 707756849835988102, guid: 71f5844f17df15a4d98707371841ccff, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -228,6 +233,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 707756849835988102, guid: 71f5844f17df15a4d98707371841ccff, type: 3}
   m_PrefabInstance: {fileID: 707756848905951959}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1269911126 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 707756849835988097, guid: 71f5844f17df15a4d98707371841ccff, type: 3}
+  m_PrefabInstance: {fileID: 707756848905951959}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e63edc4f126c8254d891e0e6ba4bbf9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2714996370000595906
 PrefabInstance:
   m_ObjectHideFlags: 0

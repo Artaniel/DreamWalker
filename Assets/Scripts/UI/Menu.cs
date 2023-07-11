@@ -15,9 +15,12 @@ public class Menu : MonoBehaviour
     public MouseLock mouseLock;
     public Slider musicSlider;
     public Slider SFXSlider;
+    public Pointer pointer;
+    private bool isIngame = false;
 
     private void Start()
     {
+        Cursor.visible = false;
         if (SoundManager.instance)
         {
             SFXSlider.value = SoundManager.instance.SFXVolume;            
@@ -46,6 +49,8 @@ public class Menu : MonoBehaviour
 
     public void OpenIngameSettings()
     {
+        pointer.Show();
+        isIngame = true;
         settingsPanel.SetActive(true);
         quitButton.SetActive(true);
         mainMenuButton.SetActive(true);
@@ -53,6 +58,8 @@ public class Menu : MonoBehaviour
 
     public void CloseSettings()
     {
+        if (isIngame)
+            pointer.Hide();
         settingsPanel.SetActive(false);
         mouseLock?.SettingsClosed();
     }
