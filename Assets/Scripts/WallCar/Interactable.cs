@@ -9,7 +9,7 @@ public class Interactable : MonoBehaviour
 {
     public WallCar car;
     public float reactionRadius = 5f;
-    private bool isActive;
+    private bool isActive, isDisarmed=false;
     public TextMeshProUGUI pressEText;
     public UnityEvent myEvent;
 
@@ -24,20 +24,40 @@ public class Interactable : MonoBehaviour
 
     void Update()
     {
-        if (!isActive && Vector3.Distance(transform.position, car.transform.position) <= reactionRadius)
+        if (!isDisarmed)
         {
-            pressEText.enabled = true;
-            isActive = true;
+            if (!isActive && Vector3.Distance(transform.position, car.transform.position) <= reactionRadius)
+            {
+                Activate();
+            }
+            else if (isActive && Vector3.Distance(transform.position, car.transform.position) > reactionRadius)
+            {
+                Disactivate();
+            }
+            if (isActive && Keyboard.current.eKey.wasPressedThisFrame)
+            {
+                Debug.Log("Interactable E pressed");
+                myEvent.Invoke();
+            }
         }
-        else if (isActive && Vector3.Distance(transform.position, car.transform.position) > reactionRadius)
-        {
-            pressEText.enabled = false;
-            isActive = false;
-        }
-        if (isActive && Keyboard.current.eKey.wasPressedThisFrame)
-        {
-            Debug.Log("Interactable E pressed");
-            myEvent.Invoke();
-        }
+
+    }
+
+    public void Disarm()
+    {
+        Disactivate();
+        isDisarmed = true;
+    }
+
+    void Activate()
+    {
+        pressEText.enabled = true;
+        isActive = true;
+    }
+
+    void Disactivate()
+    {
+        pressEText.enabled = false;
+        isActive = false;
     }
 }

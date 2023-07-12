@@ -22,6 +22,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Copper1
+    second: {fileID: 2100000, guid: d2e254fbe64a15544986e448f68440bd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: FacadeMat1
     second: {fileID: 2100000, guid: 5dc92c629511e2544b93a89cb91362dc, type: 2}
   - first:

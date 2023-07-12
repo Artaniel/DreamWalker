@@ -8,6 +8,8 @@ public class NarrativeManager : MonoBehaviour
     public enum NarrativeState {start, wrongTower, sunIsRotating, end}
     public NarrativeState state = NarrativeState.start;
     public SunManager sun;
+    public bool energyIsOn = false;
+    public int energyNeedlesInjected = 0;
 
     private void Awake()
     {
@@ -53,4 +55,15 @@ public class NarrativeManager : MonoBehaviour
             instance.state = NarrativeState.end;
         }
     }
+
+    public static void EnergyNeedleInject()
+    {
+        instance.energyNeedlesInjected++;
+        if (instance.energyNeedlesInjected >= 3)
+        {
+            instance.energyIsOn = true;
+        }
+    }
+
+
 }

@@ -6,16 +6,8 @@ public class Door : MonoBehaviour
 {
     public Animator animator;
 
-    private void Start()
+    public void OpenDoor()
     {
-        
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            animator.SetTrigger("Open");
-        }
+        animator.SetTrigger("Open");
     }
 }
