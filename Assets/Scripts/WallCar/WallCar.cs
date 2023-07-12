@@ -37,7 +37,7 @@ public class WallCar : MonoBehaviour
     public float jumpPowerAccumulationSpeed = 30f;
     public float fastJumpPower = 10f;
     private bool isRisingJumpPower = false;
-    private CameraMovement cameraRotation;
+    public CameraMovement cameraMovement;
 
     public SpiderLeg[] legs;
     [HideInInspector] public int legSyncPhase = 0;
@@ -56,7 +56,7 @@ public class WallCar : MonoBehaviour
     {
         carRigidbody = GetComponent<Rigidbody>();
         lastGroundPoint = transform.position - Vector3.up * 5;
-        cameraRotation = GetComponent<CameraMovement>();
+        cameraMovement = GetComponent<CameraMovement>();
     }
 
     private void FixedUpdate()
@@ -180,8 +180,8 @@ public class WallCar : MonoBehaviour
     }
 
     private void Jump() {
-        if (cameraRotation.freeMode)
-            carRigidbody.velocity += cameraRotation.cameraTargetTransform.forward * jumpPower;
+        if (cameraMovement.freeMode)
+            carRigidbody.velocity += cameraMovement.trueCameraTransform.forward * jumpPower;
         else
             carRigidbody.velocity += transform.up * jumpPower;
         airTimer = 0f;
@@ -254,12 +254,12 @@ public class WallCar : MonoBehaviour
     private void AirMovement()
     {
         speed = Vector3.Dot(carRigidbody.velocity, transform.forward);
-        speed += moveInput.y * airMovementAcceleration * Time.deltaTime;
+        speed += moveInput.y * airMovementAcceleration * Time.fixedDeltaTime;
         strafeSpeed = Vector3.Dot(carRigidbody.velocity, transform.right);
-        strafeSpeed += moveInput.x * airMovementAcceleration * Time.deltaTime;
+        strafeSpeed += moveInput.x * airMovementAcceleration * Time.fixedDeltaTime;
 
         carRigidbody.velocity = transform.forward * speed + transform.right * strafeSpeed + Vector3.Dot(carRigidbody.velocity, transform.up) * transform.up;
-        carRigidbody.velocity += Vector3.down * Time.deltaTime * 9.8f;
+        carRigidbody.velocity += Vector3.down * Time.fixedDeltaTime * 9.8f;
         normalSumm = Vector3.up;
     }
 }
