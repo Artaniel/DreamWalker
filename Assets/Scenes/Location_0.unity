@@ -23219,11 +23219,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4273563242274367865, guid: f174631fb35f0524294d880ddb47adba, type: 3}
       propertyPath: legSyncPeriod
-      value: 0
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 4273563242274367865, guid: f174631fb35f0524294d880ddb47adba, type: 3}
       propertyPath: legSyncPeriodBoosted
-      value: 0
+      value: 0.18
       objectReference: {fileID: 0}
     - target: {fileID: 4273563242274367865, guid: f174631fb35f0524294d880ddb47adba, type: 3}
       propertyPath: airMovementAcceleration
