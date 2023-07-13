@@ -14,6 +14,7 @@ public class JumpPredictor : MonoBehaviour
     private bool isShown = false;
     public float sphereCasteRadius = 1f;
     public GameObject endMarker;
+    public float gravityAcceleration = 9.8f;
 
     private void Awake()
     {
@@ -46,7 +47,7 @@ public class JumpPredictor : MonoBehaviour
             Init(); 
         Vector3 startongPosition = car.transform.position;
         Vector3 startingVelocity = car.carRigidbody.velocity + cameraTransform.forward * car.jumpPower;
-        Vector3 acceleration = 9.8f * Vector3.down;
+        Vector3 acceleration = gravityAcceleration * Vector3.down;
         Vector3 currentPosition = Vector3.zero;
         float time; Vector3 lastPosition; Vector3 delta;
         bool endMarkerSpotIsFound = false;

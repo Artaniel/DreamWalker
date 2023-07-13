@@ -239,6 +239,7 @@ MonoBehaviour:
   wrapping: {fileID: 1523448623227363689}
   sphereCasteRadius: 1.5
   endMarker: {fileID: 6404313817318646686}
+  gravityAcceleration: 6
 --- !u!1 &1750899383711480515
 GameObject:
   m_ObjectHideFlags: 0
@@ -618,6 +619,7 @@ MonoBehaviour:
   maxJumpPower: 200
   jumpPowerAccumulationSpeed: 30
   fastJumpPower: 10
+  cameraMovement: {fileID: 0}
   legs:
   - {fileID: 6016754796717585205}
   - {fileID: 879867585770935312}
