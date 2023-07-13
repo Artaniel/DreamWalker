@@ -86,11 +86,11 @@ public class WallCar : MonoBehaviour
     {
         float currentMaxSpeed = boostIsPressed ? maxSpeedBoosted : maxSpeed;
         if (moveInput.y != 0)
-            speed = Mathf.Clamp(speed + moveInput.y * acceleration * Time.deltaTime, -currentMaxSpeed, currentMaxSpeed);
+            speed = Mathf.Clamp(speed + moveInput.y * acceleration * Time.fixedDeltaTime, -currentMaxSpeed, currentMaxSpeed);
         else
             speed = slowDownFactor * speed; //slow down from forward and back
         if (moveInput.x != 0)
-            strafeSpeed = Mathf.Clamp(strafeSpeed + moveInput.x * acceleration * Time.deltaTime, -currentMaxSpeed, currentMaxSpeed);
+            strafeSpeed = Mathf.Clamp(strafeSpeed + moveInput.x * acceleration * Time.fixedDeltaTime, -currentMaxSpeed, currentMaxSpeed);
         else
             strafeSpeed = slowDownFactor * strafeSpeed;
 
@@ -162,7 +162,7 @@ public class WallCar : MonoBehaviour
             }
         }
         else {
-            jumpPower += jumpPowerAccumulationSpeed * Time.deltaTime;
+            jumpPower += jumpPowerAccumulationSpeed * Time.fixedDeltaTime;
             if (jumpPower >= maxJumpPower)
                 jumpPower = maxJumpPower;
 
